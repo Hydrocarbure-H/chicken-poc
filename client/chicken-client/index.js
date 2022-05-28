@@ -1,3 +1,37 @@
+const { app, BrowserWindow } = require('electron')
+const path = require('path')
+
+
+// modify your existing createWindow() function
+const createWindow = () => {
+  const win = new BrowserWindow({
+    titleBarStyle: 'hidden',
+    width: 800,
+    height: 600,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    }
+  })
+
+  win.loadFile('public/views/index.html')
+}
+
+app.whenReady().then(() => {
+  createWindow()
+});
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit()
+});
+
+app.whenReady().then(() => {
+  createWindow()
+
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+  })
+})
+
 function simple_print(str) {
   return str;
 }

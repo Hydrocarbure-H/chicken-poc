@@ -2,9 +2,10 @@
   "name": "chicken-client",
   "version": "1.0.0",
   "description": "The client of the chicken chat app",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "tests": "electron-mocha --renderer --reporter spec tests/*.spec.js"
+    "tests": "electron-mocha --renderer --reporter spec tests/*.spec.js",
+    "start": "electron ."
   },
   "author": "Thomas Peugnet",
   "license": "ISC",
