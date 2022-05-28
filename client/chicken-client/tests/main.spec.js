@@ -10,7 +10,7 @@ describe('First Test', function() {
       });
       
       it('should fail', () => {
-        assert.Equal(1, 2);
+        assert.equal(1, 2);
       });}
       );
 
