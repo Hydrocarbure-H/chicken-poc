@@ -1,11 +1,11 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
-
-// modify your existing createWindow() function
+// Create an Electron app
 const createWindow = () => {
   const win = new BrowserWindow({
     titleBarStyle: 'hidden',
+    frame: false,
     width: 800,
     height: 600,
     webPreferences: {
@@ -18,19 +18,18 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   createWindow()
-});
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
-});
-
-app.whenReady().then(() => {
-  createWindow()
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 })
+
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit()
+});
+
+
 
 function simple_print(str) {
   return str;
