@@ -1,5 +1,6 @@
 
 let socket = new WebSocket("ws://192.168.1.97:9002");
+console.log(socket);
 
 socket.onopen = function(e) 
 {
