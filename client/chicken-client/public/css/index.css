@@ -1,18 +1,89 @@
+@font-face {
+
+    font-family:"thin";
+    src: url('fonts/Roboto-Light.ttf');
+}
+@font-face {
+
+    font-family:"bold";
+    src: url('fonts/Roboto-Bold.ttf');
+}
+
+:root 
+{
+    --bg-dark-1: #16282c;
+    --bg-dark-2: #29393d;
+    --tx-light-1: #fefeff;
+    --tx-light-2: #d8d9d8;
+    --border-radius: 20px;
+}
+
 body
 {
+    font-family: "thin";
+    background-color: var(--bg-dark-2);
     margin : 0;
     padding : 0;
 }
 
-.title_bar 
+/* Electron app bar */
+.drag_bar 
 {
-    background-color: #f1f1f1;
-    height : 50px;
+    background-color: var(--bg-dark-1);
+    color :var(--tx-light-2);
+    text-align: right;
+    height : 45px;
+    font-size: 15px;
+
+    /* Electron draggable window */
     -webkit-user-select: none;
     -webkit-app-region: drag;
 }
 
-.title_bar-button {
+.drag_bar-button 
+{
     -webkit-app-region: no-drag;
 }
-  
+
+.drag_bar_items
+{
+    padding: 15px;
+}
+
+.drag_bar_items.title
+{
+    text-align: center;
+    font-size : 20px;
+}
+
+.drag_bar_items.message
+{
+    font-size : 12px;
+}
+
+.drag_bar h1
+{
+    margin-top : 0;
+}
+
+.container
+{
+    color: var(--tx-light-1);
+    height : calc(100vh - 245px);
+    width : 90%;
+    margin : 100px auto;
+    background-color: var(--bg-dark-1);
+    border-radius: var(--border-radius);
+}
+
+.login_title_container
+{
+    width: calc(100% - 2 * var(--border-radius));
+    text-align: center;
+    padding: var(--border-radius);
+}
+
+.login_title_container h1
+{
+    font-size: 50px;
+}

@@ -1,15 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="name" content="Chicken">
+    <meta itemprop="description" content="Chicken est une application de messagerie qui se veut remplacer Discord." />
+    <meta itemprop="image" content="https://img.freepik.com/vecteurs-libre/logo-poulet_99536-29.jpg">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://farm-project.fr/chicken">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Chicken">
+    <meta property="og:description" content="Chicken est une application de messagerie qui se veut remplacer Discord." />
+    <meta property="og:image" content="https://img.freepik.com/vecteurs-libre/logo-poulet_99536-29.jpg">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chicken">
+    <meta name="twitter:description" content="Chicken est une application de messagerie qui se veut remplacer Discord." />
+    <meta name="twitter:image" content="https://img.freepik.com/vecteurs-libre/logo-poulet_99536-29.jpg">
+
+    <!-- HTML Meta Tags -->
+    <meta charset="utf-8" />
+    <meta name="description" content="Chicken est une application de messagerie qui se veut remplacer Discord." />
+    <meta name="keywords" content="discord,thimot,veyre,dorian,turgot,thomas,peugnet,messages,sms,messagerie,instantané">
+    <meta name="robots" content="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="img-src 'self' data:; default-src 'self' ws://192.168.1.97:9002/">
-
     <link rel="stylesheet" href="../css/index.css">
-    <title>Hello World!</title>
+    <title>Chicken</title>
+    <script src="../js/index.js"></script>
   </head>
   <body>
-    <div class="title_bar"></div>
-    <h1 id="title">Etablishing connection...</h1>
-    <script src="../js/index.js"></script>
+    <!-- Electron Title Bar -->
+    <div class="drag_bar">
+      <h1 class="drag_bar_items message" id="title">Connexion...</h1>
+    </div>
+    <!-- Electron Content App -->
+    <div class="container">
+      <div class="login_title_container">
+        <h1>Login</h1>
+      </div>
+      <div class="login_container">
+        <form class="login_form" action="../php/login.php" method="post">
+          <div class="login_form_container">
+            <div class="login_form_item">
+              <input type="text" name="username" id="username" placeholder="Username" required>
+            </div>
+            <div class="login_form_item">
+              <input type="password" name="password" id="password" placeholder="Password" required>
+            </div>
+          </div>
+          <div class="login_form_container">
+            <div class="login_form_item">
+              <input type="submit" value="Login">
+            </div>
+          </div>
+        </form>
+    </div>
   </body>
 </html>

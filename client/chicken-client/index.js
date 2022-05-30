@@ -4,8 +4,9 @@ const path = require('path')
 // Create an Electron app
 const createWindow = () => {
   const win = new BrowserWindow({
-    titleBarStyle: 'hidden',
+    titleBarStyle: 'hiddenInset',
     titleBarOverlay: true,
+    frame: false,
     width: 800,
     height: 600,
     webPreferences: {
