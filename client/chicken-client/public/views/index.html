@@ -39,25 +39,42 @@
     </div>
     <!-- Electron Content App -->
     <div class="container">
-      <div class="login_title_container">
-        <h1>Login</h1>
+      <div class="sub_container">
+        <div class="login_title_container">
+          <h1>Login</h1>
+        </div>
+        <div class="login_container">
+          <form class="login_form" action="../php/login.php" method="post">
+            <div class="login_form_container">
+              <div class="login_form_item">
+                <input type="text" name="username" id="username" placeholder="Username" required>
+              </div>
+              <div class="login_form_item">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+              </div>
+            </div>
+            <div class="form_sublinks">
+              <div class="left_form_links_container">
+                <label class="checkbox_container">Remember me
+                  <input type="checkbox" name="rem_me" id="rem_me" checked>
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div class="right_form_links_container">
+                <a href="https://epinotes.fr">Forgot password ?</a>
+              </div>
+            </div>
+            <div class="submit_form_container">
+              <div class="login_form_item">
+                <input type="submit" value="Login">
+              </div>
+              <div id="signup_link" class="login_form_item">
+                <a href="https://epinotes.fr">Signup ?</a>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="login_container">
-        <form class="login_form" action="../php/login.php" method="post">
-          <div class="login_form_container">
-            <div class="login_form_item">
-              <input type="text" name="username" id="username" placeholder="Username" required>
-            </div>
-            <div class="login_form_item">
-              <input type="password" name="password" id="password" placeholder="Password" required>
-            </div>
-          </div>
-          <div class="login_form_container">
-            <div class="login_form_item">
-              <input type="submit" value="Login">
-            </div>
-          </div>
-        </form>
     </div>
   </body>
 </html>

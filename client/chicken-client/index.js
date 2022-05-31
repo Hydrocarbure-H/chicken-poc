@@ -6,7 +6,6 @@ const createWindow = () => {
   const win = new BrowserWindow({
     titleBarStyle: 'hiddenInset',
     titleBarOverlay: true,
-    frame: false,
     width: 800,
     height: 600,
     webPreferences: {
