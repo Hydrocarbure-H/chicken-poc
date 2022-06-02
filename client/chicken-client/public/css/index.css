@@ -22,6 +22,7 @@
     --field-border-radius : 10px;
     --padding : 15px;
     --button-padding : 10px;
+    --animation-duration : .3s;
 }
 
 body
@@ -114,7 +115,7 @@ body
 .login_form_container
 {
     text-align: center;
-    width : 60%;
+    width : 50%;
     margin : 0px auto;
 }
 
@@ -122,13 +123,14 @@ body
 {
     display: flex;
     text-align: center;
-    width : 40%;
+    width : 35%;
     margin : 0px auto;
 }
 
 .left_form_links_container
 {
     text-align: left;
+    padding-left : 5px;
     width: 50%;
     margin : 0px auto;
 }
@@ -165,7 +167,7 @@ body
 
 #username
 {
-    background: url(../images/design/account.svg) no-repeat scroll 7px 0px;
+    background: url(../images/design/grey/account.svg) no-repeat scroll 7px 0px;
     padding-left:60px;
     border-radius: var(--field-border-radius);
     background-color: var(--bg-dark-3);
@@ -175,7 +177,7 @@ body
 
 #password
 {
-    background: url(../images/design/shield.svg) no-repeat scroll 7px 0px;
+    background: url(../images/design/grey/shield.svg) no-repeat scroll 7px 0px;
     padding-left:60px;
     border-radius: var(--field-border-radius);
     background-color: var(--bg-dark-3);
@@ -190,7 +192,9 @@ input[type=text], input[type=password]
     margin: 8px 0;
     display: inline-block;
     border : none;
-    transition: .3s;
+    transition: var(--animation-duration);
+    box-sizing: border-box;
+    border: 1px solid var(--bg-dark-3);
 }
 
 input[type=text]:focus, input[type=password]:focus
@@ -281,12 +285,13 @@ border-width: 0 3px 3px 0;
 transform: rotate(45deg);
 }
 
+/* Links */
 a
 {
     font-size: 13px;
     text-decoration: none;
     color: var(--tx-light-1);
-    transition: .3s;
+    transition: var(--animation-duration);
 }
 
 a:hover
