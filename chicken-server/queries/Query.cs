@@ -24,8 +24,10 @@ public class Query<T>
 
     [JsonPropertyName("type")]
     public string Type{ get; set; }
-    //public int Status{ get; set; }
-    //public string ErrorMessage { get; set; }
-    //[JsonPropertyName("data")]
-    //public string Data { get; set; }
+    [JsonPropertyName("status")]
+    public string Status{ get; set; }
+    [JsonPropertyName("error")]
+    public string ErrorMessage { get; set; }
+    [JsonPropertyName("data")]
+    public T Data { get; set; }
 }

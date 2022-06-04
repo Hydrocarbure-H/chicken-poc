@@ -26,15 +26,24 @@ public class LoginHandler : WebSocketBehavior
             Console.WriteLine(exception);
             throw;
         }
+
+        Console.WriteLine("type: " + test.Type);
+        Console.WriteLine("username: " + test.Data.Username);
+        Console.WriteLine("password: " + test.Data.Password);
         
-        if (test == null)
-            Console.WriteLine("test is null");
-        else
-        {
-            Console.WriteLine("test is not null");
-            Console.WriteLine(test.Type);
-            // Console.WriteLine(test.Data.Username);
-            // Console.WriteLine(test.Data.Password);
-        }
+        
+        Send(JsonSerializer.Serialize(test));
+
+    }
+
+    protected override void OnClose(CloseEventArgs e)
+    {
+        Console.WriteLine("Client disconnected.");
+        Send("{\"type\":\"disconnect\"}");
+    }
+
+    protected override void OnOpen()
+    {
+        Console.WriteLine("Client connected.");
     }
 }

@@ -1,5 +1,5 @@
 ﻿using WebSocketSharp.Server;
-
+using WebSocketSharp;
 namespace chicken_server;
 
 public class Server
@@ -19,6 +19,7 @@ public class Server
     
     public void Stop()
     {
+        
         server.Stop();
     }
 }
