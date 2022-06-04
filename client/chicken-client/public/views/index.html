@@ -27,10 +27,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="img-src 'self' data:; default-src 'self' ws://192.168.1.97:9002/">
+    <meta http-equiv="Content-Security-Policy" content="img-src 'self' data:; default-src 'self' ws://192.168.1.182:9002/">
     <link rel="stylesheet" href="../css/index.css">
     <title>Chicken</title>
-    <script src="../js/index.js"></script>
+    <script src="../js/library/jquery/jquery-3.6.0.min.js"></script>
   </head>
   <body>
     <!-- Electron Title Bar -->
@@ -44,7 +44,7 @@
           <h1>Login</h1>
         </div>
         <div class="login_container">
-          <form class="login_form" action="../php/login.php" method="post">
+          <form class="login_form" id="login_form_id" action="home.html" onsubmit="return validateForm()" method="post">
             <div class="login_form_container">
               <div class="login_form_item">
                 <input type="text" name="username" id="username" placeholder="Username" required>
@@ -66,7 +66,7 @@
             </div>
             <div class="submit_form_container">
               <div class="login_form_item">
-                <input type="submit" value="Login">
+                <input type="submit" id="submit_form" value="Login">
               </div>
               <div id="signup_link" class="login_form_item">
                 <a href="https://epinotes.fr">Signup ?</a>
@@ -77,4 +77,7 @@
       </div>
     </div>
   </body>
+  <script src="../js/tools/enums.js"></script>
+  <script src="../js/tools/query-class.js"></script>
+  <script src="../js/index.js"></script>
 </html>
