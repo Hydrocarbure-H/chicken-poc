@@ -18,7 +18,6 @@ setTimeout(function()
 socket.onopen = function(e) {
     connected = true;
     display_bar_message("Connected");
-    socket.send("Hello");
 };
 
 
@@ -27,32 +26,37 @@ socket.onmessage = function(e){
         json = JSON.parse(e.data);
     } 
     catch(e) {
-        alert(e); // error in the above string (in this case, yes)!
+        manage_display_notification("display", "JSON PARSE - DEBUG : " + response.error);
     }
 
     var response = new Response(json.type, json.status, json.error, json.data);
 
     if (response.status == QueryStatus.Error)
     {
-        manage_display_error("display", response.error);
+        manage_display_notification("display", "Error : " + response.error);
     }
-
-    switch (response.type) {
-        case QueryType.Login:
-            login_process(response.data);
-            break;
-        case QueryType.Disconnect:
-            display_error("You have been disconnected");
-            display_bar_message("Server disconnected");
-            connected = false;
-            break;
-        default:
-            break;
+    else
+    {
+        switch (response.type) {
+            case QueryType.Login:
+                login_process(response.data);
+                break;
+            case QueryType.Disconnect:
+                display_error("You have been disconnected");
+                display_bar_message("Server disconnected");
+                connected = false;
+                break;
+            default:
+                break;
+        }
     }
-
 }
+
 document.getElementById("submit_form").addEventListener("click", send_data);
-document.getElementById("bar_notif_icon").addEventListener("click", manage_display_notification("click", ""));
+document.getElementById("bar_notif_icon").onclick = () => 
+{
+    manage_display_notification("click", "");
+};
 
 function login_process(login_data)
 {
@@ -116,30 +120,27 @@ function display_bar_message(message)
 
 function manage_display_notification(method, message)
 {
-    // if (method == "click")
-    // {
-    //     alert(notification_message);
-    // }
-    // else if (method == "display")
-    // {
-    //     notification_message = message;
-    //     document.getElementById("error_message").innerHTML = message;
-    // }
-    // else
-    // {
-    //     document.getElementById("bar_notif_icon").style.display = "none";
-    // }
+    if (method == "click")
+    {
+        alert(notification_message);
+    }
+    else if (method == "display")
+    {
+        notification_message = message;
+        document.getElementById("bar_notif_icon").style.display = "block";
+    }
+    else
+    {
+        notification_message = "";
+        document.getElementById("bar_notif_icon").style.display = "none";
+    }
 }
 
 
 
 /**
  * TO DO :
- * Create better submit process (without form)
  * Hash password before sending it to the server
  * Create the redirection to the home page
- * Faire un essage de déconnexion
- * Faire une fonction
- * Add icon to notification error
  * faire fonction de création de socket
  */
