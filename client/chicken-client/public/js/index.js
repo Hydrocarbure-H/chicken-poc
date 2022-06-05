@@ -1,7 +1,7 @@
 
+
 let socket = new WebSocket("ws://192.168.1.182:9002/login");
 let connected = false;
-
 
 
 var notification_message = "";
@@ -10,8 +10,7 @@ setTimeout(function()
 {
     if (connected == false) 
     {
-        var title = document.getElementById("title");
-        title.innerHTML = "Seveur déconnecté";
+        display_bar_message("Server disconnected");
     }
 }, 10000);
 
@@ -22,10 +21,12 @@ socket.onopen = function(e) {
 
 
 socket.onmessage = function(e){
-    try {
+    try 
+    {
         json = JSON.parse(e.data);
     } 
-    catch(e) {
+    catch(e) 
+    {
         manage_display_notification("display", "JSON PARSE - DEBUG : " + response.error);
     }
 
@@ -41,18 +42,20 @@ socket.onmessage = function(e){
             case QueryType.Login:
                 login_process(response.data);
                 break;
+
             case QueryType.Disconnect:
-                display_error("You have been disconnected");
+                manage_display_notification("display", "You have been disconnected");
                 display_bar_message("Server disconnected");
                 connected = false;
                 break;
+
             default:
                 break;
         }
     }
 }
 
-document.getElementById("submit_form").addEventListener("click", send_data);
+document.getElementById("submit_form").addEventListener("click", login);
 document.getElementById("bar_notif_icon").onclick = () => 
 {
     manage_display_notification("click", "");
@@ -60,38 +63,43 @@ document.getElementById("bar_notif_icon").onclick = () =>
 
 function login_process(login_data)
 {
-    // if (response.status == QueryStatus.Success)
-    // {
-    //     // Success to authentificate
-    //     // Redirect to the home page
-    // }
-    // else
-    // {
-    //     // Failed to authentificate
-    //     // Display error message
-    //     // display_error("Invalid username or password");
-    // }
-
+        // Success to authentificate
+        var token = login_data.token;
+        // Save token in local storage
+        localStorage.setItem("token", token);
+        // Redirect to home page
+        window.location.href = "home.html";
 }
 
-function send_data()
+function login()
 {
+    // Check server connection
+    if (connected == false)
+    {
+        manage_display_error("display", "Server disconnected");
+        // Recreate the connection with socket
+        return;
+    }
+
+    // Check username and password
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     if (username == "" || password == "")
     {
-        manage_display_error("display", "There are missing fields");
+        manage_display_error("display", "Missing fields !");
         return;
     }
     else
     {
+        // Clear error message
         manage_display_error("hide", "");
-
+        // Prepare data
         var query = new Query(QueryType.Login, QueryStatus.Success, null, {
             username: document.getElementById("username").value, 
-            hashed_password: document.getElementById("password").value
+            password: document.getElementById("password").value
         });
-
+        // hashed_password: (CryptoJS.SHA256(document.getElementById("password").value)).toString()
+        // Send data
         socket.send(JSON.stringify(query));
     }
 }
@@ -102,6 +110,7 @@ function manage_display_error(method, error)
     {
         document.getElementById("bar_notif_icon").style.display = "block";
         document.getElementById("error_field").style.display = "block";
+        document.getElementById("error_field").innerHTML = error;
         manage_display_notification("display", error);
     }
     else
@@ -117,19 +126,19 @@ function display_bar_message(message)
     title.innerHTML = message;
 }
 
-
 function manage_display_notification(method, message)
 {
     if (method == "click")
     {
         alert(notification_message);
+        manage_display_notification("hide", "");
     }
     else if (method == "display")
     {
         notification_message = message;
         document.getElementById("bar_notif_icon").style.display = "block";
     }
-    else
+    else if (method == "hide")
     {
         notification_message = "";
         document.getElementById("bar_notif_icon").style.display = "none";
@@ -140,7 +149,7 @@ function manage_display_notification(method, message)
 
 /**
  * TO DO :
- * Hash password before sending it to the server
- * Create the redirection to the home page
  * faire fonction de création de socket
+ * Faire une énumération pour les methodes
+ * Faire des tests
  */
