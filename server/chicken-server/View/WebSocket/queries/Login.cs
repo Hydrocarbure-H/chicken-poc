@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using chicken_server.Controller;
 
 namespace chicken_server.queries;
 using WebSocketSharp;
@@ -10,6 +11,9 @@ public class Login
     public string Username { get; set; }
     [JsonProperty("hased_password")]
     public string Password { get; set; }
+    
+    [JsonProperty("token")]
+        public string Token { get; set; }
 }
 
 public class LoginHandler : WebSocketBehavior
@@ -38,16 +42,9 @@ public class LoginHandler : WebSocketBehavior
         }
 
 
-        Response<Login> response = new Response<Login>
-        {
-            Type = query.Type,
-            Status = Status.success,
-            Data = query.Data,
-        };
-
-
+        Response<Login> response = User.CheckLogin(query.Data);
+        
         Send(JsonConvert.SerializeObject(response));
-
     }
 
     protected override void OnClose(CloseEventArgs e)

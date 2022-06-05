@@ -56,4 +56,23 @@ public class Response<T>
             ErrorMessage = errorMessage
         };
     }
+    
+    public static Response<T> Success()
+    {
+        return new Response<T>
+        {
+            Type = Types.login,
+            Status = Status.success,
+        };
+    }
+    
+    public static Response<T> Success(T data)
+    {
+        return new Response<T>
+        {
+            Type = Types.login,
+            Status = Status.success,
+            Data = data
+        };
+    }
 }
