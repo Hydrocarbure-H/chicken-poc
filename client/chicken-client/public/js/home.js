@@ -19,7 +19,7 @@ socket.onopen = function(e) {
 };
 
 socket.onmessage = function(e){
-    alert(`[message] Data received from server: ${e.data}`);
+    alert(`[message] Data received from ver: ${e.data}`);
     // var response = JSON.parse(e.data);
     // if (response.type == QueryType.Login)
     // {

@@ -1,7 +1,8 @@
 
 const QueryType = {
     Login: 'login',
-    Signin: 'signin'
+    Signin: 'signin',
+    Disconnect: 'disconnect'
   };
 
 
