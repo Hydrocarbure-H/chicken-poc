@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chicken-server", "chicken-server\chicken-server.csproj", "{7F4E9EFB-AC39-4B09-B620-D57D7F641ADB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chicken-server-test", "chicken-server-test\chicken-server-test.csproj", "{4F078CED-AA96-4FC9-A073-BCF06DF324B5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +16,13 @@ Global
 		{4F078CED-AA96-4FC9-A073-BCF06DF324B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F078CED-AA96-4FC9-A073-BCF06DF324B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F078CED-AA96-4FC9-A073-BCF06DF324B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E8C2F4E-0988-47D3-B31B-DA2C66433E5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E8C2F4E-0988-47D3-B31B-DA2C66433E5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E8C2F4E-0988-47D3-B31B-DA2C66433E5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E8C2F4E-0988-47D3-B31B-DA2C66433E5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4AC7D2E-3D2D-40CA-9363-DEA2D9D38AD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4AC7D2E-3D2D-40CA-9363-DEA2D9D38AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4AC7D2E-3D2D-40CA-9363-DEA2D9D38AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4AC7D2E-3D2D-40CA-9363-DEA2D9D38AD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,18 +1,18 @@
-﻿using ChickenServer.Controller;
+﻿using chicken_server.Controller;
 
-namespace ChickenServer
+namespace chicken_server
 {
     public static class Program
     {
-        private static volatile bool running = true;
+        private static volatile bool _running = true;
         private static Server server;
 
         public static void Main(string[] args)
         {
-            Console.CancelKeyPress += delegate(object sender, ConsoleCancelEventArgs args)
+            Console.CancelKeyPress += delegate(object? _, ConsoleCancelEventArgs cancelEventArgs)
             {
-                args.Cancel = true;
-                running = false;
+                cancelEventArgs.Cancel = true;
+                _running = false;
                 Console.WriteLine("Chicken server is stopping...");
             };
 
@@ -24,7 +24,7 @@ namespace ChickenServer
             else
                 Start();
 
-            while (running)
+            while (_running)
             {
             }
 

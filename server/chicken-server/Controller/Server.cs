@@ -1,7 +1,7 @@
-﻿using WebSocketSharp.Server;
-using ChickenServer.View.Handler;
+﻿using chicken_server.View.WebSocket;
+using WebSocketSharp.Server;
 
-namespace ChickenServer.Controller
+namespace chicken_server.Controller
 {
     
     public sealed class Server

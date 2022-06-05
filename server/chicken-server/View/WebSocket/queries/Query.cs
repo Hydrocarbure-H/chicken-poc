@@ -1,9 +1,7 @@
-﻿
-
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Newtonsoft.Json;
 
-namespace ChickenServer.View.Queries
+namespace chicken_server.View.WebSocket.Queries
 {
     [JsonConverter(typeof(StringEnumConverter))]
     public enum Types

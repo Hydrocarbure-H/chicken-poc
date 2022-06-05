@@ -1,13 +1,13 @@
-﻿using ChickenServer.View.Queries;
+﻿using chicken_server.View.WebSocket.Queries;
 using WebSocketSharp.Server;
 
-namespace ChickenServer.View.Handler
+namespace chicken_server.View.WebSocket
 {
     public static class Handler
     {
         public static void SetEndpoints(ref WebSocketServer server)
         {
-            foreach (string type in Enum.GetNames(typeof(Queries.Types)))
+            foreach (string type in Enum.GetNames(typeof(Types)))
             {
                 server.AddWebSocketService<LoginHandler>("/" + type);
             }

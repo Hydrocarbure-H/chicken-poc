@@ -1,16 +1,15 @@
-﻿using System.Diagnostics;
-using ChickenServer.Controller;
+﻿using chicken_server.Controller;
+using Newtonsoft.Json;
 using WebSocketSharp;
 using WebSocketSharp.Server;
-using Newtonsoft.Json;
 
-namespace ChickenServer.View.Queries
+namespace chicken_server.View.WebSocket.Queries
 {
 
     public class Login
     {
         [JsonProperty("username")] public string Username { get; set; }
-        [JsonProperty("hased_password")] public string Password { get; set; }
+        [JsonProperty("password")] public string Password { get; set; }
 
         [JsonProperty("token")] public string Token { get; set; }
     }

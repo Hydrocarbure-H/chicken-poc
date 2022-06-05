@@ -1,6 +1,6 @@
-﻿using ChickenServer.View.Queries;
+﻿using chicken_server.View.WebSocket.Queries;
 
-namespace ChickenServer.Controller
+namespace chicken_server.Controller
 {
 
     public class User
@@ -10,7 +10,8 @@ namespace ChickenServer.Controller
 
         public static User? FindUser(string username)
         {
-            return _users.Find(user => user?._username == username);
+            //return _users.Find(user => user?._username == username);
+            return new User("thomas", "123456");
         }
 
         public static Response<Login> CheckLogin(Login data)
@@ -23,6 +24,11 @@ namespace ChickenServer.Controller
 
             Response<Login> response = Response<Login>.Error("Invalid username or password");
 
+            Console.WriteLine("data username: " + data.Username);
+            Console.WriteLine("data password: " + data.Password);
+            Console.WriteLine("user username: " + user._username);
+            Console.WriteLine("user password: " + user._password);
+            
             if (user.CheckUsername(data.Username) && user.CheckPassword(data.Password))
             {
                 data.Token = user.GetToken();
@@ -47,12 +53,12 @@ namespace ChickenServer.Controller
 
         public bool CheckPassword(string password)
         {
-            return _password == password;
+            return _password.Equals(password);
         }
 
         public bool CheckUsername(string username)
         {
-            return _username == username;
+            return _username.Equals(username);
         }
 
         public string GetToken()
