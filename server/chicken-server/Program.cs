@@ -1,63 +1,68 @@
-﻿using chicken_server;
+﻿using ChickenServer.Controller;
 
-public static class Program
+namespace ChickenServer
 {
-    private static volatile bool running = true;
-    private static Server server;
-    
-    public static void Main(string[] args)
+    public static class Program
     {
-        Console.CancelKeyPress += delegate (object sender, ConsoleCancelEventArgs args) {
-            args.Cancel = true;
-            running = false;
-            Console.WriteLine("Chicken server is stopping...");
-        };
+        private static volatile bool running = true;
+        private static Server server;
 
-        if (args.Length > 0 && !CheckArgs(args))
-            Console.WriteLine("Error while giving args");
+        public static void Main(string[] args)
+        {
+            Console.CancelKeyPress += delegate(object sender, ConsoleCancelEventArgs args)
+            {
+                args.Cancel = true;
+                running = false;
+                Console.WriteLine("Chicken server is stopping...");
+            };
 
-        if (args.Length > 0)
-            Start(args[0], args[1]);
-        else
-            Start();
-        
-        while(running){}
-        
-        Stop();
-        Console.WriteLine("Goodbye !");
-    }
+            if (args.Length > 0 && !CheckArgs(args))
+                Console.WriteLine("Error while giving args");
 
-    private static bool CheckArgs(string[] args)
-    {
-        // TODO
-        return true;
-    }
-    
+            if (args.Length > 0)
+                Start(args[0], args[1]);
+            else
+                Start();
 
-    private static void Start()
-    {
-        Console.WriteLine("Chicken server is starting...");
-             
-        server = new Server();
-        server.Start();
-             
-        Console.WriteLine("Chicken server started");
-    }
+            while (running)
+            {
+            }
 
-    private static void Start(string ip, string port)
-    {
-        Console.WriteLine("Chicken server is starting...");
-             
-        server = new Server(ip, port);
-        server.Start();
+            Stop();
+            Console.WriteLine("Goodbye !");
+        }
 
-        Console.WriteLine("Chicken server started");
-    }
-     
-    private static void Stop()
-    {
-        server.Stop();
-        Console.WriteLine("Chicken server stopped");
+        private static bool CheckArgs(string[] args)
+        {
+            // TODO
+            return true;
+        }
+
+
+        private static void Start()
+        {
+            Console.WriteLine("Chicken server is starting...");
+
+            server = new Server();
+            server.Start();
+
+            Console.WriteLine("Chicken server started");
+        }
+
+        private static void Start(string ip, string port)
+        {
+            Console.WriteLine("Chicken server is starting...");
+
+            server = new Server(ip, port);
+            server.Start();
+
+            Console.WriteLine("Chicken server started");
+        }
+
+        private static void Stop()
+        {
+            server.Stop();
+            Console.WriteLine("Chicken server stopped");
+        }
     }
 }
-
