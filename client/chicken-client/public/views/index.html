@@ -35,7 +35,8 @@
   <body>
     <!-- Electron Title Bar -->
     <div class="drag_bar">
-      <h1 class="drag_bar_items message" id="title">Connexion...</h1>
+      <img src="../images/design/grey/notification.svg" id="bar_notif_icon" class="drag_bar_items notification">
+      <h1 class="drag_bar_items message" id="bar_message">Connexion...</h1>
     </div>
     <!-- Electron Content App -->
     <div class="container">
@@ -70,6 +71,9 @@
               </div>
               <div id="signup_link" class="login_form_item">
                 <a href="https://epinotes.fr">Signup ?</a>
+              </div>
+              <div id="error_field" class="login_form_item">
+                <p id="error_message"></p>
               </div>
             </div>
           <!-- </form> -->

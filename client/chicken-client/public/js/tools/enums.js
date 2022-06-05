@@ -8,5 +8,6 @@ const QueryType = {
 
 const QueryStatus = {
     Success: 'success',
+    Error: 'error',
     Failure: 'failure'
   };

@@ -17,6 +17,7 @@
     --tx-light-1: #fefeff;
     --tx-light-2: #d8d9d8;
     --tx-light-3: #a8a9a8;
+    --red1: #984749;
     --button-blue : #124885;
     --border-radius: 20px;
     --field-border-radius : 10px;
@@ -38,7 +39,9 @@ body
 {
     background-color: var(--bg-dark-1);
     color :var(--tx-light-2);
-    text-align: right;
+    display: flex;
+    align-items: right;
+    justify-content: right;
     height : 45px;
     font-size: 15px;
 
@@ -68,9 +71,24 @@ body
     font-size : 12px;
 }
 
+
 .drag_bar h1
 {
     margin-top : 0;
+}
+
+.drag_bar img
+{
+    border-radius: 5px;
+    display: none;
+    height : 25px;
+    padding : 10px;
+}
+
+.drag_bar img:hover
+{
+    background-color: #eee1;
+    cursor: pointer;
 }
 
 .container
@@ -124,6 +142,7 @@ body
     display: flex;
     text-align: center;
     width : 35%;
+    max-width: 400px;
     margin : 0px auto;
 }
 
@@ -188,6 +207,7 @@ body
 input[type=text], input[type=password]
 {
     width: 70%;
+    max-width: 400px;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -206,6 +226,7 @@ input[type=text]:focus, input[type=password]:focus
 input[type=submit]
 {
     width: 25%;
+    max-width: 200px;
     background-color: var(--button-blue);
     border-radius: var(--field-border-radius);
     border : none;
@@ -302,4 +323,22 @@ a:hover
 #signup_link
 {
     padding-top : 10px;
+}
+
+/* Missing fields */
+#error_field
+{
+    width : 50%;
+    max-width: 200px;
+    margin : 10px auto;
+    display: none;
+    /* border-radius: var(--field-border-radius);
+    background-color: var(--red1); */
+    color: var(--red1);
+}
+
+#error_field p
+{
+    padding: 3px 0px;
+    margin: 0;
 }
