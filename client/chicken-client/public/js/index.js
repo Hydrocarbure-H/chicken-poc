@@ -1,24 +1,23 @@
-
-
-let socket = new WebSocket("ws://192.168.1.182:9002/login");
+let socket = create_socket("login");
 let connected = false;
-
-
 var notification_message = "";
 
-setTimeout(function() 
+setInterval(function() 
 {
     if (connected == false) 
     {
         display_bar_message("Server disconnected");
+        // socket.close();
+        // socket = null; ?
+        // socket = create_socket("login");
+        // console.log("Reconnecting...");
     }
-}, 10000);
+}, 5000);
 
 socket.onopen = function(e) {
     connected = true;
     display_bar_message("Connected");
 };
-
 
 socket.onmessage = function(e){
     try 
@@ -27,14 +26,14 @@ socket.onmessage = function(e){
     } 
     catch(e) 
     {
-        manage_display_notification("display", "JSON PARSE - DEBUG : " + response.error);
+        manage_display_notification(DisplayNotification.Visible, "JSON PARSE - DEBUG : " + response.error);
     }
 
     var response = new Response(json.type, json.status, json.error, json.data);
 
     if (response.status == QueryStatus.Error)
     {
-        manage_display_notification("display", "Error : " + response.error);
+        manage_display_notification(DisplayNotification.Visible, "Error : " + response.error);
     }
     else
     {
@@ -44,7 +43,7 @@ socket.onmessage = function(e){
                 break;
 
             case QueryType.Disconnect:
-                manage_display_notification("display", "You have been disconnected");
+                manage_display_notification(DisplayNotification.Visible, "You have been disconnected");
                 display_bar_message("Server disconnected");
                 connected = false;
                 break;
@@ -58,7 +57,7 @@ socket.onmessage = function(e){
 document.getElementById("submit_form").addEventListener("click", login);
 document.getElementById("bar_notif_icon").onclick = () => 
 {
-    manage_display_notification("click", "");
+    manage_display_notification(DisplayNotification.Click, "");
 };
 
 function login_process(login_data)
@@ -76,7 +75,7 @@ function login()
     // Check server connection
     if (connected == false)
     {
-        manage_display_error("display", "Server disconnected");
+        manage_display_error(DisplayError.Visible, "Server disconnected");
         // Recreate the connection with socket
         return;
     }
@@ -86,13 +85,13 @@ function login()
     var password = document.getElementById("password").value;
     if (username == "" || password == "")
     {
-        manage_display_error("display", "Missing fields !");
+        manage_display_error(DisplayError.Visible, "Missing fields !");
         return;
     }
     else
     {
         // Clear error message
-        manage_display_error("hide", "");
+        manage_display_error(DisplayError.Hidden, "");
         // Prepare data
         var query = new Query(QueryType.Login, QueryStatus.Success, null, {
             username: document.getElementById("username").value, 
@@ -106,12 +105,12 @@ function login()
 
 function manage_display_error(method, error)
 {
-    if (method == "display")
+    if (method == DisplayError.Visible)
     {
         document.getElementById("bar_notif_icon").style.display = "block";
         document.getElementById("error_field").style.display = "block";
         document.getElementById("error_field").innerHTML = error;
-        manage_display_notification("display", error);
+        manage_display_notification(DisplayNotification.Visible, error);
     }
     else
     {
@@ -128,28 +127,31 @@ function display_bar_message(message)
 
 function manage_display_notification(method, message)
 {
-    if (method == "click")
+    if (method == DisplayNotification.Click)
     {
         alert(notification_message);
         manage_display_notification("hide", "");
     }
-    else if (method == "display")
+    else if (method == DisplayNotification.Visible)
     {
         notification_message = message;
         document.getElementById("bar_notif_icon").style.display = "block";
     }
-    else if (method == "hide")
+    else if (method == DisplayNotification.Hidden)
     {
         notification_message = "";
         document.getElementById("bar_notif_icon").style.display = "none";
     }
 }
 
+function create_socket(endpoint)
+{
+    return new WebSocket("ws://192.168.1.182:9002/" + endpoint);
+}
 
 
 /**
  * TO DO :
- * faire fonction de création de socket
- * Faire une énumération pour les methodes
+ * Debug reconnection after socket closed
  * Faire des tests
  */
