@@ -1,25 +1,24 @@
 ﻿using WebSocketSharp.Server;
-using WebSocketSharp;
 namespace chicken_server;
 
-public class Server
+public sealed class Server
 {
-    private WebSocketServer server;
-    
-    public Server(string ip = "localhost", string port = "9002")
+    private readonly WebSocketServer _webSocketServer;
+
+    public Server(string ip = "localhost", string port = "4444")
     {
-        server = new WebSocketServer("ws://" + ip + ":" + port);
-        Handler.SetEndpoints(ref server);
+        _webSocketServer = new WebSocketServer("ws://" + ip + ":" + port);
+        Handler.SetEndpoints(ref _webSocketServer);
     }
     
     public void Start()
     {
-        server.Start();
+        _webSocketServer.Start();
     }
     
     public void Stop()
     {
-        
-        server.Stop();
+        _webSocketServer.WebSocketServices.Broadcast("{\"type\":\"disconnect\"}");
+        _webSocketServer.Stop();
     }
 }

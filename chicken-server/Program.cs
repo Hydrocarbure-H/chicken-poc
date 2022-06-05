@@ -9,7 +9,7 @@ public static class Program
     {
         Console.CancelKeyPress += delegate (object sender, ConsoleCancelEventArgs args) {
             args.Cancel = true;
-            Program.running = false;
+            running = false;
             Console.WriteLine("Chicken server is stopping...");
         };
 
@@ -45,18 +45,19 @@ public static class Program
     }
 
     private static void Start(string ip, string port)
-         {
-             Console.WriteLine("Chicken server is starting...");
+    {
+        Console.WriteLine("Chicken server is starting...");
              
-             server = new Server(ip, port);
-             server.Start();
-             
-             Console.WriteLine("Chicken server started");
-         }
+        server = new Server(ip, port);
+        server.Start();
+
+        Console.WriteLine("Chicken server started");
+    }
      
-         private static void Stop()
-         {
-             Console.WriteLine("Chicken server stopped");
-         }
+    private static void Stop()
+    {
+        server.Stop();
+        Console.WriteLine("Chicken server stopped");
+    }
 }
 
