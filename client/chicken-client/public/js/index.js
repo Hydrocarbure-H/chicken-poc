@@ -2,6 +2,7 @@ let socket = create_socket("login");
 let connected = false;
 var notification_message = "";
 
+add_listeners();
 
 /**
  * Check if the server has been disconnected without sending a disconnection request
@@ -28,23 +29,9 @@ socket.onopen = function (e) {
 socket.onmessage = function (e) {
 
     // Try to parse JSON data. If not, there is not any error which is displayed
-    try {
-        json = JSON.parse(e.data);
-    }
-    catch (e) {
-        internal_notification(DisplayNotification.Visible, "JSON PARSE - DEBUG : " + response.error);
-    }
+    let response = check_response(e);
 
-    var response = new Response(json.type, json.status, json.error, json.data);
-    console.log(response);
-
-    // Check if the response of the server contains an error
-    if (response.status === QueryStatus.Failure) {
-        internal_notification(DisplayNotification.Visible, "Error : " + response.error);
-        manage_display_error(DisplayError.Visible, response.error);
-    }
-
-    else {
+    if (check_status(response)) {
         switch (response.type) {
             // The response of the server after the login request
             case QueryType.Login:
@@ -64,12 +51,22 @@ socket.onmessage = function (e) {
     }
 }
 
-document.getElementById("submit_form").addEventListener("click", send_data);
-document.getElementById("bar_notif_icon").onclick = () => {
-    internal_notification(DisplayNotification.Click, "");
-};
-
 // Functions
+
+/**
+ * @brief Add listeners to submit and notification buttons
+ */
+function add_listeners() {
+    document.getElementById("submit_form").addEventListener("click", send_data);
+    document.getElementById("submit_form").addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+            send_data();
+        }
+    });
+    document.getElementById("bar_notif_icon").onclick = () => {
+        internal_notification(DisplayNotification.Click, "");
+    };
+}
 
 /**
  * @brief Will store the token from the server response in local storage 
@@ -148,5 +145,4 @@ function create_socket(endpoint) {
 /**
  * TO DO :
  * Debug reconnection after socket closed
- * Faire des tests
  */
