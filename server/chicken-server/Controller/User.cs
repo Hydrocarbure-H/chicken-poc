@@ -5,38 +5,23 @@ namespace chicken_server.Controller
 
     public class User
     {
-        private static List<User?> _users = new();
-        private static List<User?> _onlineUsers = new();
+        private static List<User> _users = new();
+        private static List<User> _onlineUsers = new();
 
         public static User? FindUser(string username)
         {
-            //return _users.Find(user => user?._username == username);
-            return new User("thomas", "123456");
+            return _users.Find(user => user?._username == username);
         }
 
-        public static Response<Login> CheckLogin(Login data)
+        public static string? CheckLogin(Login data)
         {
-            User? user = FindUser(data.Username);
+            //User? user = FindUser(data.Username);
+            User user = new User("thomas", "123456");
 
-            if (user == null)
-                return Response<Login>.Error("User not found");
-
-
-            Response<Login> response = Response<Login>.Error("Invalid username or password");
-
-            Console.WriteLine("data username: " + data.Username);
-            Console.WriteLine("data password: " + data.Password);
-            Console.WriteLine("user username: " + user._username);
-            Console.WriteLine("user password: " + user._password);
-            
-            if (user.CheckUsername(data.Username) && user.CheckPassword(data.Password))
-            {
-                data.Token = user.GetToken();
-                response = Response<Login>.Success(data);
-            }
-
-
-            return response;
+            if (user != null && user.CheckUsername(data.Username) && user.CheckPassword(data.Password))
+                return user._token;
+                
+            return null;
         }
 
 

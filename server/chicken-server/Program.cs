@@ -5,7 +5,7 @@ namespace chicken_server
     public static class Program
     {
         private static volatile bool _running = true;
-        private static Server server;
+        private static Server _server;
 
         public static void Main(string[] args)
         {
@@ -43,8 +43,8 @@ namespace chicken_server
         {
             Console.WriteLine("Chicken server is starting...");
 
-            server = new Server();
-            server.Start();
+            _server = new Server();
+            _server.Start();
 
             Console.WriteLine("Chicken server started");
         }
@@ -53,15 +53,15 @@ namespace chicken_server
         {
             Console.WriteLine("Chicken server is starting...");
 
-            server = new Server(ip, port);
-            server.Start();
+            _server = new Server(ip, port);
+            _server.Start();
 
             Console.WriteLine("Chicken server started");
         }
 
         private static void Stop()
         {
-            server.Stop();
+            _server.Stop();
             Console.WriteLine("Chicken server stopped");
         }
     }

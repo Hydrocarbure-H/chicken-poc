@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chicken-server", "chicken-server\chicken-server.csproj", "{7F4E9EFB-AC39-4B09-B620-D57D7F641ADB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "chicken_server_tests", "chicken_server_tests\chicken_server_tests.csproj", "{E90C7697-3261-4126-AE63-4E61912A496E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{D4AC7D2E-3D2D-40CA-9363-DEA2D9D38AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4AC7D2E-3D2D-40CA-9363-DEA2D9D38AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4AC7D2E-3D2D-40CA-9363-DEA2D9D38AD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E90C7697-3261-4126-AE63-4E61912A496E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E90C7697-3261-4126-AE63-4E61912A496E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E90C7697-3261-4126-AE63-4E61912A496E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E90C7697-3261-4126-AE63-4E61912A496E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

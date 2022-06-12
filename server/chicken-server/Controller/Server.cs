@@ -17,6 +17,7 @@ namespace chicken_server.Controller
         public void Start()
         {
             _webSocketServer.Start();
+            Console.WriteLine("listening on " + _webSocketServer.Address + ":" + _webSocketServer.Port);
         }
 
         public void Stop()
