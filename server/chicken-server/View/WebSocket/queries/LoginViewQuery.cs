@@ -10,7 +10,7 @@ namespace chicken_server.View.WebSocket.Queries
         [JsonProperty("username")] public string? Username { get; set; }
         [JsonProperty("password")] public string? Password { get; set; }
     }
-    
+
     public class LoginViewResponse : IResponse
     {
         [JsonProperty("token")] public string? Token { get; set; }
@@ -55,7 +55,7 @@ namespace chicken_server.View.WebSocket.Queries
                 };
                 response = Response<LoginViewResponse>.Success(data);
             }
-            
+
             Send(JsonConvert.SerializeObject(response));
         }
 
