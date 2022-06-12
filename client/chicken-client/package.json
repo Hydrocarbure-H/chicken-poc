@@ -3,20 +3,19 @@
   "version": "1.0.0",
   "description": "The client of the chicken chat app",
   "scripts": {
-    "tests": "electron-mocha --renderer --reporter spec tests/*.spec.js",
+    "tests": "jest",
     "start": "electron ."
   },
   "author": "Thomas Peugnet",
   "license": "ISC",
   "devDependencies": {
-    "electron-mocha": "^11.0.2"
+    "jest": "^28.1.1"
   },
   "dependencies": {
     "crypto": "^1.0.1",
     "crypto-js": "^4.1.1",
-    "electron": "^19.0.1",
+    "electron": "^19.0.4",
     "express": "^4.18.1",
-    "js-sha256": "^0.9.0",
-    "socket.io": "^4.5.1"
+    "js-sha256": "^0.9.0"
   }
 }

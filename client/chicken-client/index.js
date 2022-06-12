@@ -1,6 +1,9 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
+process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true
+// If the above code have to be modified, must comment the previous line
+
 // Create an Electron app
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -11,7 +14,8 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
-  })
+  });
+  win.webContents.openDevTools()
 
   win.loadFile('public/views/index.html')
 }
@@ -26,15 +30,5 @@ app.whenReady().then(() => {
 
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit()
+  app.quit()
 });
-
-
-
-function simple_print(str) {
-  return str;
-}
-
-module.exports ={
-    simple_print
-}

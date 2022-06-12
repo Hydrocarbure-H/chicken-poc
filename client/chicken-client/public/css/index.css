@@ -1,16 +1,16 @@
 @font-face {
 
-    font-family:"thin";
+    font-family: "thin";
     src: url('fonts/Roboto-Light.ttf');
 }
+
 @font-face {
 
-    font-family:"bold";
+    font-family: "bold";
     src: url('fonts/Roboto-Bold.ttf');
 }
 
-:root 
-{
+:root {
     --bg-dark-1: #16282c;
     --bg-dark-2: #29393d;
     --bg-dark-3: #395257;
@@ -18,31 +18,29 @@
     --tx-light-2: #d8d9d8;
     --tx-light-3: #a8a9a8;
     --red1: #984749;
-    --button-blue : #124885;
+    --button-blue: #124885;
     --border-radius: 20px;
-    --field-border-radius : 10px;
-    --padding : 15px;
-    --button-padding : 10px;
-    --animation-duration : .3s;
+    --field-border-radius: 10px;
+    --padding: 15px;
+    --button-padding: 10px;
+    --animation-duration: .3s;
 }
 
-body
-{
+body {
     font-family: "thin";
     background-color: var(--bg-dark-2);
-    margin : 0;
-    padding : 0;
+    margin: 0;
+    padding: 0;
 }
 
 /* Electron app bar */
-.drag_bar 
-{
+.drag_bar {
     background-color: var(--bg-dark-1);
-    color :var(--tx-light-2);
+    color: var(--tx-light-2);
     display: flex;
     align-items: right;
     justify-content: right;
-    height : 45px;
+    height: 45px;
     font-size: 15px;
 
     /* Electron draggable window */
@@ -50,186 +48,170 @@ body
     -webkit-app-region: drag;
 }
 
-.drag_bar-button 
-{
+.drag_bar-button {
     -webkit-app-region: no-drag;
 }
 
-.drag_bar_items
-{
+.drag_bar_items {
     padding: 15px;
 }
 
-.drag_bar_items.title
-{
+.drag_bar_items.title {
     text-align: center;
-    font-size : 20px;
+    font-size: 20px;
 }
 
-.drag_bar_items.message
-{
-    font-size : 12px;
+.drag_bar_items.message {
+    font-size: 12px;
 }
 
 
-.drag_bar h1
-{
-    margin-top : 0;
+.drag_bar h1 {
+    margin-top: 0;
 }
 
-.drag_bar img
-{
+.drag_bar img {
     border-radius: 5px;
     display: none;
-    height : 25px;
-    padding : 10px;
+    height: 25px;
+    padding: 10px;
 }
 
-.drag_bar img:hover
-{
+.drag_bar img:hover {
     background-color: #eee1;
     cursor: pointer;
 }
 
-.container
-{
+.container {
     color: var(--tx-light-1);
-    height : calc(100vh - 145px);
-    width : 90%;
-    margin : 50px auto;
+    height: calc(100vh - 145px);
+    width: 90%;
+    margin: 50px auto;
     background-color: var(--bg-dark-1);
     border-radius: var(--border-radius);
 }
 
-.sub_container
-{
+.sub_container {
     margin: 0;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width : 100%;
+    width: 100%;
 }
 
-.login_title_container
-{
+.login_title_container {
     width: calc(100% - 2 * var(--padding));
     text-align: center;
     padding: var(--padding);
 }
 
-.login_title_container h1
-{
+.login_title_container h1 {
     font-size: 50px;
 }
 
-.form_container
-{
+.form_container {
     height: 100%;
     width: 100%;
-    display:block;
+    display: block;
 }
 
-.login_form_container
-{
+.login_form_container {
     text-align: center;
-    width : 50%;
-    margin : 0px auto;
+    width: 50%;
+    margin: 0px auto;
 }
 
-.form_sublinks
-{
+.form_sublinks {
     display: flex;
     text-align: center;
-    width : 35%;
+    width: 35%;
     max-width: 400px;
-    margin : 0px auto;
+    margin: 0px auto;
 }
 
-.left_form_links_container
-{
+.left_form_links_container {
     text-align: left;
-    padding-left : 5px;
+    padding-left: 5px;
     width: 50%;
-    margin : 0px auto;
+    margin: 0px auto;
 }
 
-.right_form_links_container
-{
-    padding-top : 7px;
-    padding-right : 12px;
+.right_form_links_container {
+    padding-top: 7px;
+    padding-right: 12px;
     text-align: right;
     width: 50%;
-    margin : 0px auto;
+    margin: 0px auto;
 }
 
 
-.submit_form_container
-{
+.submit_form_container {
     text-align: center;
-    width : 60%;
-    margin : 20px auto;
+    width: 60%;
+    margin: 20px auto;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: var(--tx-light-2);
-    opacity: 1; /* Firefox */
-  }
-  
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    opacity: 1;
+    /* Firefox */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
     color: var(--tx-light-2);
 }
 
-::-ms-input-placeholder { /* Microsoft Edge */
+::-ms-input-placeholder {
+    /* Microsoft Edge */
     color: var(--tx-light-2);
 }
 
-#username
-{
+#username {
     background: url(../images/design/grey/account.svg) no-repeat scroll 7px 0px;
-    padding-left:60px;
+    padding-left: 60px;
     border-radius: var(--field-border-radius);
     background-color: var(--bg-dark-3);
     color: var(--tx-light-1);
     box-sizing: border-box;
 }
 
-#password
-{
+#password {
     background: url(../images/design/grey/shield.svg) no-repeat scroll 7px 0px;
-    padding-left:60px;
+    padding-left: 60px;
     border-radius: var(--field-border-radius);
     background-color: var(--bg-dark-3);
     color: var(--tx-light-1);
     box-sizing: border-box;
 }
 
-input[type=text], input[type=password]
-{
+input[type=text],
+input[type=password] {
     width: 70%;
     max-width: 400px;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
-    border : none;
+    border: none;
     transition: var(--animation-duration);
     box-sizing: border-box;
     border: 1px solid var(--bg-dark-3);
 }
 
-input[type=text]:focus, input[type=password]:focus
-{
+input[type=text]:focus,
+input[type=password]:focus {
     border: 1px solid var(--tx-light-1);
 }
 
 
-input[type=submit]
-{
+input[type=submit] {
     width: 25%;
     max-width: 200px;
     background-color: var(--button-blue);
     border-radius: var(--field-border-radius);
-    border : none;
+    border: none;
     padding: var(--button-padding);
     color: var(--tx-light-2);
     cursor: pointer;
@@ -237,8 +219,7 @@ input[type=submit]
 
 /* Checkbox*/
 
-.checkbox_container 
-{
+.checkbox_container {
     font-size: 13px;
     margin-top: 10px;
     display: block;
@@ -251,94 +232,83 @@ input[type=submit]
     -ms-user-select: none;
     user-select: none;
 }
-  
-.checkbox_container input 
-{
-position: absolute;
-opacity: 0;
-cursor: pointer;
-height: 0;
-width: 0;
+
+.checkbox_container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
 }
 
-.checkmark 
-{
+.checkmark {
     position: absolute;
     top: 0;
     left: 10px;
-    border-radius : 2px;
+    border-radius: 2px;
     height: 15px;
     width: 15px;
     background-color: var(--bg-dark-2);
 }
-  
-.container:hover input ~ .checkmark 
-{
-background-color: var(--bg-dark-3);
+
+.container:hover input~.checkmark {
+    background-color: var(--bg-dark-3);
 }
 
-.container input:checked ~ .checkmark 
-{
-background-color: var(--tx-light-2);
+.container input:checked~.checkmark {
+    background-color: var(--tx-light-2);
 }
 
-.checkmark:after 
-{
-content: "";
-position: absolute;
-display: none;
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
 }
 
-.container input:checked ~ .checkmark:after 
-{
-display: block;
+.container input:checked~.checkmark:after {
+    display: block;
 }
 
 .container .checkmark:after {
-left: 4px;
-top: 1px;
-width: 4px;
-height: 8px;
-border: solid var(--bg-dark-1);
-border-width: 0 3px 3px 0;
--webkit-transform: rotate(45deg);
--ms-transform: rotate(45deg);
-transform: rotate(45deg);
+    left: 4px;
+    top: 1px;
+    width: 4px;
+    height: 8px;
+    border: solid var(--bg-dark-1);
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 /* Links */
-a
-{
+a {
     font-size: 13px;
     text-decoration: none;
     color: var(--tx-light-1);
     transition: var(--animation-duration);
 }
 
-a:hover
-{
+a:hover {
     color: var(--tx-light-3);
 }
 
-#signup_link
-{
-    padding-top : 10px;
+#signup_link {
+    padding-top: 10px;
 }
 
 /* Missing fields */
-#error_field
-{
-    width : 50%;
-    max-width: 200px;
-    margin : 10px auto;
+#error_field {
+    width: 50%;
+    max-width: 250px;
+    margin: 10px auto;
     display: none;
     /* border-radius: var(--field-border-radius);
     background-color: var(--red1); */
     color: var(--red1);
 }
 
-#error_field p
-{
+#error_field p {
     padding: 3px 0px;
     margin: 0;
 }
