@@ -29,7 +29,6 @@ function check_status(response) {
     return true
 }
 
-
 /**
  * @param {string} title
  * @param {string} message
@@ -54,13 +53,6 @@ function display_bar_message(message) {
 }
 
 /**
- * @brief test function
- */
-function my_test(number) {
-    return number;
-}
-
-/**
  * @brief Management of the display of the notification
  * @param {DisplayNotification Enum} method 
  * @param {string} message 
@@ -79,14 +71,3 @@ function internal_notification(method, message) {
         document.getElementById("bar_notif_icon").style.display = "none";
     }
 }
-
-
-if (typeof window === 'undefined') {
-    module.exports = {
-        my_test,
-        external_notification,
-        display_bar_message,
-        internal_notification
-    };
-}
-

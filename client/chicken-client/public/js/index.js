@@ -1,3 +1,8 @@
+/**
+ * TO DO :
+ * Debug reconnection after socket closed
+ */
+
 let socket = create_socket("login");
 let connected = false;
 var notification_message = "";
@@ -51,7 +56,7 @@ socket.onmessage = function (e) {
     }
 }
 
-// Functions
+/////////////////////////////// -- Functions -- ///////////////////////////////
 
 /**
  * @brief Add listeners to submit and notification buttons
@@ -141,8 +146,3 @@ function manage_display_error(method, error) {
 function create_socket(endpoint) {
     return new WebSocket("ws://192.168.1.182:9002/" + endpoint);
 }
-
-/**
- * TO DO :
- * Debug reconnection after socket closed
- */
