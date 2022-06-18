@@ -102,18 +102,17 @@ body {
     justify-content: center;
     align-items: center;
     height: 150px;
-    background-color: red;
 }
 
 .right_container {
     width: calc(100% - 120px);
-    background-color: green;
+    display: block;
 }
 
 /* MP list [left] */
 
 .mp_container {
-    overflow-y: scroll;
+    overflow-y: auto;
     height: calc(100% - 150px);
 }
 
@@ -142,4 +141,34 @@ body {
 .mp_item_profile_name {
 
     font-size: 15px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background-color: var(--bg-dark-3);
+    border-radius: 5px;
+}
+
+/* MP and Servers containers [RIGHT] */
+.servers_area {
+    height: 100px;
+    background-color: var(--bg-dark-1);
+    border-radius: var(--border-radius);
+}
+
+.messages_area {
+    margin-top: 10px;
+    height: calc(100% - 110px);
+    background-color: var(--bg-dark-1);
+    border-radius: var(--border-radius);
 }
