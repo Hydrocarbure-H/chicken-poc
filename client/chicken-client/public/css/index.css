@@ -215,6 +215,12 @@ input[type=submit] {
     padding: var(--button-padding);
     color: var(--tx-light-2);
     cursor: pointer;
+    transition: var(--animation-duration);
+}
+
+input[type=submit]:hover {
+    background-color: var(--tx-light-1);
+    color: var(--button-blue);
 }
 
 /* Checkbox*/
