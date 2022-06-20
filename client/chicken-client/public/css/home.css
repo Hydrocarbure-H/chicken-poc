@@ -148,7 +148,7 @@ body {
 /* Servers container [RIGHT] */
 .servers_container {
     display: flex;
-    overflow-x: auto;
+    overflow-x: scroll;
     overflow-y: hidden;
     padding-top: 10px;
     height: 90px;
@@ -165,6 +165,7 @@ body {
     align-items: center;
     padding: 10px;
     height: 50px;
+    transition: .3s;
     /* border-bottom: 1px solid var(--border-light-2); */
 }
 
@@ -174,6 +175,7 @@ body {
 }
 
 .srv_item_profile_img {
+    border-radius: 50%;
     height: 50px;
     width: 50px;
 }
@@ -184,8 +186,8 @@ body {
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-    height: 10px;
-    width: 10px;
+    height: 7px;
+    width: 7px;
 }
 
 /* Track */
