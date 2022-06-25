@@ -17,11 +17,13 @@
     --tx-light-1: #fefeff;
     --tx-light-2: #d8d9d8;
     --tx-light-3: #a8a9a8;
+    --tx-font-title-bar: 15px;
+    --tx-font-normal: 15px;
     --border-light-1: #fefeff;
     --border-light-2: #777;
     --red1: #984749;
     --button-blue: #124885;
-    --border-radius: 20px;
+    --border-radius: 10px;
     --field-border-radius: 10px;
     --padding: 15px;
     --button-padding: 10px;
@@ -86,9 +88,9 @@ body {
 
 .container {
     color: var(--tx-light-1);
-    height: calc(100vh - 145px);
-    width: 90%;
-    margin: 50px auto;
+    height: calc(100vh - 85px);
+    width: 95%;
+    margin: 20px auto;
     display: flex;
 }
 
@@ -201,9 +203,94 @@ body {
     border-radius: 5px;
 }
 
+/* Messages container [RIGHT]*/
+
 .messages_container {
     margin-top: 10px;
     height: calc(100% - 110px);
+    display: flex;
+
+}
+
+.messages_container_left,
+.messages_container_right {
+    padding: var(--button-padding);
+    width: calc(50% - 25px);
     background-color: var(--bg-dark-1);
     border-radius: var(--border-radius);
+}
+
+.messages_container_left {
+    margin-right: 10px;
+}
+
+.read_messages_container {
+    overflow-y: scroll;
+    display: block;
+    height: 90%;
+}
+
+.receveid_message,
+.sent_message {
+    overflow-wrap: break-word;
+    padding: 5px;
+    border-radius: var(--field-border-radius);
+    margin-top: 5px;
+    max-width: 60%;
+}
+
+.receveid_message .date,
+.sent_message .date {
+    padding-top: 5px;
+    font-size: 10px;
+    text-align: right;
+    color: var(--tx-light-3);
+}
+
+.receveid_message {
+    clear: both;
+    float: left;
+    background-color: var(--bg-dark-2);
+}
+
+.sent_message {
+    margin-right: 5px;
+    clear: both;
+    float: right;
+    background-color: var(--bg-dark-3);
+}
+
+
+.write_messages_container {
+    margin-top: 5px;
+    position: relative;
+    height: 10%;
+    width: 100%;
+}
+
+::placeholder {
+    color: var(--tx-light-2);
+    font-family: "thin";
+    font-size: var(--tx-font-normal);
+}
+
+.message_textarea {
+    /* Technical placement and size */
+    width: 100%;
+    height: 100%;
+    max-height: 50px;
+    position: absolute;
+    bottom: 0;
+    outline: none;
+    resize: none;
+    overflow: auto;
+    /* Design Style */
+    border-radius: var(--border-radius);
+    background-color: var(--bg-dark-3);
+    color: var(--tx-light-1);
+    font-family: "thin";
+    box-sizing: border-box;
+    border: none;
+    padding: var(--button-padding);
+    font-size: var(--tx-font-normal);
 }
