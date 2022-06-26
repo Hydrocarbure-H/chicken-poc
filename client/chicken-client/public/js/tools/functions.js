@@ -71,3 +71,19 @@ function internal_notification(method, message) {
         document.getElementById("bar_notif_icon").style.display = "none";
     }
 }
+
+
+
+/**
+ * > The function `handle_right_click()` adds an event listener to the document
+ * that listens for a right click event. When the event is triggered, the default
+ * action is prevented and an alert is displayed
+ */
+function handle_right_click() {
+    document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+        console.log(e);
+        alert("Right click test");
+    }
+        , false);
+}

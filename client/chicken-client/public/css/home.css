@@ -11,9 +11,14 @@
 }
 
 :root {
-    --bg-dark-1: #16282c;
-    --bg-dark-2: #29393d;
-    --bg-dark-3: #395257;
+    /*
+    --bg-dark-1: #25354c;
+    --bg-dark-2: #344b6c;
+    --bg-dark-3: #47699a;
+    */
+    --bg-dark-1: #25354c;
+    --bg-dark-2: #344b6c;
+    --bg-dark-3: #47699a;
     --tx-light-1: #fefeff;
     --tx-light-2: #d8d9d8;
     --tx-light-3: #a8a9a8;
@@ -106,6 +111,29 @@ body {
     height: 110px;
 }
 
+.logo_title {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    margin: 0px auto;
+    width: auto;
+}
+
+.logo_name {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.drag_bar .logo_img {
+    padding-top: 0;
+    margin-top: 8px;
+    display: block;
+    width: 30px;
+    height: 30px;
+}
+
 .right_container {
     width: calc(100% - 250px);
     display: block;
@@ -115,7 +143,7 @@ body {
 
 .mp_container {
     overflow-y: auto;
-    height: calc(100% - 110px);
+    height: 100%;
 }
 
 .mp_item {
@@ -126,7 +154,6 @@ body {
     justify-content: left;
     align-items: center;
     padding: 5px;
-    /* border-bottom: 1px solid var(--border-light-2); */
 }
 
 .mp_item:hover {
