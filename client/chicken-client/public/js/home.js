@@ -57,6 +57,19 @@ function add_new_mp() {
     boxes.forEach(box => {
         box.addEventListener('click', function handleClick(event) {
             console.log(box);
+            // add messaging box
+            var last_item = document.getElementById("last_messages_container_item");
+            last_item.removeAttribute("id");
+
+            const mp_box = document.createElement('div');
+            mp_box.classList.add('messages_container_item');
+            // fill messages_container_item with children from json
+            // Create function for it.
+            mp_box.innerHTML = "TEst";
+            mp_box.setAttribute('id', 'last_messages_container_item');
+            document.getElementById("messages_container").appendChild(mp_box);
+
+
         });
     });
 
