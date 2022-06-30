@@ -253,6 +253,7 @@ body {
     overflow: hidden;
 
     padding: var(--button-padding);
+    padding-top: 0px;
     /* width: calc(50% - 25px); */
     background-color: var(--bg-dark-1);
     border-radius: var(--border-radius);
@@ -260,10 +261,48 @@ body {
     margin-left: 5px;
 }
 
+.messages_container_item_header {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    display: flex;
+    height: 40px;
+}
+
+.messages_container_item_header .profile {
+    display: flex;
+    width: 100%;
+}
+
+.messages_container_item_header .profile img {
+    margin-top: 5px;
+    height: 30px;
+    width: 30px;
+
+}
+
+.messages_container_item_header .profile h2 {
+    font-size: 15px;
+}
+
+.messages_container_item .close_button {
+    width: 30px;
+}
+
+.messages_container_item .close_button img {
+    margin-top: 5px;
+    height: 30px;
+    width: 30px;
+    transition: .3s;
+}
+
+.messages_container_item .close_button img:hover {
+    cursor: pointer;
+}
+
+
 .read_messages_container {
     overflow-y: scroll;
     display: block;
-    height: 90%;
+    height: 80%;
 }
 
 .receveid_message,
