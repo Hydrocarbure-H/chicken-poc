@@ -245,6 +245,16 @@ body {
 
 }
 
+.messages_container p {
+    /* centered vertically and horizontally */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 0;
+    font-size: 15px;
+}
+
 #last_messages_container_item {
     margin-right: 0px;
 }
@@ -254,6 +264,7 @@ body {
 
     padding: var(--button-padding);
     padding-top: 0px;
+    width: 100%;
     /* width: calc(50% - 25px); */
     background-color: var(--bg-dark-1);
     border-radius: var(--border-radius);
