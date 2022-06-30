@@ -45,21 +45,36 @@ const json_response_type = {
         ]
 };
 
-
-// enable_horizontal_scroll();
-
-handle_right_click();
+// handle_right_click();
 
 add_new_mp();
 
+// function are_opened_mp() {
+//     const opened_mp = document.querySelectorAll('.messages_container_item');
+//     // Display 
+//     if (opened_mp === null) {
+//         const empty_mp = document.querySelector(".messages_container p");
+//         empty_mp.style.display = "block";
+//     }
+//     else {
+//         const empty_mp = document.querySelector(".messages_container p");
+//         empty_mp.style.display = "none";
+//     }
+// }
+
 function add_new_mp() {
     const boxes = document.querySelectorAll('.mp_item');
+    // Check if this is necessary to display the nothing message
+
     boxes.forEach(box => {
         box.addEventListener('click', function handleClick(event) {
-            // Hide the "Notifhing to show message"
-            const empty_mp = document.querySelector(".messages_container p");
-            empty_mp.style.display = "none";
 
+            if (document.getElementById("last_messages_container_item")) {
+                var last_item = document.getElementById("last_messages_container_item");
+                last_item.removeAttribute("id");
+            }
+            // const empty_mp = document.querySelector(".messages_container p");
+            // empty_mp.style.display = "none";
             // -- Creating new mp div -- //
             var mp_box = document.createElement('div');
             mp_box.classList.add('messages_container_item');
@@ -69,6 +84,8 @@ function add_new_mp() {
             adding_mp_messages(mp_box, json_response_type);
             // Adding the writing zone
             adding_mp_writing_zone(mp_box, json_response_type);
+            // Set the attribute to the last message box, to avoid margins problems
+            mp_box.setAttribute('id', 'last_messages_container_item');
             // Append the mp_div to the last_messages_container
             document.getElementById("messages_container").appendChild(mp_box);
         });
@@ -100,7 +117,7 @@ function adding_mp_header(obj, json) {
     profile_img.classList.add('mp_item_profile_img');
 
     const profile_name = document.createElement('h2');
-    profile_name.innerHTML = "Doriqn Turgot";
+    profile_name.innerHTML = "Dorian Turgot";
 
     profile.appendChild(profile_img);
     profile.appendChild(profile_name);
