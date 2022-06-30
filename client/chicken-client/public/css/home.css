@@ -37,6 +37,7 @@
 
 body {
     font-family: "thin";
+    scroll-behavior: smooth;
     background-color: var(--bg-dark-2);
     margin: 0;
     padding: 0;
@@ -176,11 +177,14 @@ body {
 
 /* Servers container [RIGHT] */
 .servers_container {
-    display: flex;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    width: calc(100% - 10px);
+    margin: 0 auto;
+    display: block;
+    /* overflow-x: scroll; */
+    text-align: center;
+    overflow-y: scroll;
     padding-top: 10px;
-    height: 70px;
+    height: 65px;
     /* padding-top: 10px; */
     background-color: var(--bg-dark-1);
     border-radius: var(--border-radius);
@@ -234,9 +238,10 @@ body {
 
 .messages_container {
     margin-top: 10px;
-    height: calc(100% - 100px);
+    height: calc(100% - 85px);
     width: 100%;
     display: flex;
+    overflow-y: scroll;
 
 }
 
@@ -251,7 +256,8 @@ body {
     /* width: calc(50% - 25px); */
     background-color: var(--bg-dark-1);
     border-radius: var(--border-radius);
-    margin-right: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .read_messages_container {

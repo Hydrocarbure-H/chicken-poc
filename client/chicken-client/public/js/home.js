@@ -46,7 +46,7 @@ const json_response_type = {
 };
 
 
-enable_horizontal_scroll();
+// enable_horizontal_scroll();
 
 handle_right_click();
 
@@ -56,32 +56,49 @@ function add_new_mp() {
     const boxes = document.querySelectorAll('.mp_item');
     boxes.forEach(box => {
         box.addEventListener('click', function handleClick(event) {
-            console.log(box);
-            // add messaging box
-            var last_item = document.getElementById("last_messages_container_item");
-            last_item.removeAttribute("id");
 
+            // Maybe useless.
+            // Check if there is the las div displayed
+            // Used in previous code but not right now
+            if (document.getElementById("last_messages_container_item")) {
+                var last_item = document.getElementById("last_messages_container_item");
+                last_item.removeAttribute("id");
+            }
+
+            // -- Creating new mp div -- //
             const mp_box = document.createElement('div');
             mp_box.classList.add('messages_container_item');
-            // fill messages_container_item with children from json
-            // Create function for it.
-            mp_box.innerHTML = "TEst";
+            // Must be filled by the mp json content
+
+            mp_box.innerHTML = "Test";
+            // Useless, see before
             mp_box.setAttribute('id', 'last_messages_container_item');
+
+            // Create a close button to close the new mp div
+            const mp_close = document.createElement('div');
+            mp_close.innerHTML = "Close";
+            // Adding listenner to close the mp_div
+            mp_close.addEventListener('click', function handleClick(event) {
+                mp_box.remove();
+            });
+
+            // -- Appending elements -- //
+            // Append the close button to the mp_div
+            mp_box.appendChild(mp_close);
+            // Append the mp_div to the last_messages_container
             document.getElementById("messages_container").appendChild(mp_box);
-
-
         });
     });
 
 }
 
 
-function enable_horizontal_scroll() {
-    const scrollContainer = document.querySelector(".servers_container");
-    scrollContainer.addEventListener("wheel", (evt) => {
-        evt.preventDefault();
-        scrollContainer.scrollLeft += evt.deltaY;
-    });
-}
+// function enable_horizontal_scroll() {
+//     const scrollContainer = document.querySelector(".servers_container");
+//     scrollContainer.addEventListener("wheel", (evt) => {
+//         evt.preventDefault();
+//         scrollContainer.scrollLeft += evt.deltaY;
+//     });
+// }
 
 
