@@ -7,10 +7,12 @@ process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true
 // Create an Electron app
 const createWindow = () => {
   const win = new BrowserWindow({
+    icon: 'public/images/logo/icon-200-200.png',
     titleBarStyle: 'hiddenInset',
     titleBarOverlay: true,
     width: 800,
     height: 600,
+    autoHideMenuBar: true,
     center: true,
     'minHeight': 600,
     'minWidth': 800,

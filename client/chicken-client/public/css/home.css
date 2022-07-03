@@ -261,16 +261,18 @@ body {
 
 .messages_container_item {
     overflow: hidden;
-
     padding: var(--button-padding);
     padding-top: 0px;
     width: 100%;
     min-width: 200px;
-    /* width: calc(50% - 25px); */
     background-color: var(--bg-dark-1);
     border-radius: var(--border-radius);
     margin-right: 5px;
     margin-left: 5px;
+}
+
+.messages_container_item:focus-within {
+    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
 }
 
 .messages_container_item_header {

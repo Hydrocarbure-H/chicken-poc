@@ -87,3 +87,14 @@ function handle_right_click() {
     }
         , false);
 }
+
+/**
+ * @brief Will enable horizontal scroll for a div with a vertical scroll
+ */
+function enable_horizontal_scroll(div_to_scroll) {
+    const scrollContainer = document.querySelector("." + div_to_scroll);
+    scrollContainer.addEventListener("wheel", (evt) => {
+        evt.preventDefault();
+        scrollContainer.scrollLeft += evt.deltaY;
+    });
+}

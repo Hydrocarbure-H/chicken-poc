@@ -1,4 +1,4 @@
-console.log(localStorage.getItem("token"));
+// console.log(localStorage.getItem("token"));
 
 const json_response_type = {
     messages_list:
@@ -45,36 +45,50 @@ const json_response_type = {
         ]
 };
 
-// handle_right_click();
+// Prepare the mp list
+// TO DO
 
-add_new_mp();
+// Prepare all mp click listeners
+add_mp_click_listener();
 
-// function are_opened_mp() {
-//     const opened_mp = document.querySelectorAll('.messages_container_item');
-//     // Display 
-//     if (opened_mp === null) {
-//         const empty_mp = document.querySelector(".messages_container p");
-//         empty_mp.style.display = "block";
-//     }
-//     else {
-//         const empty_mp = document.querySelector(".messages_container p");
-//         empty_mp.style.display = "none";
-//     }
-// }
+// Prepare all servers
+// TO DO
 
-function add_new_mp() {
-    const boxes = document.querySelectorAll('.mp_item');
-    // Check if this is necessary to display the nothing message
+open_last_mp();
 
-    boxes.forEach(box => {
+
+/**
+ * @brief This function will open the last message sent or receveid
+ * Currently open the first mp
+ */
+function open_last_mp() {
+    document.querySelectorAll('.mp_item')[0].click();
+    scrollToBottom(document.getElementById("messages_container_list"));
+}
+
+/**
+ * @brief This function will scroll to the bottom of the div given
+ * @param {div} div The div which will be scrolled
+ */
+function scrollToBottom(div) {
+    div.scrollTop = div.scrollHeight;
+}
+
+
+/**
+ * @brief This function will add all click listeners on each mp box
+ * Each click will create a new div with all mp messages
+ */
+function add_mp_click_listener() {
+    document.querySelectorAll('.mp_item').forEach(box => {
         box.addEventListener('click', function handleClick(event) {
 
+            // Used to avoid margins problem for the last message container item
             if (document.getElementById("last_messages_container_item")) {
                 var last_item = document.getElementById("last_messages_container_item");
                 last_item.removeAttribute("id");
             }
-            // const empty_mp = document.querySelector(".messages_container p");
-            // empty_mp.style.display = "none";
+
             // -- Creating new mp div -- //
             var mp_box = document.createElement('div');
             mp_box.classList.add('messages_container_item');
@@ -88,11 +102,18 @@ function add_new_mp() {
             mp_box.setAttribute('id', 'last_messages_container_item');
             // Append the mp_div to the last_messages_container
             document.getElementById("messages_container").appendChild(mp_box);
+            // Scroll to the bottom of the read messages container
+            scrollToBottom(mp_box.children[1]);
         });
     });
 
 }
 
+/**
+ * @brief This function will create the header of the mp (profile and close button)
+ * @param {div} obj The created div for opened mp
+ * @param {JSON} json The JSON response wich contains all messages
+ */
 function adding_mp_header(obj, json) {
     /*
     <div class="messages_container_item_header">
@@ -138,6 +159,11 @@ function adding_mp_header(obj, json) {
     obj.appendChild(container_item_header);
 }
 
+/**
+ * @brief This function will parse and add all messages which are in the JSON response
+ * @param {div} obj The created div for opened mp
+ * @param {JSON} json The JSON response wich contains all messages
+ */
 function adding_mp_messages(obj, json) {
     /*
     <div class="read_messages_container">
@@ -155,6 +181,7 @@ function adding_mp_messages(obj, json) {
 
     const read_messages_container = document.createElement('div');
     read_messages_container.classList.add('read_messages_container');
+    read_messages_container.setAttribute('id', 'messages_container_list');
 
     // -- Adding all messages -- //
     // browse json
@@ -198,6 +225,11 @@ function adding_mp_messages(obj, json) {
 
 }
 
+/**
+ * @brief This function will add the textarea zone at the end of the created div
+ * @param {div} obj The created div for opened mp
+ * @param {JSON} json The JSON response wich contains all messages
+ */
 function adding_mp_writing_zone(obj, json) {
     /*
     <div class="write_messages_container">
@@ -216,13 +248,5 @@ function adding_mp_writing_zone(obj, json) {
     obj.appendChild(write_messages_container);
 }
 
-
-// function enable_horizontal_scroll() {
-//     const scrollContainer = document.querySelector(".servers_container");
-//     scrollContainer.addEventListener("wheel", (evt) => {
-//         evt.preventDefault();
-//         scrollContainer.scrollLeft += evt.deltaY;
-//     });
-// }
 
 
