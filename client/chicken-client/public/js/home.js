@@ -198,6 +198,7 @@ add_mp_click_listener();
 // Display the server list
 display_srv_list();
 
+// Open the last mp, to have a non-empty page at lauch
 open_last_mp();
 
 
@@ -239,6 +240,9 @@ function display_mp_list() {
     document.getElementById("left_container").appendChild(mp_container);
 }
 
+/**
+ * @brief This function will parse the json response which contains all servers attached to the account, and append it to the page
+ */
 function display_srv_list() {
     /*
     <div class="srv_item">
@@ -442,6 +446,3 @@ function adding_mp_writing_zone(obj, json) {
     write_messages_container.appendChild(message_textarea);
     obj.appendChild(write_messages_container);
 }
-
-
-
