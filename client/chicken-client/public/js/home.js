@@ -1,6 +1,6 @@
 // console.log(localStorage.getItem("token"));
 
-const json_response_type = {
+const json_respnse_messages_type = {
     messages_list:
         [{
             sender: "Dorian Turgot",
@@ -45,17 +45,221 @@ const json_response_type = {
         ]
 };
 
-// Prepare the mp list
-// TO DO
+const json_response_mp_type =
+{
+    mp_list: [
+        {
+            account_id: "aeecf1",
+            account_name: "Dorian Turgot"
+        },
+        {
+            account_id: "aeecf3",
+            account_name: "Thimot Veyre"
+        },
+        {
+            account_id: "aeecf2",
+            account_name: "Thomas Peugnet"
+        },
+        {
+            account_id: "aeecf1",
+            account_name: "Dorian Turgot"
+        },
+        {
+            account_id: "aeecf3",
+            account_name: "Thimot Veyre"
+        },
+        {
+            account_id: "aeecf2",
+            account_name: "Thomas Peugnet"
+        },
+        {
+            account_id: "aeecf1",
+            account_name: "Dorian Turgot"
+        },
+        {
+            account_id: "aeecf3",
+            account_name: "Thimot Veyre"
+        },
+        {
+            account_id: "aeecf2",
+            account_name: "Thomas Peugnet"
+        },
+        {
+            account_id: "aeecf1",
+            account_name: "Dorian Turgot"
+        },
+        {
+            account_id: "aeecf3",
+            account_name: "Thimot Veyre"
+        },
+        {
+            account_id: "aeecf2",
+            account_name: "Thomas Peugnet"
+        },
+        {
+            account_id: "aeecf1",
+            account_name: "Dorian Turgot"
+        },
+        {
+            account_id: "aeecf3",
+            account_name: "Thimot Veyre"
+        },
+        {
+            account_id: "aeecf2",
+            account_name: "Thomas Peugnet"
+        }
+    ]
+}
+
+const json_response_servers_type =
+{
+    srv_list: [
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        },
+        {
+            server_id: "bbb23",
+            server_name: "Goat Server"
+        }
+    ]
+}
+
+// Display the mp list
+display_mp_list();
 
 // Prepare all mp click listeners
 add_mp_click_listener();
 
-// Prepare all servers
-// TO DO
+// Display the server list
+display_srv_list();
 
 open_last_mp();
 
+
+/**
+ * @brief This function will parse the json response which contains all mp account, and append it to the page
+ */
+function display_mp_list() {
+    /*
+    <div class="mp_container">
+        <div class="mp_item">
+            <img src="../images/design/grey/account.svg" class="mp_item_profile_img" title="TEST">
+            <h1 class="mp_item_profile_name">Dorian Turgot Turgot Turgot Turgot Turgot Turgot Turgot</h1>
+        </div>
+    </div>
+    */
+    const mp_container = document.createElement("div");
+    mp_container.classList.add("mp_container");
+
+    json_response_mp_type.mp_list.forEach(mp => {
+
+        const mp_item = document.createElement("div");
+        mp_item.classList.add("mp_item");
+
+        const mp_item_profile_img = document.createElement("img");
+        mp_item_profile_img.classList.add("mp_item_profile_img");
+        mp_item_profile_img.src = "../images/design/grey/account.svg";
+        mp_item_profile_img.title = mp.account_name;
+
+        const mp_item_profile_name = document.createElement("h1");
+        mp_item_profile_name.classList.add("mp_item_profile_name");
+        mp_item_profile_name.innerHTML = mp.account_name;
+
+        mp_item.appendChild(mp_item_profile_img);
+        mp_item.appendChild(mp_item_profile_name);
+
+        mp_container.appendChild(mp_item);
+    });
+
+    document.getElementById("left_container").appendChild(mp_container);
+}
+
+function display_srv_list() {
+    /*
+    <div class="srv_item">
+        <img src="../images/design/grey/server.svg" class="srv_item_profile_img">
+    </div>
+    */
+    const servers_container = document.getElementById("servers_container");
+    json_response_servers_type.srv_list.forEach(srv => {
+        const srv_item = document.createElement("div");
+        srv_item.classList.add("srv_item");
+
+        const srv_item_profile_img = document.createElement("img");
+        srv_item_profile_img.classList.add("srv_item_profile_img");
+        srv_item_profile_img.src = "../images/design/grey/server.svg";
+        srv_item_profile_img.title = srv.server_name;
+
+        srv_item.appendChild(srv_item_profile_img);
+        servers_container.appendChild(srv_item);
+
+    });
+}
 
 /**
  * @brief This function will open the last message sent or receveid
@@ -65,15 +269,6 @@ function open_last_mp() {
     document.querySelectorAll('.mp_item')[0].click();
     scrollToBottom(document.getElementById("messages_container_list"));
 }
-
-/**
- * @brief This function will scroll to the bottom of the div given
- * @param {div} div The div which will be scrolled
- */
-function scrollToBottom(div) {
-    div.scrollTop = div.scrollHeight;
-}
-
 
 /**
  * @brief This function will add all click listeners on each mp box
@@ -93,11 +288,11 @@ function add_mp_click_listener() {
             var mp_box = document.createElement('div');
             mp_box.classList.add('messages_container_item');
             // Adding the header
-            adding_mp_header(mp_box, json_response_type);
+            adding_mp_header(mp_box, json_respnse_messages_type);
             // Adding all messages
-            adding_mp_messages(mp_box, json_response_type);
+            adding_mp_messages(mp_box, json_respnse_messages_type);
             // Adding the writing zone
-            adding_mp_writing_zone(mp_box, json_response_type);
+            adding_mp_writing_zone(mp_box, json_respnse_messages_type);
             // Set the attribute to the last message box, to avoid margins problems
             mp_box.setAttribute('id', 'last_messages_container_item');
             // Append the mp_div to the last_messages_container

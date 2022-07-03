@@ -98,3 +98,12 @@ function enable_horizontal_scroll(div_to_scroll) {
         scrollContainer.scrollLeft += evt.deltaY;
     });
 }
+
+/**
+ * @brief This function will scroll to the bottom of the div given
+ * @param {div} div The div which will be scrolled
+ */
+function scrollToBottom(div) {
+    div.scrollTop = div.scrollHeight;
+}
+
