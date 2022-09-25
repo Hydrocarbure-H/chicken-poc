@@ -1,3 +1,5 @@
+const { login_process } = require("../../tools/endpoints/index-backend");
+
 /**
  * TO DO :
  * Change notification style and structure (using classes)
@@ -11,7 +13,6 @@ var socket = io('http://localhost:3000');
 socket.emit('connection');
 
 // listen for connection signal
-console.log("Here");
 
 socket.on('api_connected', function () {
     console.log("Connected to the API !");
@@ -20,12 +21,23 @@ socket.on('api_connected', function () {
     add_listeners();
 });
 
-
-socket.on('disconnect', function () {
-    console.log('Disconnected from the server !');
+/**
+ * @brief Redirect the user to the home page
+ */
+socket.on("login_redirection", function (data) {
+    login_process(data);
 });
 
-// Check for connection timeout
+
+socket.on('disconnect', function () {
+    internal_notification(DisplayNotification.Visible, "You have been disconnected");
+    display_bar_message(ApiConnectionStatus.Disconnected);
+    connected = false;
+});
+
+/**
+ * Check if the server has been disconnected without sending a disconnection request
+ */
 setInterval(function () {
     if (connected == false) {
         display_bar_message(ApiConnectionStatus.Timeout);
@@ -33,29 +45,6 @@ setInterval(function () {
 }, 5000);
 
 
-// let socket = create_socket("login");
-// let connected = false;
-// var notification_message = "";
-
-// add_listeners();
-
-// /**
-//  * Check if the server has been disconnected without sending a disconnection request
-//  */
-// setInterval(function () {
-//     if (connected == false) {
-//         display_bar_message("Server disconnected");
-//     }
-// }, 5000);
-
-// /**
-//  * Open the connection with the server
-//  * @param {JSON} e 
-//  */
-// socket.onopen = function (e) {
-//     connected = true;
-//     display_bar_message("Connected");
-// };
 
 // /**
 //  * Will handle every request from the server

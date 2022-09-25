@@ -41,8 +41,6 @@ function internal_notification(method, message) {
     }
 }
 
-
-
 /**
  * > The function `handle_right_click()` adds an event listener to the document
  * that listens for a right click event. When the event is triggered, the default

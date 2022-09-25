@@ -30,3 +30,8 @@ function check_status(response) {
 }
 
 
+// export functions
+module.exports = {
+    check_response: check_response,
+    check_status: check_status
+};

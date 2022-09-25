@@ -61,24 +61,9 @@ function create_socket(endpoint) {
     return new WebSocket("ws://192.168.1.182:9002/" + endpoint);
 }
 
-/**
- * @brief Will store the token from the server response in local storage 
- * and redirect the user to the main page
- * @param {JSON} login_data 
- */
-function login_process(login_data) {
-    // Success to authentificate
-    var token = login_data.token;
-    // Save token in local storage
-    localStorage.setItem("token", token);
-    // Redirect to home page
-    window.location.href = "home.html";
-}
-
 // export functions
 module.exports = {
     send_data: send_data,
     manage_display_error: manage_display_error,
     create_socket: create_socket,
-    login_process: login_process
-}
+};
