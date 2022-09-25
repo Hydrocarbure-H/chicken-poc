@@ -1,4 +1,3 @@
-using chicken_server.Controller;
 using chicken_server.View.WebSocket.Queries;
 using NUnit.Framework;
 
