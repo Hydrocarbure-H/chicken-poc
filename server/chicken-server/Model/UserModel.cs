@@ -18,7 +18,7 @@ namespace chicken_server.Model
             };
 
             var db = new ChickenContext();
-            db.Users.Add(t);
+            //db.Users.Add(t);
             //db.SaveChanges();
         }
     }
