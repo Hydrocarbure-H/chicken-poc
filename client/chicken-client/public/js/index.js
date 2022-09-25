@@ -1,57 +1,87 @@
 /**
  * TO DO :
- * Debug reconnection after socket closed
+ * Change notification style and structure (using classes)
  */
+var connected = false;
 
-let socket = create_socket("login");
-let connected = false;
-var notification_message = "";
+// Create socket io connection to the electron app server
+var socket = io('http://localhost:3000');
 
-add_listeners();
+// emit connection signal
+socket.emit('connection');
 
-/**
- * Check if the server has been disconnected without sending a disconnection request
- */
+// listen for connection signal
+console.log("Here");
+
+socket.on('api_connected', function () {
+    console.log("Connected to the API !");
+    connected = true;
+    display_bar_message(ApiConnectionStatus.Connected);
+    add_listeners();
+});
+
+
+socket.on('disconnect', function () {
+    console.log('Disconnected from the server !');
+});
+
+// Check for connection timeout
 setInterval(function () {
     if (connected == false) {
-        display_bar_message("Server disconnected");
+        display_bar_message(ApiConnectionStatus.Timeout);
     }
 }, 5000);
 
-/**
- * Open the connection with the server
- * @param {JSON} e 
- */
-socket.onopen = function (e) {
-    connected = true;
-    display_bar_message("Connected");
-};
 
-/**
- * Will handle every request from the server
- * @param {JSON} e 
- */
-socket.onmessage = function (e) {
+// let socket = create_socket("login");
+// let connected = false;
+// var notification_message = "";
 
-    // Try to parse JSON data. If not, there is not any error which is displayed
-    let response = check_response(e);
+// add_listeners();
 
-    if (check_status(response)) {
-        switch (response.type) {
-            // The response of the server after the login request
-            case QueryType.Login:
-                login_process(response.data);
-                break;
+// /**
+//  * Check if the server has been disconnected without sending a disconnection request
+//  */
+// setInterval(function () {
+//     if (connected == false) {
+//         display_bar_message("Server disconnected");
+//     }
+// }, 5000);
 
-            // The response of the server when we are disconnected
-            case QueryType.Disconnect:
-                internal_notification(DisplayNotification.Visible, "You have been disconnected");
-                display_bar_message("Server disconnected");
-                connected = false;
-                break;
+// /**
+//  * Open the connection with the server
+//  * @param {JSON} e 
+//  */
+// socket.onopen = function (e) {
+//     connected = true;
+//     display_bar_message("Connected");
+// };
 
-            default:
-                break;
-        }
-    }
-}
+// /**
+//  * Will handle every request from the server
+//  * @param {JSON} e 
+//  */
+// socket.onmessage = function (e) {
+
+//     // Try to parse JSON data. If not, there is not any error which is displayed
+//     let response = check_response(e);
+
+//     if (check_status(response)) {
+//         switch (response.type) {
+//             // The response of the server after the login request
+//             case QueryType.Login:
+//                 login_process(response.data);
+//                 break;
+
+//             // The response of the server when we are disconnected
+//             case QueryType.Disconnect:
+//                 internal_notification(DisplayNotification.Visible, "You have been disconnected");
+//                 display_bar_message("Server disconnected");
+//                 connected = false;
+//                 break;
+
+//             default:
+//                 break;
+//         }
+//     }
+// }

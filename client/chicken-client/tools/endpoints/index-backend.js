@@ -1,3 +1,6 @@
+// Websocket
+const WebSocket = require('ws');
+
 /**
  * @brief The login process.
  * It will send the username and the password hashed to the server.
@@ -70,4 +73,12 @@ function login_process(login_data) {
     localStorage.setItem("token", token);
     // Redirect to home page
     window.location.href = "home.html";
+}
+
+// export functions
+module.exports = {
+    send_data: send_data,
+    manage_display_error: manage_display_error,
+    create_socket: create_socket,
+    login_process: login_process
 }
