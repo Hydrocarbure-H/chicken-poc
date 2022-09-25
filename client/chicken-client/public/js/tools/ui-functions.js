@@ -17,6 +17,7 @@ function external_notification(title, body) {
  * @param {string} message 
  */
 function display_bar_message(message) {
+    console.log(message);
     var bar_message = document.getElementById("bar_message");
     bar_message.innerHTML = message;
 }

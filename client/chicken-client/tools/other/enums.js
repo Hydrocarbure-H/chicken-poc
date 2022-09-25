@@ -1,23 +1,18 @@
 
 const QueryType = {
-  Login: 'login',
-  Signin: 'signin',
-  Disconnect: 'disconnect'
+    Login: 'login',
+    Signin: 'signin',
+    Disconnect: 'disconnect'
 };
 
 const QueryStatus = {
-  Success: 'success',
-  Error: 'error',
-  Failure: 'failure'
+    Success: 'success',
+    Error: 'error',
+    Failure: 'failure'
 };
 
-const DisplayError = {
-  Visible: 'display',
-  Hidden: 'hide'
+// export enums
+module.exports = {
+    QueryType: QueryType,
+    QueryStatus: QueryStatus
 };
-
-const DisplayNotification = {
-  Visible: 'display',
-  Hidden: 'hide',
-  Click: 'click'
-}

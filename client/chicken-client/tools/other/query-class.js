@@ -3,7 +3,7 @@ class Query {
         this.type = type;
         this.data = data;
     }
-  }
+}
 
 class Response {
     constructor(type, status, error, data) {
@@ -13,3 +13,10 @@ class Response {
         this.data = data;
     }
 }
+
+// export classes
+module.exports = {
+    Query: Query,
+    Response: Response
+};
+

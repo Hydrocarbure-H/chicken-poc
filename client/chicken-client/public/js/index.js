@@ -1,4 +1,4 @@
-const { login_process } = require("../../tools/endpoints/index-backend");
+// const { login_process } = require("../../tools/endpoints/index-backend");
 
 /**
  * TO DO :
@@ -8,27 +8,43 @@ var connected = false;
 
 // Create socket io connection to the electron app server
 var socket = io('http://localhost:3000');
-
 // emit connection signal
 socket.emit('connection');
 
-// listen for connection signal
+// Adding listeners on the login button
+// FOR TESTING ONLY
+// PUT THIS ACTION INTO THE API_CONNECTED SIGNAL FUNCTION JUST BELOW
+add_listeners(socket);
+// FOR TESTING ONLY
 
+/**
+ * @brief Listen for api connection success signal
+ */
 socket.on('api_connected', function () {
-    console.log("Connected to the API !");
+    // console.log("JS : Connected to the API !");
+    // add_listeners(socket);
     connected = true;
     display_bar_message(ApiConnectionStatus.Connected);
-    add_listeners();
+});
+
+/**
+ * @brief Listen for client backend connection success signal
+ */
+socket.on('client_connected', function () {
+    console.log("JS : Connected to the client backend !");
 });
 
 /**
  * @brief Redirect the user to the home page
  */
 socket.on("login_redirection", function (data) {
+    console.log("Redirecting to the home page");
     login_process(data);
 });
 
-
+/**
+ * @brief Listen for disconnect signal
+ */
 socket.on('disconnect', function () {
     internal_notification(DisplayNotification.Visible, "You have been disconnected");
     display_bar_message(ApiConnectionStatus.Disconnected);
@@ -43,34 +59,3 @@ setInterval(function () {
         display_bar_message(ApiConnectionStatus.Timeout);
     }
 }, 5000);
-
-
-
-// /**
-//  * Will handle every request from the server
-//  * @param {JSON} e 
-//  */
-// socket.onmessage = function (e) {
-
-//     // Try to parse JSON data. If not, there is not any error which is displayed
-//     let response = check_response(e);
-
-//     if (check_status(response)) {
-//         switch (response.type) {
-//             // The response of the server after the login request
-//             case QueryType.Login:
-//                 login_process(response.data);
-//                 break;
-
-//             // The response of the server when we are disconnected
-//             case QueryType.Disconnect:
-//                 internal_notification(DisplayNotification.Visible, "You have been disconnected");
-//                 display_bar_message("Server disconnected");
-//                 connected = false;
-//                 break;
-
-//             default:
-//                 break;
-//         }
-//     }
-// }

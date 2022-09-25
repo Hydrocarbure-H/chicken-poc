@@ -10,9 +10,11 @@ const io = require('socket.io')(server);
 // Add files 
 const INDEX = require('./tools/endpoints/index-backend.js');
 const FUNCTIONS = require('./tools/other/functions.js');
+const QUERY_CLASS = require('./tools/other/query-class.js');
+const ENUMS = require('./tools/other/enums.js');
 
 // Setting up Electron App
-process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true
+process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = false
 // If the above code have to be modified, must comment the previous line
 
 // Create an Electron app
@@ -49,52 +51,68 @@ app.on('window-all-closed', () => {
 });
 
 // Create a socket.io server and wait for connection
-io.on('connection', () => {
-    console.log('A user is connected');
-    // emit connected signal to the fucking client
-    io.emit('connected');
-});
+io.on('connection', (client_socket) => {
 
-// Create a ws connection with the main API
-let socket = INDEX.create_socket("login");
-console.log("Socket has been created");
+    // Create a ws connection with the main API
+    let api_socket = INDEX.create_socket("login");
 
-/**
- * Open the connection with the server
- * @param {JSON} e 
- */
-socket.onopen = function (e) {
-    console.log("Connected to the API !");
-    io.emit('api_connected');
-};
+    // Inform the client that the connection has been established between the back and the front
+    console.log("ELECTRON : Connected to the client !");
+    client_socket.emit('client_connected');
 
-/**
- * Will handle every request from the API
- * @param {JSON} e 
- */
-socket.onmessage = function (e) {
+    /**
+     * Listen for the login request
+     * @param {JSON} data Wich contains the user's credentials
+     */
+    client_socket.on('login_data', (data) => {
+        console.log("ELECTRON : Login data received : " + data);
+        var query = new QUERY_CLASS.Query(ENUMS.QueryType.Login, ENUMS.QueryStatus.Success, null, {
+            username: data.username,
+            password: data.password
+        });
+        // hashed_password: (CryptoJS.SHA256(document.getElementById("password").value)).toString()
+        // Send data
+        console.log("query : " + JSON.stringify(query));
+        // api_socket.send(JSON.stringify(query));
+    });
 
-    // Try to parse JSON data. If not, there is not any error which is displayed
-    let response = FUNCTIONS.check_response(e);
+    /**
+     * Open the connection with the server
+     * @param {JSON} e 
+     */
+    api_socket.onopen = function (e) {
+        console.log("ELECTRON : Connected to the API !");
+        client_socket.emit('api_connected');
+    };
 
-    if (FUNCTIONS.check_status(response)) {
-        switch (response.type) {
-            // The response of the server after the login request
-            case QueryType.Login:
-                // Emit login_redirection signal to the fucking client
-                io.emit('login_redirection', response.data);
-                break;
+    /**
+     * Will handle every request from the API
+     * @param {JSON} e 
+     */
+    api_socket.onmessage = function (e) {
 
-            // The response of the server when we are disconnected
-            case QueryType.Disconnect:
-                // Emit disconnect signal to the fucking client
-                io.emit('disconnect');
-                break;
+        // Try to parse JSON data. If not, there is not any error which is displayed
+        let response = FUNCTIONS.check_response(e);
 
-            default:
-                break;
+        if (FUNCTIONS.check_status(response)) {
+            switch (response.type) {
+                // The response of the server after the login request
+                case QueryType.Login:
+                    // Emit login_redirection signal to the fucking client
+                    client_socket.emit('login_redirection', response.data);
+                    break;
+
+                // The response of the server when we are disconnected
+                case QueryType.Disconnect:
+                    // Emit disconnect signal to the fucking client
+                    client_socket.emit('disconnect');
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
-}
+});
 
 server.listen(3000);
