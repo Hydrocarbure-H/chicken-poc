@@ -80,6 +80,13 @@ body {
     margin-top: 0;
 }
 
+.drag_bar h4 {
+    margin-top: 16px;
+    margin-left: 10px;
+    color: var(--tx-light-3);
+    font-size: 13px;
+}
+
 .drag_bar img {
     border-radius: 5px;
     display: none;
