@@ -57,7 +57,7 @@ io.on('connection', (client_socket) => {
     let api_socket = INDEX.create_socket("login");
 
     // Inform the client that the connection has been established between the back and the front
-    console.log("ELECTRON : Connected to the client !");
+    console.log("ELECTRON : Connected to the client frontend !");
     client_socket.emit('client_connected');
 
     /**
