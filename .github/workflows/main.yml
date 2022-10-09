@@ -21,4 +21,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run NodeJS unit testsuite
-        run: sudo apt-get install -y nodejs && npm install jest && npm run tests client/chicken-client/tests/*.js
+        run: sudo apt-get install -y nodejs && npm install --save-dev jest && npm run tests
