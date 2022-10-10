@@ -21,4 +21,5 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run Electron unit testsuite
+        working-directory: ./client/chicken-client/
         run: sudo apt-get install -y nodejs && npm i -g -D jest && npm test
