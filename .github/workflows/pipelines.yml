@@ -21,4 +21,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run Electron unit testsuite
-        run: sudo apt-get install -y nodejs && npm install jest --global && xvfb-run jest .
+        run: sudo apt-get install -y nodejs && npm install -g jest && npm test
