@@ -8,8 +8,10 @@ function check_response(e) {
         json = JSON.parse(e.data);
     }
     catch (e) {
-        internal_notification(DisplayNotification.Visible, "JSON PARSE - DEBUG : " + response.error);
-        alert("Error : The server sent an invalid response");
+        // internal_notification(DisplayNotification.Visible, "JSON PARSE - DEBUG : " + response.error);
+        // alert("Error : The server sent an invalid response");
+        // Send a signal to client to display error message
+        return null
     }
 
     return new Response(json.type, json.status, json.error, json.data);
