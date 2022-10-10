@@ -1,6 +1,6 @@
 
 function used_for_testing(arg) {
-    return "arg : " + arg;
+    return "arg :" + arg;
 }
 
 module.exports = {
