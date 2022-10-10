@@ -21,4 +21,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run Electron unit testsuite
-        run: sudo apt-get install -y nodejs && npm install -g electron electron-mocha && xvfb-run electron-mocha --renderer --reporter spec client/chicken-client/tests/*.spec.js
+        run: sudo apt-get install -y nodejs && npm install --save-dev jest && npm test
