@@ -11,6 +11,7 @@ const io = require('socket.io')(server);
 const INDEX = require('./tools/endpoints/index-backend.js');
 const FUNCTIONS = require('./tools/other/functions.js');
 const QUERY_CLASS = require('./tools/other/query-class.js');
+const ERROR_CLASS = require('./tools/other/error-class.js');
 const ENUMS = require('./tools/other/enums.js');
 
 // Setting up Electron App
@@ -93,24 +94,37 @@ io.on('connection', (client_socket) => {
 
         // Try to parse JSON data. If not, there is not any error which is displayed
         let response = FUNCTIONS.check_response(e);
+        if (typeof response != ERROR_CLASS.Error) {
+            if (FUNCTIONS.check_status(response)) {
+                switch (response.type) {
+                    // The response of the server after the login request
+                    case QueryType.Login:
+                        // Emit login_redirection signal to the fucking client
+                        client_socket.emit('login_redirection', response.data);
+                        break;
 
-        if (FUNCTIONS.check_status(response)) {
-            switch (response.type) {
-                // The response of the server after the login request
-                case QueryType.Login:
-                    // Emit login_redirection signal to the fucking client
-                    client_socket.emit('login_redirection', response.data);
-                    break;
+                    // The response of the server when we are disconnected
+                    case QueryType.Disconnect:
+                        // Emit disconnect signal to the fucking client
+                        client_socket.emit('disconnect');
+                        break;
 
-                // The response of the server when we are disconnected
-                case QueryType.Disconnect:
-                    // Emit disconnect signal to the fucking client
-                    client_socket.emit('disconnect');
-                    break;
-
-                default:
-                    break;
+                    default:
+                        break;
+                }
             }
+            // status error
+            else {
+                const error_data = new ERROR_CLASS.ErrorData(ENUMS.ErrorCode.status_error + " : Status error", "Unexpected status error. Response : " + JSON.stringify(response));
+                const error_object = new ERROR_CLASS.Error(ENUMS.QueryStatus.error, ENUMS.ErrorCode.status_error, error_data);
+                client_socket.emit("status error", JSON.stringify(error_object));
+            }
+        }
+        // response error
+        else {
+            const error_data = new ERROR_CLASS.ErrorData(ENUMS.ErrorCode.response_error + " : Response error", "Unexpected JSON parsing error. Response : " + JSON.stringify(e));
+            const error_object = new ERROR_CLASS.Error(ENUMS.QueryStatus.error, ENUMS.ErrorCode.response_error, error_data);
+            client_socket.emit("response error", JSON.stringify(error_object));
         }
     }
 });

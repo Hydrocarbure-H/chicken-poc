@@ -52,6 +52,20 @@ socket.on('disconnect', function () {
 });
 
 /**
+ * @brief Handle status error - TO IMPROVE
+ */
+socket.on("status error", function (data) {
+    alert(data);
+});
+
+/**
+ * @brief Handle response error - TO IMPROVE
+ */
+socket.on("response error", function (data) {
+    alert(data);
+});
+
+/**
  * Check if the server has been disconnected without sending a disconnection request
  */
 setInterval(function () {

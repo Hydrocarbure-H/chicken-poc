@@ -1,5 +1,6 @@
 
 const ENUMS = require('./enums');
+const ERROR_CLASS = require('./error-class');
 
 /**
  * @brief Check the validity of the response
@@ -15,7 +16,9 @@ function check_response(e) {
         // alert("Error : The server sent an invalid response");
 
         // Send a signal to client to display error message
-        return null
+
+        const error_data = new ERROR_CLASS.ErrorData(ENUMS.ErrorCode.response_error + " : Response error", "Unexpected JSON parsing error. Response : " + JSON.stringify(e));
+        return new ERROR_CLASS.Error(ENUMS.QueryStatus.error, ENUMS.ErrorCode.response_error, error_data);
     }
 
     return new Response(json.type, json.status, json.error, json.data);
@@ -27,14 +30,13 @@ function check_response(e) {
  * @returns 
  */
 function check_status(response) {
-    if (response.status === ENUMS.QueryStatus.failure) {
-        // internal_notification(DisplayNotification.Visible, "Error : " + response.error);
-        // manage_display_error(DisplayError.Visible, response.error);
-
-        // Send a signal to client to display error message, status error
-        return false
+    if (response.status === ENUMS.QueryStatus.success) {
+        return true
     }
-    return true
+    else {
+        const error_data = new ERROR_CLASS.ErrorData(ENUMS.ErrorCode.status_error + " : Status error", "Unexpected status error : status = " + response.status);
+        return new ERROR_CLASS.Error(response.status, ENUMS.ErrorCode.status_error, error_data);
+    }
 }
 
 

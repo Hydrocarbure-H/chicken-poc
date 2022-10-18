@@ -11,8 +11,15 @@ const QueryStatus = {
     failure: 'failure'
 };
 
+const ErrorCode = {
+    status_error: 1,
+    response_error: 2,
+    connection_error: 3
+}
+
 // export enums
 module.exports = {
     QueryType: QueryType,
-    QueryStatus: QueryStatus
+    QueryStatus: QueryStatus,
+    ErrorCode: ErrorCode
 };
