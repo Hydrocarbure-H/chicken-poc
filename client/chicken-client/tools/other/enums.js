@@ -6,9 +6,9 @@ const QueryType = {
 };
 
 const QueryStatus = {
-    Success: 'success',
-    Error: 'error',
-    Failure: 'failure'
+    success: 'success',
+    error: 'error',
+    failure: 'failure'
 };
 
 // export enums

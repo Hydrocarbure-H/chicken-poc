@@ -1,3 +1,6 @@
+
+const ENUMS = require('./enums');
+
 /**
  * @brief Check the validity of the response
  * @param {JSON} e 
@@ -10,6 +13,7 @@ function check_response(e) {
     catch (e) {
         // internal_notification(DisplayNotification.Visible, "JSON PARSE - DEBUG : " + response.error);
         // alert("Error : The server sent an invalid response");
+
         // Send a signal to client to display error message
         return null
     }
@@ -23,9 +27,11 @@ function check_response(e) {
  * @returns 
  */
 function check_status(response) {
-    if (response.status === QueryStatus.Failure) {
-        internal_notification(DisplayNotification.Visible, "Error : " + response.error);
-        manage_display_error(DisplayError.Visible, response.error);
+    if (response.status === ENUMS.QueryStatus.failure) {
+        // internal_notification(DisplayNotification.Visible, "Error : " + response.error);
+        // manage_display_error(DisplayError.Visible, response.error);
+
+        // Send a signal to client to display error message, status error
         return false
     }
     return true

@@ -1,18 +1,32 @@
-const { check_response } = require('../../tools/other/functions');
+// const { check_response } = require('../../tools/other/functions');
+const { json } = require('express');
 const FUNCTIONS = require('../../tools/other/functions');
 
-const e = {
+const response_success = {
     data: {
         type: "Test", status: "Test", error: "Test", data: "Test",
     },
 };
 
-console.log("signal : " + JSON.stringify(e.data));
-json = JSON.parse(JSON.stringify(e.data));
-console.log("JSON : " + json.type);
+str_json_man = JSON.stringify(response_success)
+json_man = JSON.parse(str_json_man);
+console.log("Ext to function : " + json_man.data.type)
 
-const string_response = JSON.stringify(response_success);
-const returned_value = FUNCTIONS.check_response(string_response);
+str_json_func = JSON.stringify(response_success);
+json_func = check_response(str_json_func);
+console.log("Int to function : " + json_func.data.type)
 
-json = JSON.parse(JSON.stringify(e.data));
-console.log("JSON : " + json.type);
+
+function check_response(e) {
+    try {
+        json = JSON.parse(e);
+    }
+    catch (e) {
+        // internal_notification(DisplayNotification.Visible, "JSON PARSE - DEBUG : " + response.error);
+        // alert("Error : The server sent an invalid response");
+        // Send a signal to client to display error message
+        return null
+    }
+
+    return new Response(json.type, json.status, json.error, json.data);
+}
