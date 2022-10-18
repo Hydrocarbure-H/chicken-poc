@@ -2,9 +2,16 @@ const { check_response } = require('../../../tools/other/functions');
 const FUNCTIONS = require('../../../tools/other/functions');
 const QUERY_CLASS = require('../../../tools/other/query-class');
 
+const response_success = {
+    data: {
+        type: "Test", status: "Test", error: "Test", data: "Test",
+    },
+};
 
-const response_success = "{data:'{}'}";
+console.log("signal : " + JSON.stringify(response_success));
 
 test('Test the functions file', () => {
-    expect(check_response(response_success)).toBeInstanceOf(QUERY_CLASS.Response)
+    const string_response = JSON.stringify(response_success);
+    const returned_value = FUNCTIONS.check_response(string_response);
+    expect(returned_value.status).toBe("Test");
 });
