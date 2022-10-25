@@ -2,7 +2,11 @@
 const QueryType = {
     Login: 'login',
     Signin: 'signin',
-    Disconnect: 'disconnect'
+    Disconnect: 'disconnect',
+    SendMessage: 'send_message',
+    GetMessages: 'get_messages',
+    GetUsers: 'get_users'
+
 };
 
 const QueryStatus = {

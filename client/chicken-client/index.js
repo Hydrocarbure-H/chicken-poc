@@ -114,6 +114,11 @@ io.on('connection', (client_socket) => {
                 client_socket.emit('login_redirection', response.data);
                 break;
 
+            case QueryType.Signin:
+                // Emit signin_redirection signal to the fucking client
+                client_socket.emit('signin_redirection', response.data);
+                break;
+
             // The response of the server when we are disconnected
             case QueryType.Disconnect:
                 // Emit disconnect signal to the fucking client
