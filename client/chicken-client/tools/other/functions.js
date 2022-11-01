@@ -5,7 +5,7 @@ const QUERY_CLASS = require('./query-class');
 const { Notification } = require('electron');
 
 // Notification
-const notifier = require('node-notifier');
+const WindowsToaster = require('node-notifier').WindowsToaster;
 
 /**
  * @brief Check the validity of the response
@@ -47,13 +47,26 @@ function check_status(response) {
 function notify(platform, title, body) {
 
     if (platform === "win32") {
-        const options = {
-            title: 'Chicken',
-            message: 'Connected to backend.',
+        // const options = {
+        //     title: 'Chicken',
+        //     message: 'Connected to backend.',
+        //     icon: 'public/images/logo/Chicken_logo.png',
+        //     sound: "SMS"
+        // };
+        // notifier.notify(options);
+        let windowsToasterNotifier = new WindowsToaster({
+            withFallback: true
+        });
+        windowsToasterNotifier.notify({
+            title: title,
+            message: body,
             icon: 'public/images/logo/Chicken_logo.png',
-            sound: "SMS"
-        };
-        notifier.notify(options);
+            sound: "SMS",
+        },
+            function (error, response) {
+                console.log(response);
+            }
+        );
     }
     else if (platform === "darwin") {
         console.log("NOTIFY : " + platform + " - " + title + " - " + body);
