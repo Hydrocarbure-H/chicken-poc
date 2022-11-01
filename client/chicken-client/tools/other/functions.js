@@ -2,6 +2,10 @@
 const ENUMS = require('./enums');
 const ERROR_CLASS = require('./error-class');
 const QUERY_CLASS = require('./query-class');
+const { Notification } = require('electron');
+
+// Notification
+const notifier = require('node-notifier');
 
 /**
  * @brief Check the validity of the response
@@ -40,9 +44,26 @@ function check_status(response) {
     }
 }
 
+function notify(platform, title, body) {
+
+    if (platform === "win32") {
+        const options = {
+            title: 'Chicken',
+            message: 'Connected to backend.',
+            icon: 'public/images/logo/Chicken_logo.png',
+            sound: "public/assets/sounds/chicken_one_2sounds.mp3"
+        };
+        notifier.notify(options);
+    }
+    else if (platform === "darwin") {
+        console.log("NOTIFY : " + platform + " - " + title + " - " + body);
+        new Notification({ title: title, body: body }).show();
+    }
+}
 
 // export functions
 module.exports = {
     check_response: check_response,
-    check_status: check_status
+    check_status: check_status,
+    notify: notify
 };

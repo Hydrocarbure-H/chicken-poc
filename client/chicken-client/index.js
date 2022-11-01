@@ -2,10 +2,6 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path');
 
-// Notification
-const notifier = require('node-notifier');
-
-
 // Socket.io
 const socket_app = require('express')();
 const server = require('http').createServer(socket_app);
@@ -17,9 +13,16 @@ const FUNCTIONS = require('./tools/other/functions.js');
 const QUERY_CLASS = require('./tools/other/query-class.js');
 const ERROR_CLASS = require('./tools/other/error-class.js');
 const ENUMS = require('./tools/other/enums.js');
+const { notify } = require('node-notifier');
+
+// Global strings
+const app_name = "Chicken";
+const app_version = "0.0.1";
 
 // Setting up Electron App
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = false
+const platform = process.platform;
+
 // If the above code have to be modified, must comment the previous line
 
 // Create an Electron app
@@ -64,15 +67,7 @@ io.on('connection', (client_socket) => {
     // Inform the client that the connection has been established between the back and the front
     console.log("ELECTRON : Connected to the client frontend !");
     client_socket.emit('client_connected');
-
-    // const options = {
-    //     title: 'Chicken',
-    //     message: 'Connected to backend.',
-    //     subtitle: 'Chicken',
-    //     icon: 'public/images/logo/Chicken_logo.png',
-    //     sound: "public/assets/sounds/chicken_one_2sounds.mp3"
-    // };
-    // notifier.notify(options);
+    FUNCTIONS.notify(platform, app_name, "Connected to the client frontend !");
 
     /**
      * Listen for the login request
