@@ -10,13 +10,13 @@ namespace chicken_server.Controller
 
         public static User? FindUser(string username)
         {
+            _users = Model.User.Get();
             return _users.Find(user => user?._username == username);
         }
 
         public static string? CheckLogin(Login data)
         {
-            //User? user = FindUser(data.Username);
-            User user = new User("thomas", "123456");
+            User? user = FindUser(data.Username);
 
             if (user != null && user.CheckUsername(data.Username) && user.CheckPassword(data.Password))
                 return user._token;

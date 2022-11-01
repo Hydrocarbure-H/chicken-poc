@@ -1,5 +1,7 @@
-﻿using chicken_server.Controller;
+﻿using System.Collections;
+using chicken_server.Controller;
 using chicken_server.Model;
+using User = chicken_server.Model.User;
 
 namespace chicken_server
 {
@@ -24,10 +26,7 @@ namespace chicken_server
                 Start(args[0], args[1]);
             else
                 Start();
-
-
-            tmp.testDB();
-
+            
             while (_running)
             {
             }

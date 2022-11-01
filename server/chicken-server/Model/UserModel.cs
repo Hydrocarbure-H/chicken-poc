@@ -1,34 +1,66 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using DbContext = System.Data.Entity.DbContext;
 
 namespace chicken_server.Model
 {
-    public static class tmp
+    public static class User
     {
-        public static void testDB()
+        public static void Add(string username, string password)
         {
             UserModel t = new UserModel
             {
-                Id = 1,
-                Username = "Thimot", 
-                Password = "1234",
-                Token = "hsdfsf"
+                Username = username, 
+                Password = password
             };
-
-            var db = new ChickenContext();
-            //db.Users.Add(t);
-            //db.SaveChanges();
+            
+            var db = ChickenContext.Create();
+            db.Users.Add(t);
+            db.SaveChanges();
+        }
+        
+        public static Controller.User Get(string username)
+        {
+            var db = ChickenContext.Create();
+            List<UserModel> list = db.Users.Where(user => user.Username.Equals(username)).ToList();
+            
+            // Convert Model.User to Controller.User before sending the list back
+            return list.Select(userModel => new Controller.User(userModel.Username, userModel.Password)).ToList()[0];
+        }
+        
+        public static List<Controller.User> Get()
+        {
+            var db = ChickenContext.Create();
+            List<UserModel> list = db.Users.ToList();
+            
+            // Convert Model.User to Controller.User before sending the list back
+            return list.Select(userModel => new Controller.User(userModel.Username, userModel.Password)).ToList();
         }
     }
+    
+    
 
+    [Table("users")]
     public class UserModel
     {
+        [Column("ID")]
         [Key]
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        
+        [Column("username")]
+        [Required]
+        [MaxLength(32)]
         public string Username { get; set; }
+        
+        [Column("password")]
+        [Required]
+        [MaxLength(128)]
         public string Password { get; set; }
+        
+        [Column("token")]
+        [MaxLength(64)]
         public string Token { get; set; }
     }
 
@@ -36,14 +68,19 @@ namespace chicken_server.Model
 
     public sealed class ChickenContext : DbContext
     {
-        public ChickenContext(): base()
+        public static ChickenContext Create()
         {
-            Database.SetInitializer<ChickenContext>(new DropCreateDatabaseIfModelChanges<ChickenContext>());
+            var contextOption = new DbContextOptionsBuilder<ChickenContext>()
+                .UseNpgsql("Host=bdd.chicken.coloc;Database=chicken_db;Username=chicken_user;Password=chicken_user")
+                .Options;
+            
+            return new ChickenContext(contextOption);
         }
-        public System.Data.Entity.DbSet<UserModel> Users { get; set; }
-
-        private static void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql("Host=bdd.chicken.coloc;Database=chicken_db;Username=chicken_user;Password=chicken_user");
+        private ChickenContext(DbContextOptions<ChickenContext> options) : base(options)
+        {
+            this.Database.EnsureCreated();
+        }
+        public DbSet<UserModel> Users { get; set; }
 
     }
 }
