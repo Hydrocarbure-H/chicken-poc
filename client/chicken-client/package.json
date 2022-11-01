@@ -4,7 +4,7 @@
     "description": "The client of the chicken chat app",
     "scripts": {
         "test": "jest",
-        "start": "electron ."
+        "start": "electron . --icon 'public/images/logo/icon-512-512_rounded_bg_white.ico'"
     },
     "author": "Thomas Peugnet",
     "license": "ISC",
@@ -17,6 +17,7 @@
         "electron": "^19.0.4",
         "express": "^4.18.2",
         "js-sha256": "^0.9.0",
+        "node-notifier": "^10.0.1",
         "socket.io": "^4.5.2",
         "websocket": "^1.0.34"
     }

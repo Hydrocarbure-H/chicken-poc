@@ -1,5 +1,3 @@
-// const { login_process } = require("../../tools/endpoints/index-backend");
-
 /**
  * TO DO :
  * Change notification style and structure (using classes)

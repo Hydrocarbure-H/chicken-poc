@@ -2,6 +2,10 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path');
 
+// Notification
+const notifier = require('node-notifier');
+
+
 // Socket.io
 const socket_app = require('express')();
 const server = require('http').createServer(socket_app);
@@ -21,7 +25,7 @@ process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = false
 // Create an Electron app
 const createWindow = () => {
     const win = new BrowserWindow({
-        icon: 'public/images/logo/icon-200-200.png',
+        icon: 'public/images/logo/Chicken_logo.ico',
         titleBarStyle: 'hiddenInset',
         titleBarOverlay: true,
         width: 800,
@@ -36,7 +40,7 @@ const createWindow = () => {
     });
     win.webContents.openDevTools()
 
-    win.loadFile('public/views/home.html')
+    win.loadFile('public/views/index.html')
 }
 
 app.whenReady().then(() => {
@@ -60,6 +64,14 @@ io.on('connection', (client_socket) => {
     // Inform the client that the connection has been established between the back and the front
     console.log("ELECTRON : Connected to the client frontend !");
     client_socket.emit('client_connected');
+
+    const options = {
+        title: 'Chicken',
+        message: 'Connected to backend.',
+        icon: 'public/images/logo/Chicken_logo.png',
+        sound: true
+    };
+    notifier.notify(options);
 
     /**
      * Listen for the login request
