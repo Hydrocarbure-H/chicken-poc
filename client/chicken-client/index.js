@@ -70,7 +70,7 @@ io.on('connection', (client_socket) => {
         message: 'Connected to backend.',
         subtitle: 'Chicken',
         icon: 'public/images/logo/Chicken_logo.png',
-        sound: true
+        sound: "public/assets/sounds/chicken_one_2sounds.mp3"
     };
     notifier.notify(options);
 
