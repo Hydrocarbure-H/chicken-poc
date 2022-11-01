@@ -8,7 +8,7 @@ const WebSocket = require('ws');
  * TODO : Add a timeout handler
  */
 function create_socket(endpoint) {
-    return new WebSocket("ws://192.168.1.182:9002/" + endpoint);
+    return new WebSocket("ws://chicken.coloc:9002/" + endpoint);
 }
 
 
