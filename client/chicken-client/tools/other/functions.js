@@ -49,14 +49,14 @@ function notify(platform, title, body) {
     if (platform === "win32") {
         const options = {
             title: 'Chicken',
-            message: 'Connected to backend.',
+            body: 'Connected to backend.',
             icon: 'public/images/logo/Chicken_logo.png',
             sound: "SMS",
             silent: false,
             hasReply: true,
             timeoutType: 'never',
             replyPlaceholder: 'Reply Here',
-            sound: path.join(__dirname, '../assets/sounds/sound1.mp3'),
+            sound: 'public/assets/sounds/sound1.mp3',
             urgency: 'critical',
             closeButtonText: 'Close Button',
             actions: [{
