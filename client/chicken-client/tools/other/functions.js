@@ -57,7 +57,7 @@ function notify(platform, title, body) {
     }
     else if (platform === "darwin") {
         console.log("NOTIFY : " + platform + " - " + title + " - " + body);
-        new Notification({ title: title, body: body }).show();
+        new Notification({ title: title, body: body, sound: "sound1" }).show();
     }
 }
 
