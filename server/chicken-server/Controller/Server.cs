@@ -8,7 +8,7 @@ namespace chicken_server.Controller
     {
         private readonly WebSocketServer _webSocketServer;
 
-        public Server(string ip = "localhost", string port = "4444")
+        public Server(string ip = "0.0.0.0", string port = "9002")
         {
             _webSocketServer = new WebSocketServer("ws://" + ip + ":" + port);
             Handler.SetEndpoints(ref _webSocketServer);

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal" created-in="RD-222.4167.23">
+    <data-source name="postgres@bdd.chicken.coloc" uuid="f04d06b4-7e88-46d5-94b1-374acb5703cc">
+      <database-info product="PostgreSQL" version="13.7 (Debian 13.7-0+deb11u1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.3.3" dbms="POSTGRES" exact-version="13.7" exact-driver-version="42.3">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>admin</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node negative="1">
+            <node kind="database" qname="chicken_db">
+              <node kind="schema" qname="chicken_schema" />
+            </node>
+            <node kind="database" qname="postgres">
+              <node kind="schema" qname="public" />
+            </node>
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
+    <data-source name="chicken_user@bdd.chicken.coloc" uuid="06292037-cd46-41c1-ac5d-a67d12416962">
+      <database-info product="PostgreSQL" version="13.7 (Debian 13.7-0+deb11u1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.5.0" dbms="POSTGRES" exact-version="13.7" exact-driver-version="42.5">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>chicken_user</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="database" qname="chicken_db">
+            <node kind="schema" negative="1" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
+  </component>
+</project>
