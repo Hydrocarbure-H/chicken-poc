@@ -68,6 +68,7 @@ io.on('connection', (client_socket) => {
     const options = {
         title: 'Chicken',
         message: 'Connected to backend.',
+        subtitle: 'Chicken',
         icon: 'public/images/logo/Chicken_logo.png',
         sound: true
     };
