@@ -6,7 +6,7 @@ const { Notification } = require('electron');
 
 // Notification
 const notifier = require('node-notifier');
-
+const path = require('path');
 /**
  * @brief Check the validity of the response
  * @param {JSON} e 
@@ -56,7 +56,7 @@ function notify(platform, title, body) {
             hasReply: true,
             timeoutType: 'never',
             replyPlaceholder: 'Reply Here',
-            sound: path.join(__dirname, '../assets/sound.mp3'),
+            sound: path.join(__dirname, '../assets/sounds/sound1.mp3'),
             urgency: 'critical',
             closeButtonText: 'Close Button',
             actions: [{
