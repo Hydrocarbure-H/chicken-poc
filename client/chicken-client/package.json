@@ -19,6 +19,7 @@
         "js-sha256": "^0.9.0",
         "node-notifier": "^10.0.1",
         "socket.io": "^4.5.2",
+        "sound-play": "^1.1.0",
         "websocket": "^1.0.34"
     }
 }

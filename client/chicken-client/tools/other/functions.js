@@ -4,9 +4,7 @@ const ERROR_CLASS = require('./error-class');
 const QUERY_CLASS = require('./query-class');
 const { Notification } = require('electron');
 
-// Notification
-const notifier = require('node-notifier');
-const path = require('path');
+
 /**
  * @brief Check the validity of the response
  * @param {JSON} e 
@@ -47,16 +45,18 @@ function check_status(response) {
 function notify(platform, title, body) {
 
     if (platform === "win32") {
+        const sound = require("sound-play");
+
         const options = {
-            title: 'Chicken',
+            title: 'System',
             body: 'Connected to backend.',
+            subtitle: "The chicken app",
             icon: 'public/images/logo/Chicken_logo.png',
             sound: "SMS",
-            silent: false,
+            silent: true,
             hasReply: true,
             timeoutType: 'never',
             replyPlaceholder: 'Reply Here',
-            sound: 'public/assets/sounds/sound1.mp3',
             urgency: 'critical',
             closeButtonText: 'Close Button',
             actions: [{
@@ -66,6 +66,8 @@ function notify(platform, title, body) {
         };
         const customNotification = new Notification(options);
         customNotification.show();
+        sound.play("C:\Users\Thomas PEUGNET\Documents\GitHub\chicken\client\chicken-client\public\assets\sounds\sound1.mp3", 1);
+
     }
     else if (platform === "darwin") {
         console.log("NOTIFY : " + platform + " - " + title + " - " + body);
