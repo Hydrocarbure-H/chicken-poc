@@ -25,6 +25,11 @@ socket.on('api_connected', function () {
     display_bar_message(ApiConnectionStatus.Connected);
 });
 
+socket.on("notification_sound", function () {
+    const audio = new Audio("..\\assets\\sounds\\sound1.mp3");
+    audio.play();
+})
+
 /**
  * @brief Listen for client backend connection success signal
  */

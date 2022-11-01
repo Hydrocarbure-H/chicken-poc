@@ -42,17 +42,14 @@ function check_status(response) {
     }
 }
 
-function notify(platform, title, body) {
+function notify(platform, title, body, socket) {
 
     if (platform === "win32") {
-        const sound = require("sound-play");
-
         const options = {
             title: 'System',
             body: 'Connected to backend.',
             subtitle: "The chicken app",
             icon: 'public/images/logo/Chicken_logo.png',
-            sound: "SMS",
             silent: true,
             hasReply: true,
             timeoutType: 'never',
@@ -66,7 +63,7 @@ function notify(platform, title, body) {
         };
         const customNotification = new Notification(options);
         customNotification.show();
-        sound.play("C:\Users\Thomas PEUGNET\Documents\GitHub\chicken\client\chicken-client\public\assets\sounds\sound1.mp3", 1);
+        socket.emit("notification_sound");
 
     }
     else if (platform === "darwin") {
