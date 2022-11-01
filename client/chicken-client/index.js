@@ -65,14 +65,14 @@ io.on('connection', (client_socket) => {
     console.log("ELECTRON : Connected to the client frontend !");
     client_socket.emit('client_connected');
 
-    const options = {
-        title: 'Chicken',
-        message: 'Connected to backend.',
-        subtitle: 'Chicken',
-        icon: 'public/images/logo/Chicken_logo.png',
-        sound: "public/assets/sounds/chicken_one_2sounds.mp3"
-    };
-    notifier.notify(options);
+    // const options = {
+    //     title: 'Chicken',
+    //     message: 'Connected to backend.',
+    //     subtitle: 'Chicken',
+    //     icon: 'public/images/logo/Chicken_logo.png',
+    //     sound: "public/assets/sounds/chicken_one_2sounds.mp3"
+    // };
+    // notifier.notify(options);
 
     /**
      * Listen for the login request
@@ -87,7 +87,7 @@ io.on('connection', (client_socket) => {
         // hashed_password: (CryptoJS.SHA256(document.getElementById("password").value)).toString()
         // Send data
         console.log("query : " + JSON.stringify(query));
-        // api_socket.send(JSON.stringify(query));
+        api_socket.send(JSON.stringify(query));
     });
 
     /**
@@ -122,18 +122,18 @@ io.on('connection', (client_socket) => {
 
         switch (response.type) {
             // The response of the server after the login request
-            case QueryType.Login:
+            case ENUMS.QueryType.Login:
                 // Emit login_redirection signal to the fucking client
                 client_socket.emit('login_redirection', response.data);
                 break;
 
-            case QueryType.Signin:
+            case ENUMS.QueryType.Signin:
                 // Emit signin_redirection signal to the fucking client
                 client_socket.emit('signin_redirection', response.data);
                 break;
 
             // The response of the server when we are disconnected
-            case QueryType.Disconnect:
+            case ENUMS.QueryType.Disconnect:
                 // Emit disconnect signal to the fucking client
                 client_socket.emit('disconnect');
                 break;

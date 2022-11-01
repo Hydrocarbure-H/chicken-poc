@@ -1,6 +1,7 @@
 
 const ENUMS = require('./enums');
 const ERROR_CLASS = require('./error-class');
+const QUERY_CLASS = require('./query-class');
 
 /**
  * @brief Check the validity of the response
@@ -21,7 +22,7 @@ function check_response(e) {
         return new ERROR_CLASS.Error(ENUMS.QueryStatus.error, ENUMS.ErrorCode.response_error, error_data);
     }
 
-    return new Response(json.type, json.status, json.error, json.data);
+    return new QUERY_CLASS.Response(json.type, json.status, json.error, json.data);
 }
 
 /**
