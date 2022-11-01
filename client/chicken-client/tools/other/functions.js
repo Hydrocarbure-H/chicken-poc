@@ -48,14 +48,12 @@ function notify(platform, title, body, socket) {
         const options = {
             title: 'System',
             body: 'Connected to backend.',
-            subtitle: "The chicken app",
             icon: 'public/images/logo/Chicken_logo.png',
             silent: true,
             hasReply: true,
             timeoutType: 'never',
-            replyPlaceholder: 'Reply Here',
             urgency: 'critical',
-            closeButtonText: 'Close Button',
+            closeButtonText: 'Close',
             actions: [{
                 type: 'button',
                 text: 'Show Button'

@@ -23,8 +23,7 @@ const app_version = "0.0.1";
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = false
 const platform = process.platform;
 
-// If the above code have to be modified, must comment the previous line
-
+// TODO : Change the notification system in fontend to use only system notifications and alert messages
 // Create an Electron app
 const createWindow = () => {
     const win = new BrowserWindow({
