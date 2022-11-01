@@ -51,7 +51,7 @@ function notify(platform, title, body) {
             title: 'Chicken',
             message: 'Connected to backend.',
             icon: 'public/images/logo/Chicken_logo.png',
-            sound: "public/assets/sounds/chicken_one_2sounds.mp3"
+            sound: "SMS"
         };
         notifier.notify(options);
     }
