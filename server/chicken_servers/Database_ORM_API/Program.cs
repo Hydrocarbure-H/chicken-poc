@@ -1,3 +1,13 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using chicken_server.Controller;
 
-Console.WriteLine("Hello, World!");
+namespace Database_ORM_API
+{
+    public static class Program
+    {
+
+        public static void Main(string[] args)
+        {
+           
+        }
+    }
+}
