@@ -74,5 +74,6 @@ socket.on("response error", function (data) {
 setInterval(function () {
     if (connected == false) {
         display_bar_message(ApiConnectionStatus.Timeout);
+        socket.emit("connection timeout");
     }
 }, 5000);
