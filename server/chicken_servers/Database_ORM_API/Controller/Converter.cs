@@ -1,6 +1,6 @@
-﻿using chicken_server.View.WebSocket.Queries;
+﻿using Database_ORM_API.View.WebSocket.queries;
 
-namespace chicken_server.Controller;
+namespace Database_ORM_API.Controller;
 
 public static class Converter
 {

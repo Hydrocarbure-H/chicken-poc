@@ -1,29 +1,16 @@
-﻿using chicken_server.View.WebSocket;
-using WebSocketSharp.Server;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace chicken_server.Controller
+namespace Database_ORM_API.Controller
 {
-    
-    public sealed class Server
+    public class Startup
     {
-        private readonly WebSocketServer _webSocketServer;
-
-        public Server(string ip = "0.0.0.0", string port = "9002")
-        {
-            _webSocketServer = new WebSocketServer("ws://" + ip + ":" + port);
-            Handler.SetEndpoints(ref _webSocketServer);
-        }
-
-        public void Start()
-        {
-            _webSocketServer.Start();
-            Console.WriteLine("listening on " + _webSocketServer.Address + ":" + _webSocketServer.Port);
-        }
-
-        public void Stop()
-        {
-            _webSocketServer.WebSocketServices.Broadcast("{\"type\":\"disconnect\"}");
-            _webSocketServer.Stop();
-        }
+        public void ConfigureServices
     }
 }

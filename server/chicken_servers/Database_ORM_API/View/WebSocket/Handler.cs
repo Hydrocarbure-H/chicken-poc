@@ -1,7 +1,6 @@
-﻿using chicken_server.View.WebSocket.Queries;
-using System.
+﻿using Database_ORM_API.View.WebSocket.queries;
 
-namespace chicken_server.View.WebSocket
+namespace Database_ORM_API.View.WebSocket
 {
     public static class Handler
     {

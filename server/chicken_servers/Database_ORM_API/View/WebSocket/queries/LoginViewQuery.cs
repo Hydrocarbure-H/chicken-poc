@@ -1,9 +1,7 @@
-﻿using chicken_server.Controller;
+﻿using Database_ORM_API.Controller;
 using Newtonsoft.Json;
-using WebSocketSharp;
-using WebSocketSharp.Server;
 
-namespace chicken_server.View.WebSocket.Queries
+namespace Database_ORM_API.View.WebSocket.queries
 {
     public class LoginViewQuery : IQuery
     {

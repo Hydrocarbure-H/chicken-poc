@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace chicken_server.Controller;
+namespace Database_ORM_API.Controller;
 
 public class Login
 {
