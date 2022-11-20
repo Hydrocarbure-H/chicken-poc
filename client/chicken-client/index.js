@@ -59,13 +59,27 @@ app.on('window-all-closed', () => {
 
 // Create a socket.io server and wait for connection
 io.on('connection', (client_socket) => {
+    // Inform the client that the connection has been established between the back and the front
+    console.log("ELECTRON : Connected to the client frontend !");
+    client_socket.emit('client_connected');
 
     // Create a ws connection with the main API
     let api_socket = INDEX.create_socket("login");
 
-    // Inform the client that the connection has been established between the back and the front
-    console.log("ELECTRON : Connected to the client frontend !");
-    client_socket.emit('client_connected');
+    // Connect to the main API, and emit the connection signal
+    // If the connection is successful, emit the api_connected signal
+    // Else, emit the api_connection_failure signal
+    api_socket.start().then(function () {
+        console.log("ELECTRON : Connected to the API !");
+        client_socket.emit('api_connected');
+    }).catch(function (err) {
+        console.log("ELECTRON : Connection to the API failed !");
+        client_socket.emit('api_connection_failure', err);
+    });
+
+    //**********************************************************************************************************************
+    // Handle Client signals
+    //**********************************************************************************************************************
 
     /**
      * Listen for the login request
@@ -78,65 +92,49 @@ io.on('connection', (client_socket) => {
             password: data.password
         });
         // hashed_password: (CryptoJS.SHA256(document.getElementById("password").value)).toString()
+
         // Send data
         console.log("query : " + JSON.stringify(query));
-        api_socket.send(JSON.stringify(query));
+
+        api_socket.invoke("SendMessage", JSON.stringify(query)).catch(function (err) {
+            console.log("ELECTRON : Error while sending login data to the API : " + err);
+            client_socket.emit('api_send_data_failure', err);
+        });
+    });
+
+    //**********************************************************************************************************************
+    // Handle API signals
+    //**********************************************************************************************************************
+
+    /**
+     * Listen for the login response
+     */
+    api_socket.on(ENUMS.QueryType.Login, function (data) {
+        let response = get_response(data);
+        console.log("ELECTRON : Received message from the API : " + JSON.stringify(response));
+
+        client_socket.emit('login_redirection', response.data);
     });
 
     /**
-     * Open the connection with the server
-     * @param {JSON} e 
+     * Listen for the signin response
      */
-    api_socket.onopen = function (e) {
-        console.log("ELECTRON : Connected to the API !");
-        //FUNCTIONS.notify(platform, app_name, "Connected to the server !", client_socket);
-        client_socket.emit('api_connected');
-    };
+    api_socket.on(ENUMS.QueryType.Signin, function (data) {
+        let response = get_response(data);
+        console.log("ELECTRON : Received message from the API : " + JSON.stringify(response));
+
+        client_socket.emit('signin_redirection', response.data);
+    });
 
     /**
-     * Will handle every request from the API
-     * @param {JSON} e 
+     * Listen for the logout response
      */
-    api_socket.onmessage = function (e) {
+    api_socket.on(ENUMS.QueryType.Disconnect, function (data) {
+        let response = get_response(data);
+        console.log("ELECTRON : Received message from the API : " + JSON.stringify(response));
 
-        // Check the validity of the response and the status
-        let response = FUNCTIONS.check_response(e);
-        if (typeof response == ERROR_CLASS.Error) {
-            const error_data = new ERROR_CLASS.ErrorData(ENUMS.ErrorCode.response_error + " : Response error", "Unexpected JSON parsing error. Response : " + JSON.stringify(e));
-            const error_object = new ERROR_CLASS.Error(ENUMS.QueryStatus.error, ENUMS.ErrorCode.response_error, error_data);
-            client_socket.emit("response error", JSON.stringify(error_object));
-            return;
-        }
-        if (typeof FUNCTIONS.check_status(response) == ERROR_CLASS.Error) {
-            const error_data = new ERROR_CLASS.ErrorData(ENUMS.ErrorCode.status_error + " : Status error", "Unexpected status error. Response : " + JSON.stringify(response));
-            const error_object = new ERROR_CLASS.Error(ENUMS.QueryStatus.error, ENUMS.ErrorCode.status_error, error_data);
-            client_socket.emit("status error", JSON.stringify(error_object));
-            return;
-        }
-
-        switch (response.type) {
-            // The response of the server after the login request
-            case ENUMS.QueryType.Login:
-                // Emit login_redirection signal to the fucking client
-                client_socket.emit('login_redirection', response.data);
-                break;
-
-            case ENUMS.QueryType.Signin:
-                // Emit signin_redirection signal to the fucking client
-                client_socket.emit('signin_redirection', response.data);
-                break;
-
-            // The response of the server when we are disconnected
-            case ENUMS.QueryType.Disconnect:
-                // Emit disconnect signal to the fucking client
-                client_socket.emit('disconnect');
-                break;
-
-            default:
-                break;
-        }
-
-    }
+        client_socket.emit('disconnect');
+    });
 });
 
 server.listen(3000);

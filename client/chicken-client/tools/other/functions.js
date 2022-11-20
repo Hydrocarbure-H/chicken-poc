@@ -15,15 +15,9 @@ function check_response(e) {
         json = JSON.parse(e.data);
     }
     catch (e) {
-        // internal_notification(DisplayNotification.Visible, "JSON PARSE - DEBUG : " + response.error);
-        // alert("Error : The server sent an invalid response");
-
-        // Send a signal to client to display error message
-
         const error_data = new ERROR_CLASS.ErrorData(ENUMS.ErrorCode.response_error + " : Response error", "Unexpected JSON parsing error. Response : " + JSON.stringify(e));
         return new ERROR_CLASS.Error(ENUMS.QueryStatus.error, ENUMS.ErrorCode.response_error, error_data);
     }
-
     return new QUERY_CLASS.Response(json.type, json.status, json.error, json.data);
 }
 
@@ -41,6 +35,25 @@ function check_status(response) {
         return new ERROR_CLASS.Error(response.status, ENUMS.ErrorCode.status_error, error_data);
     }
 }
+
+
+function get_response(e, client_socket,) {
+    let response = FUNCTIONS.check_response(e);
+    if (typeof response == ERROR_CLASS.Error) {
+        const error_data = new ERROR_CLASS.ErrorData(ENUMS.ErrorCode.response_error + " : Response error", "Unexpected JSON parsing error. Response : " + JSON.stringify(e));
+        const error_object = new ERROR_CLASS.Error(ENUMS.QueryStatus.error, ENUMS.ErrorCode.response_error, error_data);
+        client_socket.emit("response error", JSON.stringify(error_object));
+        return;
+    }
+    if (typeof FUNCTIONS.check_status(response) == ERROR_CLASS.Error) {
+        const error_data = new ERROR_CLASS.ErrorData(ENUMS.ErrorCode.status_error + " : Status error", "Unexpected status error. Response : " + JSON.stringify(response));
+        const error_object = new ERROR_CLASS.Error(ENUMS.QueryStatus.error, ENUMS.ErrorCode.status_error, error_data);
+        client_socket.emit("status error", JSON.stringify(error_object));
+        return;
+    }
+    return response;
+}
+
 
 function notify(platform, title, body, socket) {
 
@@ -73,5 +86,6 @@ function notify(platform, title, body, socket) {
 module.exports = {
     check_response: check_response,
     check_status: check_status,
-    notify: notify
+    notify: notify,
+    get_response: get_response,
 };

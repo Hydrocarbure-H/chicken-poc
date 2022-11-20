@@ -54,6 +54,21 @@ socket.on('disconnect', function () {
 });
 
 /**
+ * @brief Listen for the API connection failure signal
+ */
+socket.on('api_connection_failure', function (error) {
+    display_message(ApiConnectionStatus.ConnectionFailure + " : " + error, "failure");
+    connected = false;
+});
+
+/**
+ * @brief Listen for the API send login data failure
+ */
+socket.on('api_send_data_failure', function (error) {
+    display_message(ApiConnectionStatus.SendLoginDataFailure + " : " + error, "failure");
+});
+
+/**
  * @brief Handle status error - TO IMPROVE
  */
 socket.on("status error", function (data) {
