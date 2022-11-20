@@ -172,6 +172,13 @@ function adding_mp_writing_zone(obj, json) {
     message_textarea.classList.add('message_textarea');
     message_textarea.placeholder = "I am a hot chicken...";
 
+    message_textarea.addEventListener("keypress", function (e) {
+        if (e.key === 'Enter' && message_textarea.value != "" && message_textarea.value != "\n") {
+            send_message(message_textarea.value, message_textarea, "24/06 - 22h10");
+            cleaning_textarea(message_textarea);
+        }
+    })
+
     write_messages_container.appendChild(message_textarea);
     obj.appendChild(write_messages_container);
 }
@@ -239,4 +246,32 @@ function display_srv_list(json) {
         servers_container.appendChild(srv_item);
 
     });
+}
+
+/**
+ * 
+ * @param {String} Message body
+ * @param {String} Destination id
+ */
+function send_message(message, dest, date) {
+    const sent_message = document.createElement('div');
+    sent_message.classList.add('sent_message');
+
+    const message_div_sent = document.createElement('div');
+    message_div_sent.classList.add('message');
+    message_div_sent.innerHTML = message;
+
+    const date_div_sent = document.createElement('div');
+    date_div_sent.classList.add('date');
+    date_div_sent.innerHTML = date;
+
+    sent_message.appendChild(message_div_sent);
+    sent_message.appendChild(date_div_sent);
+    // get the dest div container
+    read_messages_container = document.getElementById("messages_container_list");
+    read_messages_container.appendChild(sent_message);
+}
+
+function cleaning_textarea(textarea) {
+    textarea.value = "";
 }
