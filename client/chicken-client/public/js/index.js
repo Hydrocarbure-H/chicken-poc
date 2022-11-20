@@ -1,3 +1,5 @@
+
+
 /**
  * TO DO :
  * Change notification style and structure (using classes)
@@ -57,7 +59,8 @@ socket.on('disconnect', function () {
  * @brief Listen for the API connection failure signal
  */
 socket.on('api_connection_failure', function (error) {
-    display_message(ApiConnectionStatus.ConnectionFailure + " : " + error, "failure");
+    console.log("JS : Connection to the API failed !");
+    display_message("Disconected : " + JSON.stringify(error.errorType), "failure", 50);
     connected = false;
 });
 
@@ -82,11 +85,3 @@ socket.on("response error", function (data) {
     alert(data);
 });
 
-/**
- * Check if the server has been disconnected without sending a disconnection request
- */
-setInterval(function () {
-    if (connected == false) {
-        display_message(ApiConnectionStatus.Timeout, "failure");
-    }
-}, 5000);

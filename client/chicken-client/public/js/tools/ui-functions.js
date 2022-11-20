@@ -14,8 +14,8 @@ function top_bar_display(message) {
  * @param {DisplayError Enum} method 
  * @param {string} error 
  */
-function display_message(message, type) {
-    if (type === "error") {
+function display_message(message, type, ttl = 7) {
+    if (type === "failure") {
         document.getElementById("bottom_bar_message").style.display = "block";
         document.getElementById("bottom_bar_message").innerHTML = message;
         document.getElementById("bottom_bar_message").style.backgroundColor = "var(--red1)";
@@ -35,7 +35,7 @@ function display_message(message, type) {
     // wait 7 seconds before hiding the message
     setTimeout(function () {
         document.getElementById("bottom_bar_message").style.display = "none";
-    }, 7000);
+    }, ttl * 1000);
 }
 
 /**

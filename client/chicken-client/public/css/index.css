@@ -352,6 +352,7 @@ a:hover {
 }
 
 .bottom_bar_message {
+    display: none;
     font-size: 13px;
     text-align: justify;
     max-width: 400px;

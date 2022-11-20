@@ -33,7 +33,7 @@ function send_data(socket) {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     if (username == "" || password == "") {
-        display_message("Missing fields !", "error");
+        display_message("Missing fields !", "failure");
         return;
     }
     else {
