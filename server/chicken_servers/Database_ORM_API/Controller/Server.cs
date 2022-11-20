@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Database_ORM_API.Controller
+﻿namespace Database_ORM_API.Controller
 {
-    public class Startup
+    using Microsoft.AspNetCore.SignalR;
+
+    namespace SignalRChat.Hubs
     {
-        public void ConfigureServices
+        public class LoginHub : Hub
+        {
+            public async Task SendMessage(string user, string message)
+            {
+                await Clients.Caller.SendAsync()
+            }
+        }
     }
 }
