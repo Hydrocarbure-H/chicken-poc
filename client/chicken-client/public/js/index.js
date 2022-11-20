@@ -22,7 +22,7 @@ socket.on('api_connected', function () {
     // console.log("JS : Connected to the API !");
     // add_listeners(socket);
     connected = true;
-    display_bar_message(ApiConnectionStatus.Connected);
+    display_message(ApiConnectionStatus.Connected, "success");
 });
 
 socket.on("notification_sound", function () {
@@ -49,8 +49,7 @@ socket.on("login_redirection", function (data) {
  * @brief Listen for disconnect signal
  */
 socket.on('disconnect', function () {
-    internal_notification(DisplayNotification.Visible, "You have been disconnected");
-    display_bar_message(ApiConnectionStatus.Disconnected);
+    display_message("Disconnected from the API", "failure");
     connected = false;
 });
 
@@ -73,6 +72,6 @@ socket.on("response error", function (data) {
  */
 setInterval(function () {
     if (connected == false) {
-        display_bar_message(ApiConnectionStatus.Timeout);
+        display_message(ApiConnectionStatus.Timeout, "failure");
     }
 }, 5000);

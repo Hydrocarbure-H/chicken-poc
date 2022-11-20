@@ -89,7 +89,7 @@ io.on('connection', (client_socket) => {
      */
     api_socket.onopen = function (e) {
         console.log("ELECTRON : Connected to the API !");
-        FUNCTIONS.notify(platform, app_name, "Connected to the server !", client_socket);
+        //FUNCTIONS.notify(platform, app_name, "Connected to the server !", client_socket);
         client_socket.emit('api_connected');
     };
 
@@ -101,7 +101,6 @@ io.on('connection', (client_socket) => {
 
         // Check the validity of the response and the status
         let response = FUNCTIONS.check_response(e);
-        console.log("Test");
         if (typeof response == ERROR_CLASS.Error) {
             const error_data = new ERROR_CLASS.ErrorData(ENUMS.ErrorCode.response_error + " : Response error", "Unexpected JSON parsing error. Response : " + JSON.stringify(e));
             const error_object = new ERROR_CLASS.Error(ENUMS.QueryStatus.error, ENUMS.ErrorCode.response_error, error_data);

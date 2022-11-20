@@ -1,45 +1,41 @@
 /**
- * @param {string} title
- * @param {string} message
- * @brief Display a notification
- */
-function external_notification(title, body) {
-
-    let notification = new Notification(title, { body });
-    notification.onclick = () => {
-        notification.close();
-        window.parent.focus();
-    }
-}
-
-/**
  * @brief Display a message in the bar
  * @param {string} message 
  */
-function display_bar_message(message) {
+function top_bar_display(message) {
     console.log(message);
     var bar_message = document.getElementById("bar_message");
     bar_message.innerHTML = message;
 }
 
+
 /**
- * @brief Management of the display of the notification
- * @param {DisplayNotification Enum} method 
- * @param {string} message 
+ * @brief Display an error message on the login page
+ * @param {DisplayError Enum} method 
+ * @param {string} error 
  */
-function internal_notification(method, message) {
-    if (method === DisplayNotification.Click) {
-        alert(notification_message);
-        internal_notification(DisplayNotification.Hidden);
+function display_message(message, type) {
+    if (type === "error") {
+        document.getElementById("bottom_bar_message").style.display = "block";
+        document.getElementById("bottom_bar_message").innerHTML = message;
+        document.getElementById("bottom_bar_message").style.backgroundColor = "var(--red1)";
     }
-    else if (method === DisplayNotification.Visible) {
-        notification_message = message;
-        document.getElementById("bar_notif_icon").style.display = "block";
+    else if (type === "success") {
+        document.getElementById("bottom_bar_message").style.display = "block";
+        document.getElementById("bottom_bar_message").innerHTML = message;
+        document.getElementById("bottom_bar_message").style.backgroundColor = "var(--green1)";
     }
-    else if (method === DisplayNotification.Hidden) {
-        notification_message = "";
-        document.getElementById("bar_notif_icon").style.display = "none";
+    else if (type === "warning") {
+        document.getElementById("bottom_bar_message").style.display = "block";
+        document.getElementById("bottom_bar_message").innerHTML = message;
+        document.getElementById("bottom_bar_message").style.backgroundColor = "var(--orange1)";
     }
+
+
+    // wait 7 seconds before hiding the message
+    setTimeout(function () {
+        document.getElementById("bottom_bar_message").style.display = "none";
+    }, 7000);
 }
 
 /**
@@ -51,7 +47,7 @@ function handle_right_click() {
     document.addEventListener("contextmenu", function (e) {
         e.preventDefault();
         console.log(e);
-        alert("Right click test");
+        display_error(DisplayError.Visible, "Right click is disabled");
     }
         , false);
 }

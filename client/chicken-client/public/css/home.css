@@ -27,6 +27,8 @@
     --border-light-1: #fefeff;
     --border-light-2: #777;
     --red1: #984749;
+    --green1: #479869;
+    --orange1: #987d47;
     --button-blue: #124885;
     --border-radius: 10px;
     --field-border-radius: 10px;
@@ -94,10 +96,11 @@ body {
     padding: 10px;
 }
 
+/* 
 .drag_bar img:hover {
     background-color: #eee1;
     cursor: pointer;
-}
+} */
 
 .container {
     color: var(--tx-light-1);
@@ -389,4 +392,32 @@ body {
     border: none;
     padding: var(--button-padding);
     font-size: var(--tx-font-normal);
+}
+
+.bottom_bar_message {
+    display: none;
+    font-size: 13px;
+    text-align: justify;
+    max-width: 400px;
+    position: fixed;
+    right: 0;
+    bottom: 0px;
+    margin: 5px;
+    color: var(--tx-light-2);
+    background-color: var(--red1);
+    padding: 5px;
+    border-radius: var(--field-border-radius);
+    -webkit-animation: linear .3s fadein;
+    -webkit-animation-name: run;
+    -webkit-animation-duration: .3s;
+}
+
+@-webkit-keyframes run {
+    0% {
+        right: -400px;
+    }
+
+    100% {
+        right: 0;
+    }
 }

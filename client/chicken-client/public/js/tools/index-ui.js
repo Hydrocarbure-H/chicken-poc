@@ -22,9 +22,6 @@ function add_listeners(socket) {
             send_data(socket);
         }
     });
-    document.getElementById("bar_notif_icon").onclick = () => {
-        internal_notification(DisplayNotification.Click, "");
-    };
 }
 
 /**
@@ -36,12 +33,11 @@ function send_data(socket) {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
     if (username == "" || password == "") {
-        manage_display_error(DisplayError.Visible, "Missing fields !");
+        display_message("Missing fields !", "error");
         return;
     }
     else {
-        // Clear error message
-        manage_display_error(DisplayError.Hidden, "");
+
         // Prepare data
         var raw_data = {
             username: document.getElementById("username").value,
@@ -50,23 +46,5 @@ function send_data(socket) {
         // hashed_password: (CryptoJS.SHA256(document.getElementById("password").value)).toString()
         // Send data
         socket.emit('login_data', raw_data);
-    }
-}
-
-/**
- * @brief Display an error message on the login page
- * @param {DisplayError Enum} method 
- * @param {string} error 
- */
-function manage_display_error(method, error) {
-    if (method == DisplayError.Visible) {
-        document.getElementById("bar_notif_icon").style.display = "block";
-        document.getElementById("error_field").style.display = "block";
-        document.getElementById("error_field").innerHTML = error;
-        internal_notification(DisplayNotification.Visible, error);
-    }
-    else {
-        document.getElementById("error_field").style.display = "none";
-        internal_notification("hide", "");
     }
 }
