@@ -7,7 +7,7 @@
         {
             public async Task getLoginData(string data)
             {
-                await Clients.Caller.SendAsync(LoginQuery.Handle(data))
+                await Clients.Caller.SendAsync(LoginQuery.Handle(data));
             }
         }
 }
