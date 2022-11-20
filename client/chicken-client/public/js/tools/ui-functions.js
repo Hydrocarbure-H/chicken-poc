@@ -10,7 +10,7 @@ function top_bar_display(message) {
 
 
 /**
- * @brief Display an error message on the login page
+ * @brief Display message in the top bar
  * @param {DisplayError Enum} method 
  * @param {string} error 
  */

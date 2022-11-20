@@ -42,7 +42,7 @@ const createWindow = () => {
     });
     win.webContents.openDevTools()
 
-    win.loadFile('public/views/home.html')
+    win.loadFile('public/views/index.html')
 }
 
 app.whenReady().then(() => {
