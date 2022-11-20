@@ -1,13 +1,13 @@
-﻿using chicken_server.View.WebSocket.Queries;
-
-namespace chicken_server.Controller;
-
-public static class Converter
+﻿namespace Authentication_API.Controller
 {
-    public static Login LoginView_to_Login(LoginViewQuery data)
+    using View.SignalR.Queries;
+    public static class Converter
     {
-        if (data.Username == null || data.Password == null)
-            throw new Exception("None of LoginView's properties must be null at this point.");
-        return new Login(data.Username, data.Password);
+        public static Login LoginView_to_Login(LoginViewQuery query)
+        {
+            if (query.Username == null || query.Password == null)
+                throw new Exception("None of LoginView's properties must be null at this point.");
+            return new Login(query.Username, query.Password);
+        }
     }
 }

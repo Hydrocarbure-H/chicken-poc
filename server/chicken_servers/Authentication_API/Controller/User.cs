@@ -1,6 +1,4 @@
-﻿using chicken_server.View.WebSocket.Queries;
-
-namespace chicken_server.Controller
+﻿namespace Authentication_API.Controller
 {
 
     public class User

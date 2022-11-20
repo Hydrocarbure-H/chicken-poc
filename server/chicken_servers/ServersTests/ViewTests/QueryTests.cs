@@ -1,4 +1,4 @@
-using chicken_server.View.WebSocket.Queries;
+using Authentication_API.View.SignalR.Queries;
 using NUnit.Framework;
 
 namespace ServersTests.ViewTests;

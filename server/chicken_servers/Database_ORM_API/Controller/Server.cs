@@ -8,7 +8,7 @@
         {
             public async Task SendMessage(string user, string message)
             {
-                await Clients.Caller.SendAsync()
+                await Clients.Caller.SendAsync();
             }
         }
     }

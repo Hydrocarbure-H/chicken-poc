@@ -1,4 +1,4 @@
-﻿using chicken_server.View.WebSocket.Queries;
+﻿using Authentication_API.View.SignalR.Queries;
 using Database_ORM_API.Controller;
 using Newtonsoft.Json;
 using WebSocketSharp;

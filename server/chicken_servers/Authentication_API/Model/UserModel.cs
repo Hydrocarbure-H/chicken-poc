@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace chicken_server.Model
+namespace Authentication_API.Model
 {
     public static class User
     {
@@ -19,22 +19,22 @@ namespace chicken_server.Model
             db.SaveChanges();
         }
         
-        public static Controller.User Get(string username)
+        public static Authentication_API.Controller.User Get(string username)
         {
             var db = ChickenContext.Create();
             List<UserModel> list = db.Users.Where(user => user.Username.Equals(username)).ToList();
             
             // Convert Model.User to Controller.User before sending the list back
-            return list.Select(userModel => new Controller.User(userModel.Username, userModel.Password)).ToList()[0];
+            return list.Select(userModel => new Authentication_API.Controller.User(userModel.Username, userModel.Password)).ToList()[0];
         }
         
-        public static List<Controller.User> Get()
+        public static List<Authentication_API.Controller.User> Get()
         {
             var db = ChickenContext.Create();
             List<UserModel> list = db.Users.ToList();
             
             // Convert Model.User to Controller.User before sending the list back
-            return list.Select(userModel => new Controller.User(userModel.Username, userModel.Password)).ToList();
+            return list.Select(userModel => new Authentication_API.Controller.User(userModel.Username, userModel.Password)).ToList();
         }
     }
     

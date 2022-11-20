@@ -1,4 +1,4 @@
-﻿using chicken_server.Controller;
+﻿using Authentication_API.Controller;
 using NUnit.Framework;
 
 namespace ServersTests.ControllerTests;

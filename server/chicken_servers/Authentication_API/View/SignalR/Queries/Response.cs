@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace chicken_server.View.WebSocket.Queries;
+namespace Authentication_API.View.SignalR.Queries;
 
 [JsonConverter(typeof(StringEnumConverter))]
 public enum Status

@@ -1,17 +1,11 @@
 ﻿using Newtonsoft.Json;
 
-namespace chicken_server.Controller;
+namespace Authentication_API.Controller;
 
 public class Login
 {
-    [JsonProperty("username")] public string Username { get; }
-    [JsonProperty("password")] public string Password { get; }
-
-    public Login()
-    {
-        Username = "";
-        Password = "";
-    }
+    public readonly string Username;
+    public readonly string Password;
 
     public Login(string username, string password)
     {
