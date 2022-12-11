@@ -6,7 +6,7 @@ namespace Authentication_API.View.SignalR.Queries
     public class LoginViewQuery : IQuery
     {
         [JsonProperty("username")] public string? Username { get; set; }
-        [JsonProperty("password")] public string? Password { get; set; }
+        [JsonProperty("hashed_password")] public string? Password { get; set; }
     }
 
     public class LoginViewResponse : IResponse
