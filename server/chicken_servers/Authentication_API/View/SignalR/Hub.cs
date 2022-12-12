@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.SignalR;
     using Queries;
     
-    public sealed class LoginHub : Hub
+    public sealed class AccountHub : Hub
         {
             public async Task Login(string data)
             {

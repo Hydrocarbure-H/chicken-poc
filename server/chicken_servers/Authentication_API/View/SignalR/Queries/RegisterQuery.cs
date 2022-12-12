@@ -35,7 +35,7 @@ public static class RegisterQuery
         Debug.Assert(query != null, nameof(query) + " != null");
         Debug.Assert(query.Data != null, "query.Data != null");
 
-        if (query is not { Type: Types.create } || query.Data.Username == null || query.Data.Password == null)
+        if (query is not { Type: Types.register } || query.Data.Username == null || query.Data.Password == null)
             return JsonConvert.SerializeObject(Response<ViewLoginResponse>.Error("Invalid parameters"));
 
 

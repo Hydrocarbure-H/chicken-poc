@@ -83,7 +83,7 @@ namespace Authentication_API.Model
         public static ChickenContext Create()
         {
             var contextOption = new DbContextOptionsBuilder<ChickenContext>()
-                .UseNpgsql("Host=bdd.chicken.coloc;Database=chicken_db;Username=chicken_user;Password=chicken_user")
+                .UseNpgsql("Host=bdd.chicken.coloc;Database=chicken_db_users;Username=chicken_user;Password=chicken_user")
                 .Options;
             
             return new ChickenContext(contextOption);

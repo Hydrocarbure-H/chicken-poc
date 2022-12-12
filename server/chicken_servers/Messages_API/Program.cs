@@ -1,6 +1,7 @@
-﻿namespace Authentication_API
+using Messages_API.View.SignalR;
+
+namespace Messages_API
 {
-    using View.SignalR;
     public static class Program
     {
         private static WebApplication _server = null!;
@@ -15,7 +16,7 @@
             _server.UseAuthorization();
 
             
-            _server.MapHub<AccountHub>("/account");
+            _server.MapHub<MessagesHub>("/account");
             _server.Run();
         }
     }

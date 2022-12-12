@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Authentication_API.View.SignalR.Queries
+namespace Messages_API.View.SignalR.Queries
 {
     [JsonConverter(typeof(StringEnumConverter))]
     public enum Types
     {
-        login,
-        register
+        Send
     }
 
     public interface IQuery
