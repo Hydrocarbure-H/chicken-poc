@@ -1,4 +1,10 @@
 /**
+ * @author Thomas PEUGNET <thomas.peugnet.pro@gmail.com>
+ * @file Description
+ * @desc Created on 2022-12-11 4:14:00 pm
+ * @copyright Thomas PEUGNET
+ */
+/**
  * @brief Will store the token from the server response in local storage 
  * and redirect the user to the main page
  * @param {JSON} login_data 
@@ -17,7 +23,12 @@ function login_process(login_data) {
  */
 function add_listeners(socket) {
     document.getElementById("submit_form").addEventListener("click", function () { send_data(socket) });
-    document.getElementById("submit_form").addEventListener("keypress", function (e) {
+    document.getElementById("username").addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+            send_data(socket);
+        }
+    });
+    document.getElementById("password").addEventListener("keypress", function (e) {
         if (e.key === "Enter") {
             send_data(socket);
         }

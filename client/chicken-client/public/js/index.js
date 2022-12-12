@@ -1,4 +1,9 @@
-
+/**
+ * @author Thomas PEUGNET <thomas.peugnet.pro@gmail.com>
+ * @file Description
+ * @desc Created on 2022-12-11 4:00:04 pm
+ * @copyright Thomas PEUGNET
+ */
 
 /**
  * TO DO :
@@ -75,7 +80,9 @@ socket.on('api_send_data_failure', function (error) {
  * @brief Handle status error - TO IMPROVE
  */
 socket.on("status error", function (data) {
-    alert(data);
+    var test = JSON.parse(data);
+    console.log("JS : Status error : " + JSON.stringify(test.data));
+    display_message(ApiLoginResponse.Failure + " : " + JSON.parse(data), "failure", 50);
 });
 
 /**

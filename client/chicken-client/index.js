@@ -1,3 +1,9 @@
+/**
+ * @author Thomas PEUGNET <thomas.peugnet.pro@gmail.com>
+ * @file Description
+ * @desc Created on 2022-12-11 3:58:23 pm
+ * @copyright Thomas PEUGNET
+ */
 // Electron app
 const { app, BrowserWindow } = require('electron')
 const path = require('path');
@@ -6,6 +12,9 @@ const path = require('path');
 const socket_app = require('express')();
 const server = require('http').createServer(socket_app);
 const io = require('socket.io')(server);
+
+// CryptoJS
+const Crypto = require("crypto");
 
 // Add files 
 const INDEX = require('./tools/endpoints/index-backend.js');
@@ -40,7 +49,7 @@ const createWindow = () => {
             preload: path.join(__dirname, 'preload.js')
         }
     });
-    win.webContents.openDevTools()
+    // win.webContents.openDevTools()
 
     win.loadFile('public/views/index.html')
 }
@@ -89,14 +98,14 @@ io.on('connection', (client_socket) => {
         console.log("ELECTRON : Login data received : " + data);
         var query = new QUERY_CLASS.Query(ENUMS.QueryType.Login, ENUMS.QueryStatus.Success, null, {
             username: data.username,
-            password: data.password
+            hashed_password: Crypto.createHash('sha256').update(data.password).digest('base64')
         });
-        // hashed_password: (CryptoJS.SHA256(document.getElementById("password").value)).toString()
+
 
         // Send data
         console.log("query : " + JSON.stringify(query));
 
-        api_socket.invoke("SendMessage", JSON.stringify(query)).catch(function (err) {
+        api_socket.invoke("GetLoginData", JSON.stringify(query)).catch(function (err) {
             console.log("ELECTRON : Error while sending login data to the API : " + err);
             client_socket.emit('api_send_data_failure', err);
         });
@@ -106,12 +115,13 @@ io.on('connection', (client_socket) => {
     // Handle API signals
     //**********************************************************************************************************************
 
+
     /**
      * Listen for the login response
      */
-    api_socket.on(ENUMS.QueryType.Login, function (data) {
-        let response = get_response(data);
-        console.log("ELECTRON : Received message from the API : " + JSON.stringify(response));
+    api_socket.on("login", (data) => {
+        console.log("ELECTRON : Received message from the API : " + data);
+        let response = FUNCTIONS.get_response(data, client_socket);
 
         client_socket.emit('login_redirection', response.data);
     });
@@ -120,7 +130,7 @@ io.on('connection', (client_socket) => {
      * Listen for the signin response
      */
     api_socket.on(ENUMS.QueryType.Signin, function (data) {
-        let response = get_response(data);
+        let response = get_response(data, client_socket);
         console.log("ELECTRON : Received message from the API : " + JSON.stringify(response));
 
         client_socket.emit('signin_redirection', response.data);

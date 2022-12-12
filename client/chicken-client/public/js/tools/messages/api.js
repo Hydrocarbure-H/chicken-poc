@@ -3,3 +3,8 @@ const ApiConnectionStatus = {
     Disconnected: 'Disconnected',
     Timeout: 'Connection timeout',
 };
+
+const ApiLoginResponse = {
+    Success: 'Success',
+    Failure: 'Failure',
+};

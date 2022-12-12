@@ -1,3 +1,9 @@
+/**
+ * @author Thomas PEUGNET <thomas.peugnet.pro@gmail.com>
+ * @file Description
+ * @desc Created on 2022-12-11 4:09:41 pm
+ * @copyright Thomas PEUGNET
+ */
 
 const QueryType = {
     Login: 'login',

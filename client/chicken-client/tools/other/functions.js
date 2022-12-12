@@ -1,3 +1,9 @@
+/**
+ * @author Thomas PEUGNET <thomas.peugnet.pro@gmail.com>
+ * @file Description
+ * @desc Created on 2022-12-11 4:49:11 pm
+ * @copyright Thomas PEUGNET
+ */
 
 const ENUMS = require('./enums');
 const ERROR_CLASS = require('./error-class');
@@ -11,8 +17,9 @@ const { Notification } = require('electron');
  * @returns 
  */
 function check_response(e) {
+
     try {
-        json = JSON.parse(e.data);
+        json = JSON.parse(e);
     }
     catch (e) {
         const error_data = new ERROR_CLASS.ErrorData(ENUMS.ErrorCode.response_error + " : Response error", "Unexpected JSON parsing error. Response : " + JSON.stringify(e));
@@ -37,20 +44,22 @@ function check_status(response) {
 }
 
 
-function get_response(e, client_socket,) {
-    let response = FUNCTIONS.check_response(e);
+function get_response(e, client_socket) {
+    let response = check_response(e);
+
     if (typeof response == ERROR_CLASS.Error) {
         const error_data = new ERROR_CLASS.ErrorData(ENUMS.ErrorCode.response_error + " : Response error", "Unexpected JSON parsing error. Response : " + JSON.stringify(e));
         const error_object = new ERROR_CLASS.Error(ENUMS.QueryStatus.error, ENUMS.ErrorCode.response_error, error_data);
         client_socket.emit("response error", JSON.stringify(error_object));
         return;
     }
-    if (typeof FUNCTIONS.check_status(response) == ERROR_CLASS.Error) {
+    if (check_status(response) != true) {
         const error_data = new ERROR_CLASS.ErrorData(ENUMS.ErrorCode.status_error + " : Status error", "Unexpected status error. Response : " + JSON.stringify(response));
         const error_object = new ERROR_CLASS.Error(ENUMS.QueryStatus.error, ENUMS.ErrorCode.status_error, error_data);
         client_socket.emit("status error", JSON.stringify(error_object));
         return;
     }
+    console.log("CHECK");
     return response;
 }
 
