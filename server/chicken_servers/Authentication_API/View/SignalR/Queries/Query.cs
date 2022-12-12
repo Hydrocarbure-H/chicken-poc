@@ -7,6 +7,7 @@ namespace Authentication_API.View.SignalR.Queries
     public enum Types
     {
         login,
+        create,
         message
     }
 

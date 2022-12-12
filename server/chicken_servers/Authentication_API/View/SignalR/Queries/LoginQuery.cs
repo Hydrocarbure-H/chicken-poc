@@ -10,7 +10,7 @@ namespace Authentication_API.View.SignalR.Queries
         [JsonProperty("hashed_password")] public string? Password { get; set; }
     }
 
-    public class LoginViewResponse : IResponse
+    public class ViewLoginResponse : IResponse
     {
         [JsonProperty("token")] public string? Token { get; set; }
     }
@@ -19,7 +19,7 @@ namespace Authentication_API.View.SignalR.Queries
     {
         public static string Handle(string data)
         {
-            Console.WriteLine("Received: " + data);
+            Debug.WriteLine("Received: " + data);
             Query<ViewLoginQuery>? query;
 
             try
@@ -28,25 +28,25 @@ namespace Authentication_API.View.SignalR.Queries
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
-                return JsonConvert.SerializeObject(Response<LoginViewResponse>.Error("Invalid JSON"));
+                Debug.WriteLine(exception);
+                return JsonConvert.SerializeObject(Response<ViewLoginResponse>.Error("Invalid JSON"));
             }
 
             Debug.Assert(query != null, nameof(query) + " != null");
             Debug.Assert(query.Data != null, "query.Data != null");
             
             if (query is not { Type: Types.login } || query.Data.Username == null || query.Data.Password == null)
-                return JsonConvert.SerializeObject(Response<LoginViewResponse>.Error("Invalid parameters"));
+                return JsonConvert.SerializeObject(Response<ViewLoginResponse>.Error("Invalid parameters"));
 
-            Login loginRequest = Converter.LoginView_to_Login(query.Data);
+            Login loginRequest = Converter.ViewLogin_to_Login(query.Data);
             (Utils.Status status, string? token) = User.CheckLogin(loginRequest);
 
-            Response<LoginViewResponse> response;
+            Response<ViewLoginResponse> response;
 
             if (status.State == Utils.StatusState.Success)
-                response = Response<LoginViewResponse>.Success(new LoginViewResponse { Token = token });
+                response = Response<ViewLoginResponse>.Success(new ViewLoginResponse { Token = token });
             else
-                response = Response<LoginViewResponse>.ResponseFromStatus(status);
+                response = Response<ViewLoginResponse>.ResponseFromStatus(status);
 
             return JsonConvert.SerializeObject(response);
         }

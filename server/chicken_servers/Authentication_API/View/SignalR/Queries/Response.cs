@@ -19,7 +19,7 @@ public class Response<T> where T : IResponse
     // return the type corresponding to the type of the data
     private static Types GetTypeFromTypeT()
     {
-        if (typeof(T) == typeof(LoginViewResponse))
+        if (typeof(T) == typeof(ViewLoginResponse))
             return Types.login;
         return Types.message;
     }

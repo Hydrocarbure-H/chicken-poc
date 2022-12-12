@@ -9,7 +9,7 @@ public class ResponseTests
     [Test]
     public void TestSuccess()
     {
-        Response<LoginViewResponse> reference = new Response<LoginViewResponse>
+        Response<ViewLoginResponse> reference = new Response<ViewLoginResponse>
         {
             Status = Status.success,
             Data = null,
@@ -17,7 +17,7 @@ public class ResponseTests
             ErrorMessage = ""
         };
 
-        Response<LoginViewResponse> test = Response<LoginViewResponse>.Success();
+        Response<ViewLoginResponse> test = Response<ViewLoginResponse>.Success();
         
         Assert.AreEqual(reference.Status, test.Status);
         Assert.AreEqual(reference.Data, test.Data);
@@ -28,12 +28,12 @@ public class ResponseTests
     [Test]
     public void TestSuccessWithData()
     {
-        LoginViewResponse data = new LoginViewResponse {
+        ViewLoginResponse data = new ViewLoginResponse {
            Token = "token"
             
         };
 
-        Response<LoginViewResponse> reference = new Response<LoginViewResponse>
+        Response<ViewLoginResponse> reference = new Response<ViewLoginResponse>
         {
             Status = Status.success,
             Data = data,
@@ -41,7 +41,7 @@ public class ResponseTests
             ErrorMessage = ""
         };
 
-        Response<LoginViewResponse> test = Response<LoginViewResponse>.Success(data);
+        Response<ViewLoginResponse> test = Response<ViewLoginResponse>.Success(data);
         
         Assert.AreEqual(reference.Status, test.Status);
         Assert.AreEqual(reference.Data, test.Data);
@@ -54,7 +54,7 @@ public class ResponseTests
     {
         const string message = "this is a error message";
         
-        Response<LoginViewResponse> reference = new Response<LoginViewResponse>
+        Response<ViewLoginResponse> reference = new Response<ViewLoginResponse>
         {
             Status = Status.error,
             Data = null,
@@ -62,7 +62,7 @@ public class ResponseTests
             ErrorMessage = message
         };
 
-        Response<LoginViewResponse> test = Response<LoginViewResponse>.Error(message);
+        Response<ViewLoginResponse> test = Response<ViewLoginResponse>.Error(message);
         
         Assert.AreEqual(reference.Status, test.Status);
         Assert.AreEqual(reference.Data, test.Data);
@@ -75,7 +75,7 @@ public class ResponseTests
     {
         const string message = "this is a failure message";
         
-        Response<LoginViewResponse> reference = new Response<LoginViewResponse>
+        Response<ViewLoginResponse> reference = new Response<ViewLoginResponse>
         {
             Status = Status.failure,
             Data = null,
@@ -83,7 +83,7 @@ public class ResponseTests
             ErrorMessage = message
         };
 
-        Response<LoginViewResponse> test = Response<LoginViewResponse>.Failure(message);
+        Response<ViewLoginResponse> test = Response<ViewLoginResponse>.Failure(message);
         
         Assert.AreEqual(reference.Status, test.Status);
         Assert.AreEqual(reference.Data, test.Data);

@@ -23,6 +23,12 @@ namespace Authentication_API.Controller
         public static (Status, string?) CheckLogin(Login data)
         {
             User? user = FindUser(data.Username);
+            
+            if (String.Equals(data.Username, ""))
+                return (Status.Error("Username cannot be empty"), null);
+            
+            if (String.Equals(data.Password, ""))
+                return (Status.Error("Password cannot be empty"), null);
 
             if (user != null && user.CheckUsername(data.Username) && user.CheckPassword(data.Password))
                 return (Status.Success(), user._token);
@@ -32,8 +38,15 @@ namespace Authentication_API.Controller
 
         public static Status CreateUser(User user)
         {
+            if (String.Equals(user._username, ""))
+                return Status.Error("Username cannot be empty");
+            
+            if (String.Equals(user._password, ""))
+                return Status.Error("Password cannot be empty");
+            
             if (FindUser(user) != null)
                 return Status.Failure("Username already exists");
+            
             return Model.User.Add(user._username, user._password);
         }
 
