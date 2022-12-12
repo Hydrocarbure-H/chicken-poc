@@ -5,7 +5,7 @@
     
     public sealed class LoginHub : Hub
         {
-            public async Task GetLoginData(string data)
+            public async Task Login(string data)
             {
                 await Clients.Caller.SendAsync("login", LoginQuery.Handle(data));
             }

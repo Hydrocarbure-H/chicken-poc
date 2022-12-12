@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Authentication_API.Controller;
+﻿namespace Authentication_API.Controller;
 
 public class Login
 {

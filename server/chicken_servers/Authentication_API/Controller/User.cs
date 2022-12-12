@@ -1,4 +1,6 @@
-﻿namespace Authentication_API.Controller
+﻿using Authentication_API.Utils;
+
+namespace Authentication_API.Controller
 {
 
     public class User
@@ -6,22 +8,34 @@
         private static List<User> _users = new();
         private static List<User> _onlineUsers = new();
 
-        public static User? FindUser(string username)
+        private static User? FindUser(string username)
         {
             _users = Model.User.Get();
-            return _users.Find(user => user?._username == username);
+            return _users.Find(user => user._username == username);
+        }
+        
+        private static User? FindUser(User user)
+        {
+            _users = Model.User.Get();
+            return _users.Find(userTmp => userTmp._username == user._username);
         }
 
-        public static string? CheckLogin(Login data)
+        public static (Status, string?) CheckLogin(Login data)
         {
             User? user = FindUser(data.Username);
 
             if (user != null && user.CheckUsername(data.Username) && user.CheckPassword(data.Password))
-                return user._token;
+                return (Status.Success(), user._token);
                 
-            return null;
+            return (Status.Failure("Invalid username or password"), null);
         }
 
+        public static Status CreateUser(User user)
+        {
+            if (FindUser(user) != null)
+                return Status.Failure("Username already exists");
+            return Model.User.Add(user._username, user._password);
+        }
 
         private readonly string _username;
         private readonly string _password;
@@ -34,12 +48,12 @@
             _token = Guid.NewGuid().ToString();
         }
 
-        public bool CheckPassword(string password)
+        private bool CheckPassword(string password)
         {
             return _password.Equals(password);
         }
 
-        public bool CheckUsername(string username)
+        private bool CheckUsername(string username)
         {
             return _username.Equals(username);
         }

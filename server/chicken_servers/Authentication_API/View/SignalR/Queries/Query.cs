@@ -17,6 +17,6 @@ namespace Authentication_API.View.SignalR.Queries
     public class Query<T> where T : IQuery
     {
         [JsonProperty("type")] public Types Type { get; set; }
-        [JsonProperty("data")] public T Data { get; set; }
+        [JsonProperty("data")] public T? Data { get; set; }
     }
 }

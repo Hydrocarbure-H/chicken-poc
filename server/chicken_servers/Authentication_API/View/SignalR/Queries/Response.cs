@@ -1,15 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Authentication_API.Utils;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace Authentication_API.View.SignalR.Queries;
-
-[JsonConverter(typeof(StringEnumConverter))]
-public enum Status
-{
-    success,
-    failure,
-    error,
-}
 
 public interface IResponse
 {
@@ -18,7 +11,7 @@ public interface IResponse
 public class Response<T> where T : IResponse
 {
     [JsonProperty("type")] public Types Type { get; set; }
-    [JsonProperty("status")] public Status Status { get; set; }
+    [JsonProperty("status")] public StatusState Status { get; set; }
     [JsonProperty("error")] public string ErrorMessage { get; set; } = "";
     [JsonProperty("data")] public T? Data { get; set; }
 
@@ -36,18 +29,18 @@ public class Response<T> where T : IResponse
         return new Response<T>
         {
             Type = GetTypeFromTypeT(),
-            Status = Status.error,
+            Status = StatusState.Error,
             ErrorMessage = errorMessage
         };
     }
 
-    public static Response<T> Failure(string errorMessage)
+    public static Response<T> Failure(string failureMessage)
     {
         return new Response<T>
         {
             Type = GetTypeFromTypeT(),
-            Status = Status.failure,
-            ErrorMessage = errorMessage
+            Status = StatusState.Failed,
+            ErrorMessage = failureMessage
         };
     }
 
@@ -56,7 +49,7 @@ public class Response<T> where T : IResponse
         return new Response<T>
         {
             Type = GetTypeFromTypeT(),
-            Status = Status.success,
+            Status = StatusState.Success,
         };
     }
 
@@ -65,8 +58,18 @@ public class Response<T> where T : IResponse
         return new Response<T>
         {
             Type = GetTypeFromTypeT(),
-            Status = Status.success,
+            Status = StatusState.Success,
             Data = data
+        };
+    }
+    
+    public static Response<T> ResponseFromStatus(Status status)
+    {
+        return new Response<T>
+        {
+            Type = GetTypeFromTypeT(),
+            Status = status.State,
+            ErrorMessage = status.Message
         };
     }
 }

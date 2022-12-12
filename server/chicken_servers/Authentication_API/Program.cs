@@ -3,12 +3,11 @@
     using View.SignalR;
     public static class Program
     {
-        private static volatile bool _running = true;
-        private static WebApplication _server;
+        private static WebApplication _server = null!;
 
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
             builder.Services.AddSignalR();
                 
             _server = builder.Build();
@@ -16,7 +15,7 @@
             _server.UseAuthorization();
 
             
-            _server.MapHub<LoginHub>("/login");
+            _server.MapHub<LoginHub>("/account");
             _server.Run();
         }
     }

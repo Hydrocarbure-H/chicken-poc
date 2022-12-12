@@ -1,22 +1,34 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Authentication_API.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace Authentication_API.Model
 {
     public static class User
     {
-        public static void Add(string username, string password)
+        public static Status Add(string username, string password)
         {
-            UserModel t = new UserModel
+            Status status = Status.Success();
+            
+            UserModel user = new UserModel
             {
                 Username = username, 
                 Password = password
             };
-            
-            var db = ChickenContext.Create();
-            db.Users.Add(t);
-            db.SaveChanges();
+
+            try
+            {
+                var db = ChickenContext.Create();
+                db.Users.Add(user);
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                status = Status.Error("Error adding user: " + user.Username + "in database");
+            }
+
+            return status;
         }
         
         public static Authentication_API.Controller.User Get(string username)
