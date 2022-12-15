@@ -1,4 +1,5 @@
 ﻿using Authentication_API.Utils;
+using Messages_API.Model;
 
 namespace Messages_API.Controller;
 
@@ -21,6 +22,16 @@ public class Message
         }
 
         return status;
+    }
+    
+    public static (Status, List<Message>) GetMessages(User user)
+    {
+        if (String.Equals(user.Token, ""))
+            return (Status.Error("User token is empty"), new List<Message>());
+        
+        // Get messages from DB
+        (Status status, List<MessageModel> messages) = Model.Message.Get(user);
+        return (status, Converter.MessagesModelList_to_MessagesList(messages));
     }
 
     public User Transmitter { get; }

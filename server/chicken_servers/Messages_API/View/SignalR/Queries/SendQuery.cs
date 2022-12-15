@@ -13,7 +13,7 @@ public class ViewSendQuery : IQuery
     [JsonProperty("date")] public DateTime Date { get; set; }
 }
 
-public abstract class ViewSendResponse : IResponse
+public class ViewSendResponse : IResponse
 {
 }
 

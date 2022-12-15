@@ -9,5 +9,10 @@ namespace Messages_API.View.SignalR
             {
                 await Clients.Caller.SendAsync("send", SendQuery.Handle(data));
             }
+            
+            public async Task Get(string data)
+            {
+                //await Clients.Caller.SendAsync("send", SendQuery.Handle(data));
+            }
         }
 }

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Authentication_API.Utils;
+using Messages_API.Controller;
 using Microsoft.EntityFrameworkCore;
 
 namespace Messages_API.Model;
@@ -32,17 +33,26 @@ public static class Message
 
         return status;
     }
-/*
-    public static Authentication_API.Controller.User Get(string username)
+
+    public static (Status, List<MessageModel>) Get(User user)
     {
-        var db = ChickenContext.Create();
-        List<UserModel> list = db.Users.Where(user => user.Username.Equals(username)).ToList();
+        Status status = Status.Success();
 
-        // Convert Model.User to Controller.User before sending the list back
-        return list.Select(userModel => new Authentication_API.Controller.User(userModel.Username, userModel.Password))
-            .ToList()[0];
+        List<MessageModel> messages = new List<MessageModel>();
+
+        try
+        {
+            var db = ChickenContext.Create();
+            messages = db.Messages.Where(message => message.Transmitter.Equals(user)).ToList();
+        }
+        catch (Exception e)
+        {
+            status = Status.Error("Error could not get messages, error in the database.\n" + e.Message);
+        }
+        
+        return (status, messages);
     }
-
+/*
     public static List<Authentication_API.Controller.User> Get()
     {
         var db = ChickenContext.Create();
@@ -67,20 +77,18 @@ public class MessageModel
     [Required]
     [MaxLength(64)]
     public Controller.User Transmitter { get; set; }
-    
+
     [Column("recipient")]
     [Required]
     [MaxLength(64)]
     public Controller.User Recipient { get; set; }
-    
+
     [Column("content")]
     [Required]
     [MaxLength(1000)]
     public string Content { get; set; }
 
-    [Column("date")]
-    [Required]
-    public DateTime Date { get; set; }
+    [Column("date")] [Required] public DateTime Date { get; set; }
 }
 
 public sealed class ChickenContext : DbContext
@@ -88,7 +96,8 @@ public sealed class ChickenContext : DbContext
     public static ChickenContext Create()
     {
         var contextOption = new DbContextOptionsBuilder<ChickenContext>()
-            .UseNpgsql("Host=bdd.chicken.coloc;Database=chicken_db_messages;Username=chicken_user;Password=chicken_user")
+            .UseNpgsql(
+                "Host=bdd.chicken.coloc;Database=chicken_db_messages;Username=chicken_user;Password=chicken_user")
             .Options;
 
         return new ChickenContext(contextOption);
