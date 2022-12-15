@@ -46,8 +46,8 @@ namespace Authentication_API.Controller
             
             if (FindUser(user) != null)
                 return Status.Failure("Username already exists");
-            
-            return Model.User.Add(user._username, user._password);
+
+            return Model.User.Add(user);
         }
 
         private readonly string _username;
@@ -79,6 +79,11 @@ namespace Authentication_API.Controller
         public string GetUsername()
         {
             return _username;
+        }
+        
+        public string GetPassword()
+        {
+            return _password;
         }
     }
 }

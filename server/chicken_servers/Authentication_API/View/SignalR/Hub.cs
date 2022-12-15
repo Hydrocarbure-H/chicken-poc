@@ -14,5 +14,10 @@
             {
                 await Clients.Caller.SendAsync("register", RegisterQuery.Handle(data));
             }
+            
+            public async Task GetInformations(string data)
+            {
+                //await Clients.Caller.SendAsync("getInfo", GetInfoQuery.Handle(data));
+            }
         }
 }

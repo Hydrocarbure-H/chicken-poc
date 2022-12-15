@@ -2,30 +2,32 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Authentication_API.Utils;
 using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
 
 namespace Authentication_API.Model
 {
     public static class User
     {
-        public static Status Add(string username, string password)
+        public static Status Add(Controller.User user)
         {
             Status status = Status.Success();
             
-            UserModel user = new UserModel
+            UserModel userModel = new UserModel
             {
-                Username = username, 
-                Password = password
+                Username = user.GetUsername(), 
+                Password = user.GetPassword(),
+                Token = user.GetToken()
             };
 
             try
             {
                 var db = ChickenContext.Create();
-                db.Users.Add(user);
+                db.Users.Add(userModel);
                 db.SaveChanges();
             }
             catch (Exception)
             {
-                status = Status.Error("Error adding user: " + user.Username + "in database");
+                status = Status.Error("Error adding user: " + userModel.Username + "in database");
             }
 
             return status;
