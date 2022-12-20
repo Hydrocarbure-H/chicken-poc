@@ -12,7 +12,7 @@ namespace Messages_API.View.SignalR
             
             public async Task Get(string data)
             {
-                //await Clients.Caller.SendAsync("send", SendQuery.Handle(data));
+                await Clients.Caller.SendAsync("get", GetQuery.Handle(data));
             }
         }
 }

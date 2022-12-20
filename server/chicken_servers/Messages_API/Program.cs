@@ -16,7 +16,7 @@ namespace Messages_API
             _server.UseAuthorization();
 
             
-            _server.MapHub<MessagesHub>("/account");
+            _server.MapHub<MessagesHub>("/Messages");
             _server.Run();
         }
     }

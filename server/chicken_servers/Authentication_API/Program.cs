@@ -15,7 +15,7 @@
             _server.UseAuthorization();
 
             
-            _server.MapHub<AccountHub>("/account");
+            _server.MapHub<AccountHub>("/Account");
             _server.Run();
         }
     }
