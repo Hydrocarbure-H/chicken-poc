@@ -8,12 +8,17 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="FluentAssertions" Version="6.8.0" />
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
       <PackageReference Include="NUnit" Version="3.13.3" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Authentication_API\Authentication_API.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Messages_API" />
     </ItemGroup>
 
 </Project>
