@@ -1,0 +1,198 @@
+@font-face {
+
+    font-family: "thin";
+    src: url('fonts/Roboto-Light.ttf');
+}
+
+@font-face {
+
+    font-family: "bold";
+    src: url('fonts/Roboto-Bold.ttf');
+}
+
+:root {
+    /*
+    --bg-dark-1: #25354c;
+    --bg-dark-2: #344b6c;
+    --bg-dark-3: #47699a;
+    */
+    --bg-dark-1: #25354c;
+    --bg-dark-2: #344b6c;
+    --bg-dark-3: #47699a;
+    --tx-light-1: #fefeff;
+    --tx-light-2: #d8d9d8;
+    --tx-light-3: #a8a9a8;
+    --tx-font-title-bar: 15px;
+    --tx-font-normal: 15px;
+    --border-light-1: #fefeff;
+    --border-light-2: #777;
+    --red1: #984749;
+    --green1: #479869;
+    --orange1: #987d47;
+    --button-blue: #124885;
+    --border-radius: 10px;
+    --field-border-radius: 10px;
+    --padding: 15px;
+    --button-padding: 10px;
+    --animation-duration: .3s;
+}
+
+body {
+    font-family: "thin";
+    scroll-behavior: smooth;
+    background-color: var(--bg-dark-2);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    color: var(--tx-light-1);
+    height: calc(100vh - 85px);
+    width: 95%;
+    margin: 20px auto;
+    display: block;
+}
+
+/* Electron app bar */
+.drag_bar {
+    background-color: var(--bg-dark-1);
+    color: var(--tx-light-2);
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    height: 45px;
+    font-size: 15px;
+
+    /* Electron draggable window */
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+}
+
+.drag_bar-button {
+    -webkit-app-region: no-drag;
+}
+
+.drag_bar_items {
+    padding: 15px;
+}
+
+.drag_bar_items.title {
+    text-align: center;
+    font-size: 20px;
+}
+
+.drag_bar_items.message {
+    font-size: 12px;
+}
+
+
+.drag_bar h1 {
+    margin-top: 0;
+}
+
+.drag_bar h4 {
+    margin-top: 16px;
+    margin-left: 10px;
+    color: var(--tx-light-3);
+    font-size: 13px;
+}
+
+.drag_bar img {
+    border-radius: 5px;
+    display: none;
+    height: 25px;
+    padding: 10px;
+}
+
+/* 
+.drag_bar img:hover {
+    background-color: #eee1;
+    cursor: pointer;
+} */
+
+.logo_title {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    margin: 0px auto;
+    width: auto;
+}
+
+.logo_name {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.drag_bar .logo_img {
+    padding-top: 0;
+    margin-top: 8px;
+    display: block;
+    width: 30px;
+    height: 30px;
+}
+
+.call_container {
+    width: 70%;
+    height: 40vh;
+    display: flex;
+    margin: 120px auto;
+    margin-bottom: 0;
+    background-color: var(--bg-dark-3);
+    border-radius: var(--border-radius);
+}
+
+.call_container .user_container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+    padding: 10px;
+    transition: all var(--animation-duration);
+}
+
+.call_container .user_img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.join_container {
+    width: fit-content;
+    height: 20vh;
+    display: flex;
+    margin: 20px auto;
+    margin-bottom: 0;
+}
+
+.join_btn {
+    width: 120px;
+    height: 40px;
+    padding: var(--button-padding);
+    background-color: var(--bg-dark-1);
+    border-radius: var(--field-border-radius);
+    border: none;
+    color: var(--tx-light-2);
+    cursor: pointer;
+    transition: var(--animation-duration);
+}
+
+.join_btn:hover {
+    background-color: var(--bg-dark-3);
+}
+
+.mic_img {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: var(--animation-duration);
+}
+
+.mic_img:hover {
+    opacity: .5;
+}
