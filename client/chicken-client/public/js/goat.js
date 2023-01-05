@@ -1,13 +1,13 @@
 const userStatus = {
     microphone: false,
-    mute: true,
+    mute: false,
     username: "user#" + Math.floor(Math.random() * 999999),
     online: false,
 };
 
 const users = document.getElementById("users");
 
-userStatus.username = "Thomas";
+userStatus.username = "MacMini";
 window.onload = (e) => {
     mainFunction(1000);
 };
