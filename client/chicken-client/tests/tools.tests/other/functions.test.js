@@ -23,7 +23,7 @@ const good_response_format = {
 test('Testing a wrong response format', () => {
     const string_response = JSON.stringify(bad_response_format);
     const returned_value = FUNCTIONS.check_response(string_response);
-    expect(returned_value).toBeInstanceOf(ERROR_CLASS.Error);
+    expect(returned_value).toBeInstanceOf(QUERY_CLASS.Response);
 });
 
 test('Testing check_status function : SUCCESS',
