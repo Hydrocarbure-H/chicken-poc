@@ -44,7 +44,7 @@ public static class RegisterQuery
 
         Response<ViewRegisterResponse> response = Response<ViewRegisterResponse>.Success();;
 
-        if (status.State != StatusState.Success)
+        if (status.State != StatusState.success)
             response = Response<ViewRegisterResponse>.ResponseFromStatus(status);
 
         return JsonConvert.SerializeObject(response);

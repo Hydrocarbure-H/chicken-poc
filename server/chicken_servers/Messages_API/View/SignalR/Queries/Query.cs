@@ -6,7 +6,8 @@ namespace Messages_API.View.SignalR.Queries
     [JsonConverter(typeof(StringEnumConverter))]
     public enum Types
     {
-        Send
+        Send,
+        Get
     }
 
     public interface IQuery

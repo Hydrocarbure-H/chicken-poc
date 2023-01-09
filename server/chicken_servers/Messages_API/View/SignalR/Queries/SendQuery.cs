@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
-using Authentication_API.Utils;
 using Messages_API.Controller;
+using Messages_API.Utils;
 using Newtonsoft.Json;
 
 namespace Messages_API.View.SignalR.Queries;
@@ -50,7 +50,7 @@ public static class SendQuery
 
         Response<ViewSendResponse> response = Response<ViewSendResponse>.Success();
         
-        if (status.State != StatusState.Success)
+        if (status.State != StatusState.success)
             response = Response<ViewSendResponse>.ResponseFromStatus(status);
 
         return JsonConvert.SerializeObject(response);

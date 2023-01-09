@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
-using Authentication_API.Utils;
 using Messages_API.Controller;
+using Messages_API.Utils;
 using Newtonsoft.Json;
 
 namespace Messages_API.View.SignalR.Queries;
@@ -28,7 +28,7 @@ public static class GetQuery
         }
         catch (Exception exception)
         {
-            Debug.WriteLine(exception);
+            Console.WriteLine(exception);
             return JsonConvert.SerializeObject(Response<ViewGetResponse>.Error("Invalid JSON"));
         }
 
@@ -43,7 +43,7 @@ public static class GetQuery
 
         Response<ViewGetResponse> response;
         
-        if (status.State != StatusState.Success)
+        if (status.State != StatusState.success)
             response = Response<ViewGetResponse>.ResponseFromStatus(status);
         else
         {

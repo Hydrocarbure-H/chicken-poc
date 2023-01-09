@@ -26,14 +26,14 @@ public class Converter
 
     public static Message MessageModel_to_Message(MessageModel messageModel)
     {
-        return new Message(messageModel.Transmitter, messageModel.Recipient, messageModel.Content, messageModel.Date);
+        return new Message(new User(messageModel.Transmitter), new User(messageModel.Recipient), messageModel.Content, messageModel.Date);
     }
     public static List<Message> MessagesModelList_to_MessagesList(IEnumerable<MessageModel> messageModels)
     {
         List<Message> messages = new List<Message>();
 
         foreach (MessageModel messageModel in messageModels)
-            messages.Append(MessageModel_to_Message(messageModel));
+            messages.Add(MessageModel_to_Message(messageModel));
 
         return messages;
     }

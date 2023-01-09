@@ -1,5 +1,6 @@
-﻿using Authentication_API.Utils;
+﻿using System.Diagnostics;
 using Messages_API.Model;
+using Messages_API.Utils;
 
 namespace Messages_API.Controller;
 
@@ -16,7 +17,7 @@ public class Message
         Status status = Model.Message.Add(message);
         
         // Send it to the user only if he is online and if store was successful
-        if (status.State == StatusState.Success)
+        if (status.State == StatusState.success)
         {
             //TO DO
         }

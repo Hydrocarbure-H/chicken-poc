@@ -43,7 +43,7 @@ namespace Authentication_API.View.SignalR.Queries
 
             Response<ViewLoginResponse> response;
 
-            if (status.State == Utils.StatusState.Success)
+            if (status.State == Utils.StatusState.success)
                 response = Response<ViewLoginResponse>.Success(new ViewLoginResponse { Token = token });
             else
                 response = Response<ViewLoginResponse>.ResponseFromStatus(status);

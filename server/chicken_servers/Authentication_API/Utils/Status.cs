@@ -6,9 +6,9 @@ namespace Authentication_API.Utils;
 [JsonConverter(typeof(StringEnumConverter))]
 public enum StatusState
 {
-    Success = 0,
-    Error = 1,
-    Failed = 2,
+    success = 0,
+    error = 1,
+    failed = 2,
 }
 
 public sealed class Status
@@ -25,22 +25,22 @@ public sealed class Status
     
     public static Status Success()
     {
-        return new Status(StatusState.Success, "");
+        return new Status(StatusState.success, "");
     }
     
     public static Status Success(string message)
     {
-        return new Status(StatusState.Success, message);
+        return new Status(StatusState.success, message);
     }
     
     public static Status Error(string message)
     {
-        return new Status(StatusState.Error, message);
+        return new Status(StatusState.error, message);
     }
     
     public static Status Failure(string message)
     {
-        return new Status(StatusState.Failed, message);
+        return new Status(StatusState.failed, message);
     }
     
     private StatusState ChangeState(StatusState newState, string? message = null)

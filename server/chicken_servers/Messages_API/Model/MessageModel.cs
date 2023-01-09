@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Authentication_API.Utils;
+using System.Diagnostics;
 using Messages_API.Controller;
+using Messages_API.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace Messages_API.Model;
@@ -14,8 +15,8 @@ public static class Message
 
         MessageModel messageModel = new MessageModel
         {
-            Transmitter = message.Transmitter,
-            Recipient = message.Recipient,
+            Transmitter = message.Transmitter.Token,
+            Recipient = message.Recipient.Token,
             Content = message.Content,
             Date = message.Date
         };
@@ -26,8 +27,9 @@ public static class Message
             db.Messages.Add(messageModel);
             db.SaveChanges();
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            Console.WriteLine(e);
             status = Status.Error("Error could not send message, error in the database");
         }
 
@@ -43,7 +45,7 @@ public static class Message
         try
         {
             var db = ChickenContext.Create();
-            messages = db.Messages.Where(message => message.Transmitter.Equals(user)).ToList();
+            messages = db.Messages.Where(message => message.Transmitter.Equals(user.Token) || message.Recipient.Equals(user.Token)).ToList();
         }
         catch (Exception e)
         {
@@ -76,12 +78,14 @@ public class MessageModel
     [Column("transmitter")]
     [Required]
     [MaxLength(64)]
-    public Controller.User Transmitter { get; set; }
+    //public Controller.User Transmitter { get; set; }
+    public String Transmitter { get; set; }
 
     [Column("recipient")]
     [Required]
     [MaxLength(64)]
-    public Controller.User Recipient { get; set; }
+    //public Controller.User Recipient { get; set; }
+    public String Recipient { get; set; }
 
     [Column("content")]
     [Required]

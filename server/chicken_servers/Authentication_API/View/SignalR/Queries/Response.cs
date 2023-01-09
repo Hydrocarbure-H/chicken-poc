@@ -29,7 +29,7 @@ public class Response<T> where T : IResponse
         return new Response<T>
         {
             Type = GetTypeFromTypeT(),
-            Status = StatusState.Error,
+            Status = StatusState.error,
             ErrorMessage = errorMessage
         };
     }
@@ -39,7 +39,7 @@ public class Response<T> where T : IResponse
         return new Response<T>
         {
             Type = GetTypeFromTypeT(),
-            Status = StatusState.Failed,
+            Status = StatusState.failed,
             ErrorMessage = failureMessage
         };
     }
@@ -49,7 +49,7 @@ public class Response<T> where T : IResponse
         return new Response<T>
         {
             Type = GetTypeFromTypeT(),
-            Status = StatusState.Success,
+            Status = StatusState.success,
         };
     }
 
@@ -58,7 +58,7 @@ public class Response<T> where T : IResponse
         return new Response<T>
         {
             Type = GetTypeFromTypeT(),
-            Status = StatusState.Success,
+            Status = StatusState.success,
             Data = data
         };
     }

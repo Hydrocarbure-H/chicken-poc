@@ -12,7 +12,7 @@ namespace Messages_API
             builder.Services.AddSignalR();
                 
             _server = builder.Build();
-            _server.Urls.Add("http://*:9002");
+            _server.Urls.Add("http://*:9003");
             _server.UseAuthorization();
 
             
