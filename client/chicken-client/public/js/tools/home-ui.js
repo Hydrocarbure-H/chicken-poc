@@ -7,7 +7,7 @@
  * Each click will create a new div with all mp messages
  * @param {JSON} json The JSON response wich contains all messages
  */
-function add_mp_click_listener(json) {
+function add_mp_click_listener(json, socket) {
     document.querySelectorAll('.mp_item').forEach(box => {
         box.addEventListener('click', function handleClick(event) {
 
@@ -20,12 +20,13 @@ function add_mp_click_listener(json) {
             // -- Creating new mp div -- //
             var mp_box = document.createElement('div');
             mp_box.classList.add('messages_container_item');
+            mp_box.setAttribute('id', 'messages_container_item');
             // Adding the header
             adding_mp_header(mp_box, json);
             // Adding all messages
             adding_mp_messages(mp_box, json);
             // Adding the writing zone
-            adding_mp_writing_zone(mp_box, json);
+            adding_mp_writing_zone(mp_box, json, socket);
             // Set the attribute to the last message box, to avoid margins problems
             mp_box.setAttribute('id', 'last_messages_container_item');
             // Append the mp_div to the last_messages_container
@@ -34,6 +35,66 @@ function add_mp_click_listener(json) {
             scrollToBottom(mp_box.children[1]);
         });
     });
+}
+
+function pull_messages(json) {
+    /*
+    <div class="read_messages_container">
+        <div class="receveid_message">
+            <div class="message">Hi Chicken !</div>
+            <div class="date">24/06 - 22:10</div>
+        </div>
+        <div class="sent_message">
+            <div class="message">Hi</div>
+            <div class="date">24/06 - 22:10</div>
+        </div>
+    </div>
+    */
+
+
+    const read_messages_container = document.getElementById("messages_container_list");
+    read_messages_container.children[1].innerHTML = "";
+    // -- Adding all messages -- //
+    // browse json
+    json.messages_list.forEach(message => {
+
+        if (message.sender.Token === "20b4e3bf-6663-446d-9705-bc8369779d6d") {
+
+            const sent_message = document.createElement('div');
+            sent_message.classList.add('sent_message');
+
+            const message_div_sent = document.createElement('div');
+            message_div_sent.classList.add('message');
+            message_div_sent.innerHTML = message.body;
+
+            const date_div_sent = document.createElement('div');
+            date_div_sent.classList.add('date');
+            date_div_sent.innerHTML = message.date;
+
+            sent_message.appendChild(message_div_sent);
+            sent_message.appendChild(date_div_sent);
+            read_messages_container.appendChild(sent_message)
+            console.log(read_messages_container);
+        }
+        else {
+            const receveid_message = document.createElement('div');
+            receveid_message.classList.add('receveid_message');
+
+            const message_div = document.createElement('div');
+            message_div.classList.add('message');
+            message_div.innerHTML = message.body;
+
+            const date_div = document.createElement('div');
+            date_div.classList.add('date');
+            date_div.innerHTML = message.date;
+
+            receveid_message.appendChild(message_div);
+            receveid_message.appendChild(date_div);
+            console.log(read_messages_container.appendChild(receveid_message));
+        }
+    });
+
+    // obj.appendChild(read_messages_container);
 
 }
 
@@ -158,7 +219,7 @@ function adding_mp_messages(obj, json) {
  * @param {div} obj The created div for opened mp
  * @param {JSON} json The JSON response wich contains all messages
  */
-function adding_mp_writing_zone(obj, json) {
+function adding_mp_writing_zone(obj, json, socket) {
     /*
     <div class="write_messages_container">
         <textarea class="message_textarea" placeholder="I am a hot chicken..."></textarea>
@@ -174,7 +235,7 @@ function adding_mp_writing_zone(obj, json) {
 
     message_textarea.addEventListener("keypress", function (e) {
         if (e.key === 'Enter' && message_textarea.value != "" && message_textarea.value != "\n") {
-            send_message(message_textarea.value, message_textarea, "24/06 - 22h10");
+            send_message(message_textarea.value, message_textarea, "24/06 - 22h10", socket);
             cleaning_textarea(message_textarea);
         }
     })
@@ -253,7 +314,7 @@ function display_srv_list(json) {
  * @param {String} Message body
  * @param {String} Destination id
  */
-function send_message(message, dest, date) {
+function send_message(message, dest, date, socket) {
     const sent_message = document.createElement('div');
     sent_message.classList.add('sent_message');
 
@@ -270,6 +331,10 @@ function send_message(message, dest, date) {
     // get the dest div container
     read_messages_container = document.getElementById("messages_container_list");
     read_messages_container.appendChild(sent_message);
+
+    // send the message to the server
+    socket.emit('send_message', { transmitter_token: localStorage.getItem("token"), recipient_token: "Ma couille le js c top", content: message, date: date });
+    console.log("Message sent");
 }
 
 function cleaning_textarea(textarea) {

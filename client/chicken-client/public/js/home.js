@@ -1,23 +1,5 @@
 // console.log(localStorage.getItem("token"));
 
-/**
- * @author Thomas PEUGNET <thomas.peugnet.pro@gmail.com>
- * @file Description
- * @desc Created on 2022-12-11 4:00:04 pm
- * @copyright Thomas PEUGNET
- */
-
-/**
- * TO DO :
- * Change notification style and structure (using classes)
- */
-var connected = false;
-
-// Create socket io connection to the electron app server
-var socket = io('http://localhost:3001');
-// emit connection signal
-socket.emit('connection');
-
 const json_respnse_messages_type = {
     messages_list:
         [{
@@ -206,18 +188,42 @@ const json_response_servers_type =
         }
     ]
 }
+/**
+ * @author Thomas PEUGNET <thomas.peugnet.pro@gmail.com>
+ * @file Description
+ * @desc Created on 2022-12-11 4:00:04 pm
+ * @copyright Thomas PEUGNET
+ */
 
-// Display the mp list
-display_mp_list(json_response_mp_type);
+/**
+ * TO DO :
+ * Change notification style and structure (using classes)
+ */
+var connected = false;
 
-// Prepare all mp click listeners
-add_mp_click_listener(json_respnse_messages_type);
+// Create socket io connection to the electron app server
+var socket = io('http://localhost:3001');
+// emit connection signal
+socket.emit('connection');
 
-// Display the server list
-display_srv_list(json_response_servers_type);
+// On load, pull all the messages from the server and create a json
+// object with the messages
+$(document).ready(function () {
+    // Get the messages from the server
+    // Display the mp list
+    display_mp_list(json_response_mp_type);
 
-// Open the last mp, to have a non-empty page at lauch
-open_last_mp();
+    // Prepare all mp click listeners
+    add_mp_click_listener(json_respnse_messages_type, socket);
+
+    // Display the server list
+    display_srv_list(json_response_servers_type);
+
+    // Open the last mp, to have a non-empty page at lauch
+    open_last_mp();
+    socket.emit('get_messages', "20b4e3bf-6663-446d-9705-bc8369779d6d");
+});
+
 
 /**
  * @brief Listen for api connection success signal
@@ -229,6 +235,29 @@ socket.on('api_connected', function () {
     display_message(ApiConnectionStatus.Connected, "success");
 });
 
+
+// On message reception, create the json object
+socket.on('pull_messages', function (data) {
+    // Create a json object with the messages
+    var json_messages = adapt_given_json(data);
+    // Create the messages list
+    pull_messages(json_messages);
+});
+
+
+function adapt_given_json(json) {
+    var adapted_json = {};
+    var messages_list = [];
+    for (var i = 0; i < json.messages.length; i++) {
+        var message = {};
+        message.sender = json.messages[i].Transmitter;
+        message.date = json.messages[i].Date;
+        message.body = json.messages[i].Content;
+        messages_list.push(message);
+    }
+    adapted_json = { messages_list };
+    return adapted_json;
+}
 
 /**
  * @brief This function will open the last message sent or receveid
