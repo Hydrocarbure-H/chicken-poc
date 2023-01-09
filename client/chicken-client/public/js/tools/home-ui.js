@@ -335,6 +335,8 @@ function send_message(message, dest, date, socket) {
     // send the message to the server
     socket.emit('send_message', { transmitter_token: localStorage.getItem("token"), recipient_token: "Ma couille le js c top", content: message, date: date });
     console.log("Message sent");
+    socket.emit('get_messages', "20b4e3bf-6663-446d-9705-bc8369779d6d");
+
 }
 
 function cleaning_textarea(textarea) {
