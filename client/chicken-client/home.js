@@ -4,19 +4,21 @@
  * @desc Created on 2022-12-11 3:58:23 pm
  * @copyright Thomas PEUGNET
  */
-// Add files 
-const INDEX = require('./tools/endpoints/index-backend.js');
-const FUNCTIONS = require('./tools/other/functions.js');
-const QUERY_CLASS = require('./tools/other/query-class.js');
-const ERROR_CLASS = require('./tools/other/error-class.js');
-const ENUMS = require('./tools/other/enums.js');
+// Electron app
+const path = require('path');
 
 // Socket.io
 const socket_app = require('express')();
 const server = require('http').createServer(socket_app);
 const io = require('socket.io')(server);
-const Crypto = require('crypto');
 
+// Add files 
+const HOME = require('./tools/endpoints/home-backend.js');
+const FUNCTIONS = require('./tools/other/functions.js');
+const QUERY_CLASS = require('./tools/other/query-class.js');
+const ERROR_CLASS = require('./tools/other/error-class.js');
+const ENUMS = require('./tools/other/enums.js');
+const { notify } = require('node-notifier');
 
 // Create a socket.io server and wait for connection
 io.on('connection', (client_socket) => {
@@ -25,7 +27,7 @@ io.on('connection', (client_socket) => {
     client_socket.emit('client_connected');
 
     // Create a ws connection with the main API
-    let api_socket = INDEX.create_socket("Account");
+    let api_socket = HOME.create_socket("Messages");
 
     // Connect to the main API, and emit the connection signal
     // If the connection is successful, emit the api_connected signal
@@ -46,7 +48,7 @@ io.on('connection', (client_socket) => {
      * Listen for the login request
      * @param {JSON} data Wich contains the user's credentials
      */
-    client_socket.on('login_data', (data) => {
+    client_socket.on('send_message', (data) => {
         var query = new QUERY_CLASS.Query(ENUMS.QueryType.Login, ENUMS.QueryStatus.Success, null, {
             username: data.username,
             hashed_password: Crypto.createHash('sha256').update(data.password).digest('base64')
@@ -66,36 +68,13 @@ io.on('connection', (client_socket) => {
 
 
     /**
-     * Listen for the login response
+     * Listen for a new message
      */
     api_socket.on("login", (data) => {
         console.log("ELECTRON : Received message from the API : " + data);
         let response = FUNCTIONS.get_response(data, client_socket);
 
         client_socket.emit('login_redirection', response.data);
-        // close connections
-        api_socket.close();
-        client_socket.disconnect();
-    });
-
-    /**
-     * Listen for the signin response
-     */
-    api_socket.on(ENUMS.QueryType.Signin, function (data) {
-        let response = get_response(data, client_socket);
-        console.log("ELECTRON : Received message from the API : " + JSON.stringify(response));
-
-        client_socket.emit('signin_redirection', response.data);
-    });
-
-    /**
-     * Listen for the logout response
-     */
-    api_socket.on(ENUMS.QueryType.Disconnect, function (data) {
-        let response = get_response(data);
-        console.log("ELECTRON : Received message from the API : " + JSON.stringify(response));
-
-        client_socket.emit('disconnect');
     });
 });
 

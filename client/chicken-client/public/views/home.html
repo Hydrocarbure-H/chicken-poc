@@ -31,11 +31,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy"
-        content="img-src 'self' data:; default-src 'self' ws://192.168.1.182:9002/">
+    <!-- <meta http-equiv="Content-Security-Policy"
+        content="img-src 'self' data:; default-src 'self' ws://192.168.1.182:9003/"> -->
     <link rel="stylesheet" href="../css/home.css">
     <title>Chicken</title>
     <script src="../js/library/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../js/library/socket.io/socket.io.min.js"></script>
 </head>
 
 <body>
@@ -63,9 +64,12 @@
     </div>
     <div class="bottom_bar_message" id="bottom_bar_message"></div>
 </body>
-<script src="../js/tools/enums.js"></script>
 <script src="../js/tools/ui-functions.js"></script>
 <script src="../js/tools/home-ui.js"></script>
+<script src="../js/tools/enums.js"></script>
+<script src="../js/tools/messages/api.js"></script>
 <script src="../js/home.js"></script>
+<script src="../js/tools/objects.js"></script>
+
 
 </html>

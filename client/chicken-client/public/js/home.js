@@ -1,5 +1,23 @@
 // console.log(localStorage.getItem("token"));
 
+/**
+ * @author Thomas PEUGNET <thomas.peugnet.pro@gmail.com>
+ * @file Description
+ * @desc Created on 2022-12-11 4:00:04 pm
+ * @copyright Thomas PEUGNET
+ */
+
+/**
+ * TO DO :
+ * Change notification style and structure (using classes)
+ */
+var connected = false;
+
+// Create socket io connection to the electron app server
+var socket = io('http://localhost:3001');
+// emit connection signal
+socket.emit('connection');
+
 const json_respnse_messages_type = {
     messages_list:
         [{
@@ -200,6 +218,16 @@ display_srv_list(json_response_servers_type);
 
 // Open the last mp, to have a non-empty page at lauch
 open_last_mp();
+
+/**
+ * @brief Listen for api connection success signal
+ */
+socket.on('api_connected', function () {
+    // console.log("JS : Connected to the API !");
+    // add_listeners(socket);
+    connected = true;
+    display_message(ApiConnectionStatus.Connected, "success");
+});
 
 
 /**
