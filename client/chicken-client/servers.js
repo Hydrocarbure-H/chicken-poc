@@ -10,6 +10,7 @@ const path = require('path');
 
 const index_app = require('./index')
 const home_app = require('./home')
+const signin_app = require('./signin')
 
 // Global strings
 const app_name = "Chicken";
@@ -37,7 +38,7 @@ const createWindow = () => {
         }
     });
     win.webContents.openDevTools()
-    win.loadFile('public/views/index.html')
+    win.loadFile('public/views/signin.html')
 }
 
 app.whenReady().then(() => {
@@ -57,5 +58,9 @@ index_app.listen(3000, () => {
 });
 
 home_app.listen(3001, () => {
+    console.log(`API REST running in http://localhost:3001`);
+});
+
+signin_app.listen(3002, () => {
     console.log(`API REST running in http://localhost:3001`);
 });
