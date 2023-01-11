@@ -5,6 +5,9 @@ using Newtonsoft.Json;
 
 namespace Messages_API.View.SignalR.Queries;
 
+
+// The architecture of the data parameter of the query
+// This is used by the Json Serializer and Deserializer
 public class ViewSendQuery : IQuery
 {
     [JsonProperty("transmitter")] public string? Transmitter { get; set; }
@@ -13,10 +16,15 @@ public class ViewSendQuery : IQuery
     [JsonProperty("date")] public DateTime Date { get; set; }
 }
 
+
+// The architecture of the data returned by the query
 public class ViewSendResponse : IResponse
 {
 }
 
+// For the moment we can only handle the query
+// Maybe in the future we will need more options (queuing for example)
+// This part only deal with the form, there is not internal logic
 public static class SendQuery
 {
     public static string Handle(string data)
@@ -24,6 +32,7 @@ public static class SendQuery
         Debug.WriteLine("Received: " + data);
         Query<ViewSendQuery>? query;
 
+        // We try to deserialize the data
         try
         {
             query = JsonConvert.DeserializeObject<Query<ViewSendQuery>>(data);
@@ -34,6 +43,7 @@ public static class SendQuery
             return JsonConvert.SerializeObject(Response<ViewSendResponse>.Error("Invalid JSON"));
         }
 
+        // We check if the query is valid
         Debug.Assert(query != null, nameof(query) + " != null");
         Debug.Assert(query.Data != null, "query.Data != null");
         
@@ -45,9 +55,11 @@ public static class SendQuery
             return JsonConvert.SerializeObject(Response<ViewSendResponse>.Error("Message is null"));
 
         
+        // We give the data to the controller layer
         Message message = Converter.ViewSendQuery_to_Message(query.Data);
         Status status = Message.SendMessage(message);
 
+        // We return the status
         Response<ViewSendResponse> response = Response<ViewSendResponse>.Success();
         
         if (status.State != StatusState.success)

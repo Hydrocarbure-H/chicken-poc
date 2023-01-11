@@ -7,8 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Messages_API.Model;
 
+// This class is used to interact with the database
+// Interactions with Database appear only here.
 public static class Message
 {
+    // Function to add a message into the database
     public static Status Add(Controller.Message message)
     {
         Status status = Status.Success();
@@ -36,6 +39,7 @@ public static class Message
         return status;
     }
 
+    // Function to get all messages send or receive from a user
     public static (Status, List<MessageModel>) Get(User user)
     {
         Status status = Status.Success();
@@ -66,6 +70,8 @@ public static class Message
     }*/
 }
 
+// This is the model for the messages table in the database
+// All object's name ending with Model are the model for the database
 [Table("messages")]
 public class MessageModel
 {
@@ -95,6 +101,7 @@ public class MessageModel
     [Column("date")] [Required] public DateTime Date { get; set; }
 }
 
+// The information needed to connect to our database
 public sealed class ChickenContext : DbContext
 {
     public static ChickenContext Create()

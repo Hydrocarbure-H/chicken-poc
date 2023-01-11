@@ -4,6 +4,10 @@ using Messages_API.Utils;
 
 namespace Messages_API.Controller;
 
+// Message class and object.
+// Here the logic part happen. For the moment there is nothing to do but it will be useful in the future.
+// For example, the logic we do if the message already exist in the database.
+// Check Controller.User of Authentication_API to see a good example
 public class Message
 {
     public static Status SendMessage(Message message)

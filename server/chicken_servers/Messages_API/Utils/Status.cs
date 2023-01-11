@@ -3,6 +3,11 @@ using Newtonsoft.Json.Converters;
 
 namespace Messages_API.Utils;
 
+// This class is here to simplify the communication between layers
+// and make error more easily readable
+// Between each layer we return at least this object containing the result of the operation
+// This Status object contain the status of the operation and potential error message
+
 [JsonConverter(typeof(StringEnumConverter))]
 public enum StatusState
 {

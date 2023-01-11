@@ -4,7 +4,9 @@ using Messages_API.View.SignalR.Queries;
 
 namespace Messages_API.Controller;
 
-public class Converter
+// Converter of object between layers.
+// For example a MessageModel to a Message
+public static class Converter
 {
     public static Message ViewSendQuery_to_Message(ViewSendQuery query)
     {
