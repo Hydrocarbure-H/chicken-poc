@@ -1,6 +1,17 @@
-﻿using Authentication_API.Utils;
+﻿// Created by Thimot Veyre
+// the 2023-01-09 16:42
+// 
+//  This is part of Authentication_API microservice.
+//  This code belong to the chicken_servers project.
+// 
+//  Last modified on 2023-01-15 13:20
+
+#region
+
+using Authentication_API.Utils;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+
+#endregion
 
 namespace Authentication_API.View.SignalR.Queries;
 
@@ -49,7 +60,7 @@ public class Response<T> where T : IResponse
         return new Response<T>
         {
             Type = GetTypeFromTypeT(),
-            Status = StatusState.success,
+            Status = StatusState.success
         };
     }
 
@@ -62,7 +73,7 @@ public class Response<T> where T : IResponse
             Data = data
         };
     }
-    
+
     public static Response<T> ResponseFromStatus(Status status)
     {
         return new Response<T>

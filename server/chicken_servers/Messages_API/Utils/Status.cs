@@ -1,4 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿// Created by Thimot Veyre
+// the 2023-01-09 16:42
+// 
+//  This is part of Messages_API microservice.
+//  This code belong to the chicken_servers project.
+// 
+//  Last modified on 2023-01-13 19:07
+
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace Messages_API.Utils;
@@ -27,27 +35,27 @@ public sealed class Status
         this.State = state;
         this.Message = message;
     }
-    
+
     public static Status Success()
     {
         return new Status(StatusState.success, "");
     }
-    
+
     public static Status Success(string message)
     {
         return new Status(StatusState.success, message);
     }
-    
+
     public static Status Error(string message)
     {
         return new Status(StatusState.error, message);
     }
-    
+
     public static Status Failure(string message)
     {
         return new Status(StatusState.failed, message);
     }
-    
+
     private StatusState ChangeState(StatusState newState, string? message = null)
     {
         this.State = newState;
@@ -61,5 +69,4 @@ public sealed class Status
         this.Message = newMessage;
         return this.Message;
     }
-    
 }

@@ -1,4 +1,12 @@
-﻿using System.Diagnostics;
+﻿// Created by Thimot Veyre
+// the 2023-01-09 16:42
+// 
+//  This is part of Messages_API microservice.
+//  This code belong to the chicken_servers project.
+// 
+//  Last modified on 2023-01-13 19:07
+
+using System.Diagnostics;
 using Messages_API.Controller;
 using Messages_API.Utils;
 using Newtonsoft.Json;
@@ -42,7 +50,7 @@ public static class GetQuery
         // Somme verifications
         Debug.Assert(query != null, nameof(query) + " != null");
         Debug.Assert(query.Data != null, "query.Data != null");
-        
+
         if (query.Data.User == null)
             return JsonConvert.SerializeObject(Response<ViewSendResponse>.Error("User is null"));
 
@@ -52,7 +60,7 @@ public static class GetQuery
         (Status status, List<Message> messages) = Message.GetMessages(user);
 
         Response<ViewGetResponse> response;
-        
+
         // if the controller layer return an error, we return the error send back (in the status object)
         // else we return the messages
         if (status.State != StatusState.success)

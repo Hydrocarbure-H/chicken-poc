@@ -1,4 +1,12 @@
-﻿using Messages_API.Utils;
+﻿// Created by Thimot Veyre
+// the 2023-01-09 16:42
+// 
+//  This is part of Messages_API microservice.
+//  This code belong to the chicken_servers project.
+// 
+//  Last modified on 2023-01-13 19:07
+
+using Messages_API.Utils;
 using Newtonsoft.Json;
 
 namespace Messages_API.View.SignalR.Queries;
@@ -65,7 +73,7 @@ public class Response<T> where T : IResponse
             Data = data
         };
     }
-    
+
     public static Response<T> ResponseFromStatus(Status status)
     {
         return new Response<T>

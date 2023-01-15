@@ -1,6 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// Created by Thimot Veyre
+// the 2023-01-09 16:42
+// 
+//  This is part of Messages_API microservice.
+//  This code belong to the chicken_servers project.
+// 
+//  Last modified on 2023-01-13 19:07
+
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics;
 using Messages_API.Controller;
 using Messages_API.Utils;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +33,7 @@ public static class Message
 
         try
         {
-            var db = ChickenContext.Create();
+            ChickenContext db = ChickenContext.Create();
             db.Messages.Add(messageModel);
             db.SaveChanges();
         }
@@ -48,14 +55,15 @@ public static class Message
 
         try
         {
-            var db = ChickenContext.Create();
-            messages = db.Messages.Where(message => message.Transmitter.Equals(user.Token) || message.Recipient.Equals(user.Token)).ToList();
+            ChickenContext db = ChickenContext.Create();
+            messages = db.Messages.Where(message =>
+                message.Transmitter.Equals(user.Token) || message.Recipient.Equals(user.Token)).ToList();
         }
         catch (Exception e)
         {
             status = Status.Error("Error could not get messages, error in the database.\n" + e.Message);
         }
-        
+
         return (status, messages);
     }
 /*

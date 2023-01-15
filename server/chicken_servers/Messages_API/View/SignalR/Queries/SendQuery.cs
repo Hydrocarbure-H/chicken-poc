@@ -1,10 +1,17 @@
-﻿using System.Diagnostics;
+﻿// Created by Thimot Veyre
+// the 2023-01-09 16:42
+// 
+//  This is part of Messages_API microservice.
+//  This code belong to the chicken_servers project.
+// 
+//  Last modified on 2023-01-13 19:07
+
+using System.Diagnostics;
 using Messages_API.Controller;
 using Messages_API.Utils;
 using Newtonsoft.Json;
 
 namespace Messages_API.View.SignalR.Queries;
-
 
 // The architecture of the data parameter of the query
 // This is used by the Json Serializer and Deserializer
@@ -15,7 +22,6 @@ public class ViewSendQuery : IQuery
     [JsonProperty("content")] public string? Content { get; set; }
     [JsonProperty("date")] public DateTime Date { get; set; }
 }
-
 
 // The architecture of the data returned by the query
 public class ViewSendResponse : IResponse
@@ -46,7 +52,7 @@ public static class SendQuery
         // We check if the query is valid
         Debug.Assert(query != null, nameof(query) + " != null");
         Debug.Assert(query.Data != null, "query.Data != null");
-        
+
         if (query.Data.Recipient == null)
             return JsonConvert.SerializeObject(Response<ViewSendResponse>.Error("Recipient is null"));
         if (query.Data.Transmitter == null)
@@ -54,14 +60,14 @@ public static class SendQuery
         if (query.Data.Content == null)
             return JsonConvert.SerializeObject(Response<ViewSendResponse>.Error("Message is null"));
 
-        
+
         // We give the data to the controller layer
         Message message = Converter.ViewSendQuery_to_Message(query.Data);
         Status status = Message.SendMessage(message);
 
         // We return the status
         Response<ViewSendResponse> response = Response<ViewSendResponse>.Success();
-        
+
         if (status.State != StatusState.success)
             response = Response<ViewSendResponse>.ResponseFromStatus(status);
 

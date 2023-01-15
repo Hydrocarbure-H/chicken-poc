@@ -1,4 +1,12 @@
-﻿using System.Diagnostics;
+﻿// Created by Thimot Veyre
+// the 2023-01-09 16:42
+// 
+//  This is part of Authentication_API microservice.
+//  This code belong to the chicken_servers project.
+// 
+//  Last modified on 2023-01-13 19:07
+
+using System.Diagnostics;
 using Authentication_API.Controller;
 using Authentication_API.Utils;
 using Newtonsoft.Json;
@@ -42,7 +50,8 @@ public static class RegisterQuery
         User user = Converter.ViewCreateUser_to_User(query.Data);
         Status status = User.CreateUser(user);
 
-        Response<ViewRegisterResponse> response = Response<ViewRegisterResponse>.Success();;
+        Response<ViewRegisterResponse> response = Response<ViewRegisterResponse>.Success();
+        ;
 
         if (status.State != StatusState.success)
             response = Response<ViewRegisterResponse>.ResponseFromStatus(status);

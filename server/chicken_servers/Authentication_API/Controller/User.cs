@@ -1,8 +1,15 @@
-﻿using Authentication_API.Utils;
+﻿// Created by Thimot Veyre
+// the 2023-01-09 16:42
+// 
+//  This is part of Authentication_API microservice.
+//  This code belong to the chicken_servers project.
+// 
+//  Last modified on 2023-01-13 19:07
+
+using Authentication_API.Utils;
 
 namespace Authentication_API.Controller
 {
-
     public class User
     {
         private static List<User> _users = new();
@@ -13,7 +20,7 @@ namespace Authentication_API.Controller
             _users = Model.User.Get();
             return _users.Find(user => user._username == username);
         }
-        
+
         private static User? FindUser(User user)
         {
             _users = Model.User.Get();
@@ -23,16 +30,16 @@ namespace Authentication_API.Controller
         public static (Status, string?) CheckLogin(Login data)
         {
             User? user = FindUser(data.Username);
-            
+
             if (String.Equals(data.Username, ""))
                 return (Status.Error("Username cannot be empty"), null);
-            
+
             if (String.Equals(data.Password, ""))
                 return (Status.Error("Password cannot be empty"), null);
 
             if (user != null && user.CheckUsername(data.Username) && user.CheckPassword(data.Password))
                 return (Status.Success(), user._token);
-                
+
             return (Status.Failure("Invalid username or password"), null);
         }
 
@@ -40,10 +47,10 @@ namespace Authentication_API.Controller
         {
             if (String.Equals(user._username, ""))
                 return Status.Error("Username cannot be empty");
-            
+
             if (String.Equals(user._password, ""))
                 return Status.Error("Password cannot be empty");
-            
+
             if (FindUser(user) != null)
                 return Status.Failure("Username already exists");
 
@@ -80,7 +87,7 @@ namespace Authentication_API.Controller
         {
             return _username;
         }
-        
+
         public string GetPassword()
         {
             return _password;

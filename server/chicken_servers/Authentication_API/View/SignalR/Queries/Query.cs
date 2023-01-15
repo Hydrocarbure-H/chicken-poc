@@ -1,4 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿// Created by Thimot Veyre
+// the 2023-01-09 16:42
+// 
+//  This is part of Authentication_API microservice.
+//  This code belong to the chicken_servers project.
+// 
+//  Last modified on 2023-01-13 19:07
+
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace Authentication_API.View.SignalR.Queries

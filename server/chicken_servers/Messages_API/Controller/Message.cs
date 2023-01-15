@@ -1,4 +1,11 @@
-﻿using System.Diagnostics;
+﻿// Created by Thimot Veyre
+// the 2023-01-09 16:42
+// 
+//  This is part of Messages_API microservice.
+//  This code belong to the chicken_servers project.
+// 
+//  Last modified on 2023-01-13 19:07
+
 using Messages_API.Model;
 using Messages_API.Utils;
 
@@ -16,10 +23,10 @@ public class Message
             return Status.Error("Recipient token is empty");
         if (String.Equals(message.Transmitter.Token, ""))
             return Status.Error("Transmitter token is empty");
-        
+
         // Store it in DB
         Status status = Model.Message.Add(message);
-        
+
         // Send it to the user only if he is online and if store was successful
         if (status.State == StatusState.success)
         {
@@ -28,12 +35,12 @@ public class Message
 
         return status;
     }
-    
+
     public static (Status, List<Message>) GetMessages(User user)
     {
         if (String.Equals(user.Token, ""))
             return (Status.Error("User token is empty"), new List<Message>());
-        
+
         // Get messages from DB
         (Status status, List<MessageModel> messages) = Model.Message.Get(user);
         return (status, Converter.MessagesModelList_to_MessagesList(messages));
