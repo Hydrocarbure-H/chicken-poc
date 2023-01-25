@@ -30,7 +30,7 @@ public static class User
         {
             Username = user.GetUsername(),
             Password = user.GetPassword(),
-            Token = user.GetToken()
+            Secret = user.GetToken()
         };
 
         try
@@ -85,7 +85,9 @@ public class UserModel
     [MaxLength(128)]
     public string Password { get; set; }
 
-    [Column("token")] [MaxLength(64)] public string Token { get; set; }
+    [Column("secret")] [MaxLength(64)] public string Secret { get; set; }
+
+    [Column("publicID")] [MaxLength(64)] public string PublicID { get; set; }
 }
 
 public sealed class ChickenContext : DbContext

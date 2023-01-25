@@ -27,7 +27,7 @@ public static class RegisterQuery
 {
     public static string Handle(string data)
     {
-        Debug.WriteLine("Received: " + data);
+        Console.WriteLine("Received: " + data);
         Query<ViewRegisterQuery>? query;
 
         try
@@ -36,15 +36,15 @@ public static class RegisterQuery
         }
         catch (Exception exception)
         {
-            Debug.WriteLine(exception);
-            return JsonConvert.SerializeObject(Response<ViewLoginResponse>.Error("Invalid JSON"));
+            Console.WriteLine(exception);
+            return JsonConvert.SerializeObject(Response<ViewRegisterResponse>.Error("Invalid JSON"));
         }
 
         Debug.Assert(query != null, nameof(query) + " != null");
         Debug.Assert(query.Data != null, "query.Data != null");
 
         if (query is not { Type: Types.register } || query.Data.Username == null || query.Data.Password == null)
-            return JsonConvert.SerializeObject(Response<ViewLoginResponse>.Error("Invalid parameters"));
+            return JsonConvert.SerializeObject(Response<ViewRegisterResponse>.Error("Invalid parameters"));
 
 
         User user = Converter.ViewCreateUser_to_User(query.Data);
