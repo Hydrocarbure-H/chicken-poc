@@ -7,7 +7,7 @@
 
 const QueryType = {
     Login: 'login',
-    Signin: 'signin',
+    Signin: 'register',
     Disconnect: 'disconnect',
     SendMessage: 'Send',
     GetMessages: 'Get',

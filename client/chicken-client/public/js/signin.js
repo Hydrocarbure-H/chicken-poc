@@ -9,10 +9,10 @@
  * TO DO :
  * Change notification style and structure (using classes)
  */
-var connected = false;
+let connected = false;
 
 // Create socket io connection to the electron app server
-var socket = io('http://localhost:3000');
+const socket = io('http://localhost:3002');
 // emit connection signal
 socket.emit('connection');
 
@@ -21,13 +21,13 @@ socket.emit('connection');
 // PUT THIS ACTION INTO THE API_CONNECTED SIGNAL FUNCTION JUST BELOW
 add_listeners(socket);
 // FOR TESTING ONLY
-
-/**
- * @brief Listen for api connection success signal
- */
-socket.on('api_connected', function () {
     // console.log("JS : Connected to the API !");
     // add_listeners(socket);
+
+    /**
+     * @brief Listen for api connection success signal
+     */
+    socket.on('api_connected', function () {
     connected = true;
     display_message(ApiConnectionStatus.Connected, "success");
 });
@@ -57,7 +57,7 @@ socket.on('disconnect', function () {
  */
 socket.on('api_connection_failure', function (error) {
     console.log("JS : Connection to the API failed !");
-    display_message("Disconected : " + JSON.stringify(error.errorType), "failure", 50);
+    display_message("Disconnected : " + JSON.stringify(error.errorType), "failure", 50);
     connected = false;
 });
 

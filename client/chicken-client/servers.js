@@ -62,5 +62,5 @@ home_app.listen(3001, () => {
 });
 
 signin_app.listen(3002, () => {
-    console.log(`API REST running in http://localhost:3001`);
+    console.log(`API REST running in http://localhost:3002`);
 });

@@ -22,17 +22,8 @@ function login_process(login_data) {
  * @brief Add listeners to submit and notification buttons
  */
 function add_listeners(socket) {
-    document.getElementById("submit_form").addEventListener("click", function () { send_data(socket) });
-    document.getElementById("username").addEventListener("keypress", function (e) {
-        if (e.key === "Enter") {
-            send_data(socket);
-        }
-    });
-    document.getElementById("password").addEventListener("keypress", function (e) {
-        if (e.key === "Enter") {
-            send_data(socket);
-        }
-    });
+    document.getElementById("submit_form").addEventListener("click", function () {
+        send_data(socket) });
 }
 
 /**
@@ -41,17 +32,16 @@ function add_listeners(socket) {
  */
 function send_data(socket) {
     // Check username and password
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-    var email = document.getElementById("email").value;
-    if (username == "" || password == "" || email == "") {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const email = document.getElementById("email").value;
+    if (username === "" || password === "" || email === "") {
         display_message("Missing fields !", "failure");
-        return;
     }
     else {
 
         // Prepare data
-        var raw_data = {
+        const raw_data = {
             username: document.getElementById("username").value,
             password: document.getElementById("password").value,
             email: document.getElementById("email").value

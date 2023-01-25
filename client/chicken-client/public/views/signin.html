@@ -46,11 +46,11 @@
     <!-- Electron Title Bar -->
     <div class="drag_bar">
         <div class="logo_title">
-            <img class="logo_img" src="../images/logo/icon-200-200.png"></img>
+            <img class="logo_img" src="../images/logo/icon-200-200.png" alt="Logo">
             <h3 class="logo_name">Chicken</h3>
             <h4>- We are roasting, together.</h4>
         </div>
-        <img src="../images/design/grey/notification.svg" id="bar_notif_icon" class="drag_bar_items notification">
+        <img src="../images/design/grey/notification.svg" id="bar_notif_icon" class="drag_bar_items notification" alt="Notification">
     </div>
     <!-- Electron Content App -->
     <div class="container">
@@ -62,7 +62,7 @@
                 <!-- <form class="login_form" id="login_form_id" onsubmit="return validateForm()" method="post"> -->
                 <div class="login_form_container">
                     <div class="login_form_item">
-                        <input type="text" name="name" id="name" placeholder="Email (University)" required>
+                        <input type="text" name="email" id="email" placeholder="Email (University)" required>
                     </div>
                     <div class="login_form_item">
                         <input type="text" name="username" id="username" placeholder="Username" required>
@@ -71,6 +71,7 @@
                         <input type="password" name="password" id="password" placeholder="Password" required>
                     </div>
                 </div>
+
                 <div class="form_sublinks">
                     <div class="left_form_links_container">
                         <label class="checkbox_container">I'm in University
@@ -84,10 +85,10 @@
                 </div>
                 <div class="submit_form_container">
                     <div class="login_form_item">
-                        <input type="submit" id="submit_form" value="Login">
+                        <input type="submit" id="submit_form" value="Sign in">
                     </div>
                     <div id="signup_link" class="login_form_item">
-                        <a href="https://epinotes.fr">Already have an account ?</a>
+                        <a href="./index.html">Already have an account ?</a>
                     </div>
                     <div id="error_field" class="login_form_item">
                         <p id="error_message"></p>
@@ -100,9 +101,9 @@
     <div class="bottom_bar_message" id="bottom_bar_message"></div>
 </body>
 <script src="../js/tools/ui-functions.js"></script>
-<script src="../js/tools/index-ui.js"></script>
+<script src="../js/tools/signin-ui.js"></script>
 <script src="../js/tools/enums.js"></script>
 <script src="../js/tools/messages/api.js"></script>
-<script src="../js/index.js"></script>
+<script src="../js/signin.js"></script>
 
 </html>

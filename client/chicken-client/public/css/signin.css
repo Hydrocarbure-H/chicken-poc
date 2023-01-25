@@ -207,7 +207,7 @@ body {
     color: var(--tx-light-2);
 }
 
-#name {
+#email {
     background: url(../images/design/grey/server.svg) no-repeat scroll 7px 0px;
     padding-left: 60px;
     border-radius: var(--field-border-radius);

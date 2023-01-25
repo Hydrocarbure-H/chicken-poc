@@ -12,7 +12,7 @@ const ENUMS = require('../other/enums.js');
 /**
  * @brief Create a new socket
  * @param {string} endpoint 
- * @returns {WebSocket} The new socket
+ * @returns {Socket} The new socket
  * TODO : Add a timeout handler
  */
 function create_socket(endpoint) {

@@ -8,59 +8,58 @@ const userStatus = {
 const users = document.getElementById("users");
 
 userStatus.username = "MacMini";
-window.onload = (e) => {
+window.onload = () => {
     mainFunction(1000);
 };
 
-var socket = io("ws://192.168.1.107:5252", { transports: ['websocket'] });
+const socket = io("ws://192.168.1.107:5252", { transports: ['websocket'] });
 socket.emit("userInformation", userStatus);
 
 
 function mainFunction(time) {
 
-
     navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-        var madiaRecorder = new MediaRecorder(stream);
-        madiaRecorder.start();
+        const mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.start();
 
-        var audioChunks = [];
+        let audioChunks = [];
 
-        madiaRecorder.addEventListener("dataavailable", function (event) {
+        mediaRecorder.addEventListener("dataavailable", function (event) {
             audioChunks.push(event.data);
         });
 
-        madiaRecorder.addEventListener("stop", function () {
-            var audioBlob = new Blob(audioChunks);
+        mediaRecorder.addEventListener("stop", function () {
+            const audioBlob = new Blob(audioChunks);
 
             audioChunks = [];
 
-            var fileReader = new FileReader();
+            const fileReader = new FileReader();
             fileReader.readAsDataURL(audioBlob);
             fileReader.onloadend = function () {
                 if (!userStatus.microphone || !userStatus.online) return;
 
-                var base64String = fileReader.result;
+                const base64String = fileReader.result;
                 socket.emit("voice", base64String);
 
             };
 
-            madiaRecorder.start();
+            mediaRecorder.start();
 
 
             setTimeout(function () {
-                madiaRecorder.stop();
+                mediaRecorder.stop();
             }, time);
         });
 
         setTimeout(function () {
-            madiaRecorder.stop();
+            mediaRecorder.stop();
         }, time);
     });
 
 
     socket.on("send", function (data) {
-        var audio = new Audio(data);
-        audio.play();
+        const audio = new Audio(data);
+        audio.play().then(r => console.log(r)).catch(e => console.log(e));
     });
 
     socket.on("usersUpdate", function (data) {
