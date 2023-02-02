@@ -25,12 +25,11 @@ public static class User
     public static Status Add(Controller.User user)
     {
         Status status = Status.Success();
-
         UserModel userModel = new()
         {
             Username = user.GetUsername(),
             Password = user.GetPassword(),
-            Secret = user.GetToken()
+            PublicID = Guid.NewGuid().ToString()
         };
 
         try
@@ -84,8 +83,6 @@ public class UserModel
     [Required]
     [MaxLength(128)]
     public string Password { get; set; }
-
-    [Column("secret")] [MaxLength(64)] public string Secret { get; set; }
 
     [Column("publicID")] [MaxLength(64)] public string PublicID { get; set; }
 }

@@ -27,7 +27,7 @@ namespace Authentication_API.Controller
             return _users.Find(userTmp => userTmp._username == user._username);
         }
 
-        public static (Status, string?) CheckLogin(Login data)
+        public static (Status, string?) Login(Login data)
         {
             User? user = FindUser(data.Username);
 
@@ -38,9 +38,28 @@ namespace Authentication_API.Controller
                 return (Status.Error("Password cannot be empty"), null);
 
             if (user != null && user.CheckUsername(data.Username) && user.CheckPassword(data.Password))
-                return (Status.Success(), user._token);
+            {
+                user._secret = Guid.NewGuid().ToString();
+                _onlineUsers.Add(user);
+                return (Status.Success(), user._secret);
+            }
 
             return (Status.Failure("Invalid username or password"), null);
+        }
+
+        public static Status Logout(string secret)
+        {
+            IEnumerable<User> tmp_list = _onlineUsers.Where(tmp => tmp._secret == secret);
+
+            if (tmp_list.Count() == 0)
+                return Status.Failure("User is not online");
+
+            if (tmp_list.Count() > 1)
+                return Status.Error("Error while loging out user, multiple users with same secret found");
+
+            _onlineUsers.Remove(tmp_list.First());
+
+            return Status.Success();
         }
 
         public static Status CreateUser(User user)
@@ -59,13 +78,13 @@ namespace Authentication_API.Controller
 
         private readonly string _username;
         private readonly string _password;
-        private readonly string _token;
+        private string _secret;
 
         public User(string username, string password)
         {
             _username = username;
             _password = password;
-            _token = Guid.NewGuid().ToString();
+            _secret = "";
         }
 
         private bool CheckPassword(string password)
@@ -80,7 +99,7 @@ namespace Authentication_API.Controller
 
         public string GetToken()
         {
-            return _token;
+            return _secret;
         }
 
         public string GetUsername()

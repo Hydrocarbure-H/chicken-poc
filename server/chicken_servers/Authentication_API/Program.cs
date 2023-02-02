@@ -30,5 +30,7 @@ public static class Program
 
         _server.MapHub<AccountHub>("/Account");
         _server.Run();
+        Controller.User tmp = new("String", "Stroing");
+        Model.User.Add(tmp);
     }
 }
