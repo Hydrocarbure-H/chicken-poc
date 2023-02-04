@@ -9,6 +9,7 @@
 using System.Diagnostics;
 using Authentication_API.Controller;
 using Newtonsoft.Json;
+using Utils.Status;
 
 namespace Authentication_API.View.SignalR.Queries
 {
@@ -47,11 +48,11 @@ namespace Authentication_API.View.SignalR.Queries
                 return JsonConvert.SerializeObject(Response<ViewLoginResponse>.Error("Invalid parameters"));
 
             Login loginRequest = Converter.ViewLogin_to_Login(query.Data);
-            (Utils.Status status, string? token) = User.CheckLogin(loginRequest);
+            (Status status, var token) = User.Login(loginRequest);
 
             Response<ViewLoginResponse> response;
 
-            if (status.State == Utils.StatusState.success)
+            if (status.State == StatusState.success)
                 response = Response<ViewLoginResponse>.Success(new ViewLoginResponse { Token = token });
             else
                 response = Response<ViewLoginResponse>.ResponseFromStatus(status);

@@ -1,40 +1,40 @@
 ﻿// Created by Thimot Veyre
 // the 2023-01-09 16:42
 // 
-//  This is part of Messages_API microservice.
+//  This is part of Authentication_API microservice.
 //  This code belong to the chicken_servers project.
 // 
-//  Last modified on 2023-01-13 19:07
+//  Last modified on 2023-01-15 13:28
+//  by Thimot Veyre
 
-using Newtonsoft.Json;
+#region
+
+using System.Text.Json.Serialization;
 using Newtonsoft.Json.Converters;
 
-namespace Messages_API.Utils;
+#endregion
 
-// This class is here to simplify the communication between layers
-// and make error more easily readable
-// Between each layer we return at least this object containing the result of the operation
-// This Status object contain the status of the operation and potential error message
+namespace Utils.Status;
 
 [JsonConverter(typeof(StringEnumConverter))]
 public enum StatusState
 {
     success = 0,
     error = 1,
-    failed = 2,
+    failed = 2
 }
 
 public sealed class Status
 {
+    private Status(StatusState state, string message)
+    {
+        State = state;
+        Message = message;
+    }
+
     public StatusState State { get; private set; }
 
     public string Message { get; private set; }
-
-    private Status(StatusState state, string message)
-    {
-        this.State = state;
-        this.Message = message;
-    }
 
     public static Status Success()
     {
@@ -58,15 +58,15 @@ public sealed class Status
 
     private StatusState ChangeState(StatusState newState, string? message = null)
     {
-        this.State = newState;
+        State = newState;
         if (message != null)
-            this.Message = message;
-        return this.State;
+            Message = message;
+        return State;
     }
 
     private string ChangeMessage(string newMessage)
     {
-        this.Message = newMessage;
-        return this.Message;
+        Message = newMessage;
+        return Message;
     }
 }

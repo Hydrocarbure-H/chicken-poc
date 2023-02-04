@@ -8,8 +8,8 @@
 
 using System.Diagnostics;
 using Authentication_API.Controller;
-using Authentication_API.Utils;
 using Newtonsoft.Json;
+using Utils.Status;
 
 namespace Authentication_API.View.SignalR.Queries;
 

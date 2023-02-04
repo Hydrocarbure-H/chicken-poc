@@ -17,8 +17,4 @@
       <ProjectReference Include="..\Authentication_API\Authentication_API.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Messages_API" />
-    </ItemGroup>
-
 </Project>

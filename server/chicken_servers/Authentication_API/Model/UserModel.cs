@@ -11,8 +11,8 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Authentication_API.Utils;
 using Microsoft.EntityFrameworkCore;
+using Utils.Status;
 
 #pragma warning disable CS8618
 

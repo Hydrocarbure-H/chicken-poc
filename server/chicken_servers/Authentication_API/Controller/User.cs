@@ -6,7 +6,7 @@
 // 
 //  Last modified on 2023-01-13 19:07
 
-using Authentication_API.Utils;
+using Utils.Status;
 
 namespace Authentication_API.Controller
 {
@@ -31,10 +31,10 @@ namespace Authentication_API.Controller
         {
             User? user = FindUser(data.Username);
 
-            if (String.Equals(data.Username, ""))
+            if (string.Equals(data.Username, ""))
                 return (Status.Error("Username cannot be empty"), null);
 
-            if (String.Equals(data.Password, ""))
+            if (string.Equals(data.Password, ""))
                 return (Status.Error("Password cannot be empty"), null);
 
             if (user != null && user.CheckUsername(data.Username) && user.CheckPassword(data.Password))
@@ -49,15 +49,15 @@ namespace Authentication_API.Controller
 
         public static Status Logout(string secret)
         {
-            IEnumerable<User> tmp_list = _onlineUsers.Where(tmp => tmp._secret == secret);
+            IEnumerable<User> tmpList = _onlineUsers.Where(tmp => tmp._secret == secret);
 
-            if (tmp_list.Count() == 0)
+            if (!tmpList.Any())
                 return Status.Failure("User is not online");
 
-            if (tmp_list.Count() > 1)
+            if (tmpList.Count() > 1)
                 return Status.Error("Error while loging out user, multiple users with same secret found");
 
-            _onlineUsers.Remove(tmp_list.First());
+            _onlineUsers.Remove(tmpList.First());
 
             return Status.Success();
         }

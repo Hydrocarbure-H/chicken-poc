@@ -9,8 +9,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Messages_API.Controller;
-using Messages_API.Utils;
 using Microsoft.EntityFrameworkCore;
+using Utils.Status;
 
 namespace Messages_API.Model;
 
