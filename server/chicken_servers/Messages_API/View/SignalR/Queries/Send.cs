@@ -38,12 +38,12 @@ public static class SendQuery
     public static string Handle(string data)
     {
         Debug.WriteLine("Received: " + data);
-        Query<ViewSendQuery, Type>? query;
+        Query<ViewSendQuery>? query;
 
         // We try to deserialize the data
         try
         {
-            query = JsonConvert.DeserializeObject<Query<ViewSendQuery, Type>>(data);
+            query = JsonConvert.DeserializeObject<Query<ViewSendQuery>>(data);
         }
         catch (Exception exception)
         {

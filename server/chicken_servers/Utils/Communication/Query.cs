@@ -15,8 +15,7 @@ public interface IQuery
 {
 }
 
-public class Query<T, TEnum> where T : IQuery where TEnum : Enum
+public class Query<T> where T : IQuery
 {
-    [JsonProperty("type")] public TEnum? Type { get; set; }
     [JsonProperty("data")] public T? Data { get; set; }
 }

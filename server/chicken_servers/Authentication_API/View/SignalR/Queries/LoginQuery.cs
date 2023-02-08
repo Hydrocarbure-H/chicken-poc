@@ -31,11 +31,11 @@ namespace Authentication_API.View.SignalR.Queries
         public static string Handle(string data)
         {
             Debug.WriteLine("Received: " + data);
-            Query<ViewLoginQuery, Type>? query;
+            Query<ViewLoginQuery>? query;
 
             try
             {
-                query = JsonConvert.DeserializeObject<Query<ViewLoginQuery, Type>>(data);
+                query = JsonConvert.DeserializeObject<Query<ViewLoginQuery>>(data);
             }
             catch (Exception exception)
             {

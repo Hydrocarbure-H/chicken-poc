@@ -30,11 +30,11 @@ public static class RegisterQuery
     public static string Handle(string data)
     {
         Console.WriteLine("Received: " + data);
-        Query<ViewRegisterQuery, Type>? query;
+        Query<ViewRegisterQuery>? query;
 
         try
         {
-            query = JsonConvert.DeserializeObject<Query<ViewRegisterQuery, Type>>(data);
+            query = JsonConvert.DeserializeObject<Query<ViewRegisterQuery>>(data);
         }
         catch (Exception exception)
         {

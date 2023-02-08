@@ -36,12 +36,12 @@ public static class GetQuery
     public static string Handle(string data)
     {
         Debug.WriteLine("Received: " + data);
-        Query<ViewGetQuery, Type>? query;
+        Query<ViewGetQuery>? query;
 
         // Deserialize the data
         try
         {
-            query = JsonConvert.DeserializeObject<Query<ViewGetQuery, Type>>(data);
+            query = JsonConvert.DeserializeObject<Query<ViewGetQuery>>(data);
         }
         catch (Exception exception)
         {
