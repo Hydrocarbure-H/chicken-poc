@@ -19,9 +19,9 @@ namespace Utils.Status;
 [JsonConverter(typeof(StringEnumConverter))]
 public enum StatusState
 {
-    success = 0,
-    error = 1,
-    failed = 2
+    Success = 0,
+    Error = 1,
+    Failed = 2
 }
 
 public sealed class Status
@@ -38,22 +38,22 @@ public sealed class Status
 
     public static Status Success()
     {
-        return new Status(StatusState.success, "");
+        return new Status(StatusState.Success, "");
     }
 
     public static Status Success(string message)
     {
-        return new Status(StatusState.success, message);
+        return new Status(StatusState.Success, message);
     }
 
     public static Status Error(string message)
     {
-        return new Status(StatusState.error, message);
+        return new Status(StatusState.Error, message);
     }
 
     public static Status Failure(string message)
     {
-        return new Status(StatusState.failed, message);
+        return new Status(StatusState.Failed, message);
     }
 
     private StatusState ChangeState(StatusState newState, string? message = null)

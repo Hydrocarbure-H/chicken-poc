@@ -11,6 +11,7 @@ using Messages_API.Controller;
 using Newtonsoft.Json;
 using Utils.Communication;
 using Utils.Status;
+using Type = Utils.Communication.Type;
 
 namespace Messages_API.View.SignalR.Queries;
 
@@ -22,7 +23,7 @@ public class ViewGetQuery : IQuery
 }
 
 // The architecture of the data returned by the query
-public class ViewGetResponse : IResponse<Type>
+public class ViewGetResponse : IResponse
 {
     [JsonProperty("messages")] public List<Message>? Messages { get; set; }
     public static Type Type => Type.Get;
@@ -46,7 +47,7 @@ public static class GetQuery
         catch (Exception exception)
         {
             Console.WriteLine(exception);
-            return JsonConvert.SerializeObject(Response<ViewGetResponse, Type>.Error("Invalid JSON"));
+            return JsonConvert.SerializeObject(Response<ViewGetResponse>.Error("Invalid JSON"));
         }
 
         // Somme verifications
@@ -54,26 +55,26 @@ public static class GetQuery
         Debug.Assert(query.Data != null, "query.Data != null");
 
         if (query.Data.User == null)
-            return JsonConvert.SerializeObject(Response<ViewGetResponse, Type>.Error("User is null"));
+            return JsonConvert.SerializeObject(Response<ViewGetResponse>.Error("User is null"));
 
         // Ask the controller layer to get us the messages.
         // We convert our data to a usable format for the controller
         User user = Converter.ViewGetQuery_to_User(query.Data);
         (Status status, List<Message> messages) = Message.GetMessages(user);
 
-        Response<ViewGetResponse, Type> response;
+        Response<ViewGetResponse> response;
 
         // if the controller layer return an error, we return the error send back (in the status object)
         // else we return the messages
-        if (status.State != StatusState.success)
-            response = Response<ViewGetResponse, Type>.ResponseFromStatus(status);
+        if (status.State != StatusState.Success)
+            response = Response<ViewGetResponse>.ResponseFromStatus(status);
         else
         {
             ViewGetResponse tmpData = new()
             {
                 Messages = messages
             };
-            response = Response<ViewGetResponse, Type>.Success(tmpData);
+            response = Response<ViewGetResponse>.Success(tmpData);
         }
 
         return JsonConvert.SerializeObject(response);

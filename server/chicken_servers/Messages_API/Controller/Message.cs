@@ -17,6 +17,19 @@ namespace Messages_API.Controller;
 // Check Controller.User of Authentication_API to see a good example
 public class Message
 {
+    public Message(User transmitter, User recipient, string content, DateTime date)
+    {
+        Transmitter = transmitter;
+        Recipient = recipient;
+        Content = content;
+        Date = date;
+    }
+
+    public User Transmitter { get; }
+    public User Recipient { get; }
+    public string Content { get; }
+    public DateTime Date { get; }
+
     public static Status SendMessage(Message message)
     {
         if (String.Equals(message.Recipient.Token, ""))
@@ -28,7 +41,7 @@ public class Message
         Status status = Model.Message.Add(message);
 
         // Send it to the user only if he is online and if store was successful
-        if (status.State == StatusState.success)
+        if (status.State == StatusState.Success)
         {
             //TO DO
         }
@@ -44,18 +57,5 @@ public class Message
         // Get messages from DB
         (Status status, List<MessageModel> messages) = Model.Message.Get(user);
         return (status, Converter.MessagesModelList_to_MessagesList(messages));
-    }
-
-    public User Transmitter { get; }
-    public User Recipient { get; }
-    public string Content { get; }
-    public DateTime Date { get; }
-
-    public Message(User transmitter, User recipient, string content, DateTime date)
-    {
-        Transmitter = transmitter;
-        Recipient = recipient;
-        Content = content;
-        Date = date;
     }
 }

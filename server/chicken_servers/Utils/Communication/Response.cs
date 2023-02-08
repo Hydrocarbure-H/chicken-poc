@@ -18,61 +18,61 @@ namespace Utils.Communication;
     Here we have more information,
         like the status (succeeded, failed,...) and the error message if needed
 */
-public interface IResponse<out TEnum> where TEnum : Enum
+public interface IResponse
 {
-    public static abstract TEnum Type { get; }
+    public static abstract Type Type { get; }
 }
 
-public class Response<T, TEnum> where T : IResponse<TEnum> where TEnum : Enum
+public class Response<T> where T : IResponse
 {
-    [JsonProperty("type")] public TEnum? Type { get; set; }
+    [JsonProperty("type")] public Type? Type { get; set; }
     [JsonProperty("status")] public StatusState Status { get; set; }
     [JsonProperty("error")] public string ErrorMessage { get; set; } = "";
     [JsonProperty("data")] public T? Data { get; set; }
 
     // The different responses type we can send back to the client
-    public static Response<T, TEnum> Error(string errorMessage)
+    public static Response<T> Error(string errorMessage)
     {
-        return new Response<T, TEnum>
+        return new Response<T>
         {
             Type = T.Type,
-            Status = StatusState.error,
+            Status = StatusState.Error,
             ErrorMessage = errorMessage
         };
     }
 
-    public static Response<T, TEnum> Failure(string failureMessage)
+    public static Response<T> Failure(string failureMessage)
     {
-        return new Response<T, TEnum>
+        return new Response<T>
         {
             Type = T.Type,
-            Status = StatusState.failed,
+            Status = StatusState.Failed,
             ErrorMessage = failureMessage
         };
     }
 
-    public static Response<T, TEnum> Success()
+    public static Response<T> Success()
     {
-        return new Response<T, TEnum>
+        return new Response<T>
         {
             Type = T.Type,
-            Status = StatusState.success
+            Status = StatusState.Success
         };
     }
 
-    public static Response<T, TEnum> Success(T data)
+    public static Response<T> Success(T data)
     {
-        return new Response<T, TEnum>
+        return new Response<T>
         {
             Type = T.Type,
-            Status = StatusState.success,
+            Status = StatusState.Success,
             Data = data
         };
     }
 
-    public static Response<T, TEnum> ResponseFromStatus(Status.Status status)
+    public static Response<T> ResponseFromStatus(Status.Status status)
     {
-        return new Response<T, TEnum>
+        return new Response<T>
         {
             Type = T.Type,
             Status = status.State,

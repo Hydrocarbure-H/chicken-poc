@@ -11,6 +11,7 @@ using Authentication_API.Controller;
 using Newtonsoft.Json;
 using Utils.Communication;
 using Utils.Status;
+using Type = Utils.Communication.Type;
 
 namespace Authentication_API.View.SignalR.Queries;
 
@@ -20,7 +21,7 @@ public class ViewRegisterQuery : IQuery
     [JsonProperty("hashed_password")] public string? Password { get; set; }
 }
 
-public abstract class ViewRegisterResponse : IResponse<Type>
+public abstract class ViewRegisterResponse : IResponse
 {
     public static Type Type => Type.Register;
 }
@@ -39,24 +40,24 @@ public static class RegisterQuery
         catch (Exception exception)
         {
             Console.WriteLine(exception);
-            return JsonConvert.SerializeObject(Response<ViewRegisterResponse, Type>.Error("Invalid JSON"));
+            return JsonConvert.SerializeObject(Response<ViewRegisterResponse>.Error("Invalid JSON"));
         }
 
         Debug.Assert(query != null, nameof(query) + " != null");
         Debug.Assert(query.Data != null, "query.Data != null");
 
-        if (query is not { Type: Type.Register } || query.Data.Username == null || query.Data.Password == null)
-            return JsonConvert.SerializeObject(Response<ViewRegisterResponse, Type>.Error("Invalid parameters"));
+        if (query.Data.Username == null || query.Data.Password == null)
+            return JsonConvert.SerializeObject(Response<ViewRegisterResponse>.Error("Invalid parameters"));
 
 
         User user = Converter.ViewCreateUser_to_User(query.Data);
         Status status = User.CreateUser(user);
 
-        Response<ViewRegisterResponse, Type> response = Response<ViewRegisterResponse, Type>.Success();
+        Response<ViewRegisterResponse> response = Response<ViewRegisterResponse>.Success();
         ;
 
-        if (status.State != StatusState.success)
-            response = Response<ViewRegisterResponse, Type>.ResponseFromStatus(status);
+        if (status.State != StatusState.Success)
+            response = Response<ViewRegisterResponse>.ResponseFromStatus(status);
 
         return JsonConvert.SerializeObject(response);
     }

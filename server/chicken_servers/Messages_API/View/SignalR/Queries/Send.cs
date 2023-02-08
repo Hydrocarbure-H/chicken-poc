@@ -11,6 +11,7 @@ using Messages_API.Controller;
 using Newtonsoft.Json;
 using Utils.Communication;
 using Utils.Status;
+using Type = Utils.Communication.Type;
 
 namespace Messages_API.View.SignalR.Queries;
 
@@ -25,7 +26,7 @@ public class ViewSendQuery : IQuery
 }
 
 // The architecture of the data returned by the query
-public class ViewSendResponse : IResponse<Type>
+public class ViewSendResponse : IResponse
 {
     public static Type Type => Type.Send;
 }
@@ -48,7 +49,7 @@ public static class SendQuery
         catch (Exception exception)
         {
             Debug.WriteLine(exception);
-            return JsonConvert.SerializeObject(Response<ViewSendResponse, Type>.Error("Invalid JSON"));
+            return JsonConvert.SerializeObject(Response<ViewSendResponse>.Error("Invalid JSON"));
         }
 
         // We check if the query is valid
@@ -56,11 +57,11 @@ public static class SendQuery
         Debug.Assert(query.Data != null, "query.Data != null");
 
         if (query.Data.Recipient == null)
-            return JsonConvert.SerializeObject(Response<ViewSendResponse, Type>.Error("Recipient is null"));
+            return JsonConvert.SerializeObject(Response<ViewSendResponse>.Error("Recipient is null"));
         if (query.Data.Transmitter == null)
-            return JsonConvert.SerializeObject(Response<ViewSendResponse, Type>.Error("Transmitter is null"));
+            return JsonConvert.SerializeObject(Response<ViewSendResponse>.Error("Transmitter is null"));
         if (query.Data.Content == null)
-            return JsonConvert.SerializeObject(Response<ViewSendResponse, Type>.Error("Message is null"));
+            return JsonConvert.SerializeObject(Response<ViewSendResponse>.Error("Message is null"));
 
 
         // We give the data to the controller layer
@@ -68,10 +69,10 @@ public static class SendQuery
         Status status = Message.SendMessage(message);
 
         // We return the status
-        Response<ViewSendResponse, Type> response = Response<ViewSendResponse, Type>.Success();
+        Response<ViewSendResponse> response = Response<ViewSendResponse>.Success();
 
-        if (status.State != StatusState.success)
-            response = Response<ViewSendResponse, Type>.ResponseFromStatus(status);
+        if (status.State != StatusState.Success)
+            response = Response<ViewSendResponse>.ResponseFromStatus(status);
 
         return JsonConvert.SerializeObject(response);
     }
