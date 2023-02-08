@@ -30,7 +30,7 @@ public class ViewGetResponse : IResponse<Type>
 
 // For the moment we can only handle the query
 // Maybe in the future we will need more options (queuing for example)
-// This part only deal with the form, there is not internal logic
+// This part only deal with the form, there is no internal logic
 public static class GetQuery
 {
     public static string Handle(string data)

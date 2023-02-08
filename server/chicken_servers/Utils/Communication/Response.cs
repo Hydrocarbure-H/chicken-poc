@@ -12,8 +12,12 @@ using Utils.Status;
 
 namespace Utils.Communication;
 
-// This template follow the same idea that the Query class
-// Here we have more information, like the status (succeeded, failed,...) and the error message if needed
+/*
+    This template follow the same idea that the Query class
+
+    Here we have more information,
+        like the status (succeeded, failed,...) and the error message if needed
+*/
 public interface IResponse<out TEnum> where TEnum : Enum
 {
     public static abstract TEnum Type { get; }
@@ -25,7 +29,6 @@ public class Response<T, TEnum> where T : IResponse<TEnum> where TEnum : Enum
     [JsonProperty("status")] public StatusState Status { get; set; }
     [JsonProperty("error")] public string ErrorMessage { get; set; } = "";
     [JsonProperty("data")] public T? Data { get; set; }
-
 
     // The different responses type we can send back to the client
     public static Response<T, TEnum> Error(string errorMessage)
