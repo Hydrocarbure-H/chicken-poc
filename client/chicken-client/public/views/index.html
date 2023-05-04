@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="name" content="Chicken">
+    <meta itemprop="description" content="Chicken est une application de messagerie qui se veut remplacer Discord." />
+    <meta itemprop="image" content="https://img.freepik.com/vecteurs-libre/logo-poulet_99536-29.jpg">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://farm-project.fr/chicken">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Chicken">
+    <meta property="og:description"
+        content="Chicken est une application de messagerie qui se veut remplacer Discord." />
+    <meta property="og:image" content="https://img.freepik.com/vecteurs-libre/logo-poulet_99536-29.jpg">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chicken">
+    <meta name="twitter:description"
+        content="Chicken est une application de messagerie qui se veut remplacer Discord." />
+    <meta name="twitter:image" content="https://img.freepik.com/vecteurs-libre/logo-poulet_99536-29.jpg">
+
+    <!-- HTML Meta Tags -->
+    <meta charset="utf-8" />
+    <meta name="description" content="Chicken est une application de messagerie qui se veut remplacer Discord." />
+    <meta name="keywords"
+        content="discord,thimot,veyre,dorian,turgot,thomas,peugnet,messages,sms,messagerie,instantané">
+    <meta name="robots" content="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="Content-Security-Policy"
+        content="img-src 'self' data:; connect-src 'self' ws://192.168.1.182:9002/"> -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="img-src 'self' data:; connect-src:wss ws://localhost:3000/"> -->
+    <link rel="stylesheet" href="../css/index.css">
+    <title>Chicken</title>
+    <script src="../js/library/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../js/library/crypto/crypto-js.min.js"></script>
+    <script src="../js/library/socket.io/socket.io.min.js"></script>
+
+</head>
+
+<body>
+    <!-- Electron Title Bar -->
+    <div class="drag_bar">
+        <div class="logo_title">
+            <img class="logo_img" src="../images/logo/icon-200-200.png" alt="Logo">
+            <h3 class="logo_name">Chicken</h3>
+            <h4>- We are roasting, together.</h4>
+        </div>
+        <img src="../images/design/grey/notification.svg" id="bar_notif_icon" class="drag_bar_items notification" alt="Notification">
+    </div>
+    <!-- Electron Content App -->
+    <div class="container">
+        <div class="sub_container">
+            <div class="login_title_container">
+                <h1>Login</h1>
+            </div>
+            <div class="login_container">
+                <!-- <form class="login_form" id="login_form_id" onsubmit="return validateForm()" method="post"> -->
+                <div class="login_form_container">
+                    <div class="login_form_item">
+                        <input type="text" name="username" id="username" placeholder="Username" required>
+                    </div>
+                    <div class="login_form_item">
+                        <input type="password" name="password" id="password" placeholder="Password" required>
+                    </div>
+                </div>
+                <div class="form_sublinks">
+                    <div class="left_form_links_container">
+                        <label class="checkbox_container">Remember me
+                            <input type="checkbox" name="rem_me" id="rem_me" checked>
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="right_form_links_container">
+                        <a href="https://epinotes.fr">Forgot password ?</a>
+                    </div>
+                </div>
+                <div class="submit_form_container">
+                    <div class="login_form_item">
+                        <input type="submit" id="submit_form" value="Login">
+                    </div>
+                    <div id="signup_link" class="login_form_item">
+                        <a href="./signin.html">Signup ?</a>
+                    </div>
+                    <div id="error_field" class="login_form_item">
+                        <p id="error_message"></p>
+                    </div>
+                </div>
+                <!-- </form> -->
+            </div>
+        </div>
+    </div>
+    <div class="bottom_bar_message" id="bottom_bar_message"></div>
+</body>
+<script src="../js/tools/ui-functions.js"></script>
+<script src="../js/tools/index-ui.js"></script>
+<script src="../js/tools/enums.js"></script>
+<script src="../js/tools/messages/api.js"></script>
+<script src="../js/index.js"></script>
+
+</html>

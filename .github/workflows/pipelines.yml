@@ -23,6 +23,6 @@ jobs:
       - uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
-      - name: Run NodeJs unit testsuite
-        run: sudo apt-get install -y nodejs && npm install --save-dev jest && xvfb-run npm test
-
+      - name: Run Electron unit testsuite
+        working-directory: ./client/chicken-client/
+        run: sudo apt-get install -y nodejs && npm i -g -D jest && npm i --save-dev electron && npm test

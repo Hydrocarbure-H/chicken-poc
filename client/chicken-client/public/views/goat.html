@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="name" content="Chicken">
+    <meta itemprop="description" content="Chicken est une application de messagerie qui se veut remplacer Discord." />
+    <meta itemprop="image" content="https://img.freepik.com/vecteurs-libre/logo-poulet_99536-29.jpg">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://farm-project.fr/chicken">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Chicken">
+    <meta property="og:description"
+        content="Chicken est une application de messagerie qui se veut remplacer Discord." />
+    <meta property="og:image" content="https://img.freepik.com/vecteurs-libre/logo-poulet_99536-29.jpg">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chicken">
+    <meta name="twitter:description"
+        content="Chicken est une application de messagerie qui se veut remplacer Discord." />
+    <meta name="twitter:image" content="https://img.freepik.com/vecteurs-libre/logo-poulet_99536-29.jpg">
+
+    <!-- HTML Meta Tags -->
+    <meta charset="utf-8" />
+    <meta name="description" content="Chicken est une application de messagerie qui se veut remplacer Discord." />
+    <meta name="keywords"
+        content="discord,thimot,veyre,dorian,turgot,thomas,peugnet,messages,sms,messagerie,instantané">
+    <meta name="robots" content="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="Content-Security-Policy"
+        content="img-src 'self' data:; connect-src 'self' ws://192.168.1.182:9002/"> -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="img-src 'self' data:; connect-src:wss ws://localhost:3000/"> -->
+    <title id="title">Chicken</title>
+    <link rel="stylesheet" href="../css/goat.css">
+    <script src="../js/library/jquery/jquery-3.6.0.min.js"></script>
+    <script src="../js/library/crypto/crypto-js.min.js"></script>
+    <script src="../js/library/socket.io/socket.io.min.js"></script>
+</head>
+
+<body>
+    <div class="drag_bar">
+        <div class="logo_title">
+            <img class="logo_img" src="../images/logo/icon-200-200.png" alt="ok c'est utile"></img>
+            <h3 class="logo_name">Chicken</h3>
+            <h4>- We are roasting, together.</h4>
+        </div>
+        <img src="../images/design/grey/notification.svg" id="bar_notif_icon" class="drag_bar_items notification">
+    </div>
+    <div class="container">
+        <div class="call_container" id="users">
+        </div>
+        <div class="join_container">
+            <button class="join_btn" onclick="toggleConnection(this)">Rejoindre</button>
+            <img src="../images/design/grey/mic-off-circle-sharp.svg" class="control-btn disable-btn mic_img"
+                id="mic_img" onclick="toggleMicrophone(this)">
+        </div>
+    </div>
+</body>
+
+<script src="../js/goat.js"></script>

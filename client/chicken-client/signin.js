@@ -46,16 +46,16 @@ io.on('connection', (client_socket) => {
      * Listen for the login request
      * @param {JSON} data Wich contains the user's credentials
      */
-    client_socket.on('login_data', (data) => {
-        var query = new QUERY_CLASS.Query(ENUMS.QueryType.Login, ENUMS.QueryStatus.Success, null, {
+    client_socket.on('signin_data', (data) => {
+
+        const query = new QUERY_CLASS.Query(ENUMS.QueryType.Signin, ENUMS.QueryStatus.Success, null, {
             username: data.username,
-            hashed_password: Crypto.createHash('sha256').update(data.password).digest('base64')
+            hashed_password: Crypto.createHash('sha256').update(data.password).digest('base64'),
         });
 
-
         // Send data to the server
-        api_socket.invoke("Login", JSON.stringify(query)).catch(function (err) {
-            console.log("ELECTRON : Error while sending login data to the API : " + err);
+        api_socket.invoke("Register", JSON.stringify(query)).catch(function (err) {
+            console.log("ELECTRON : Error while sending signin data to the API : " + err);
             client_socket.emit('api_send_data_failure', err);
         });
     });
@@ -68,7 +68,7 @@ io.on('connection', (client_socket) => {
     /**
      * Listen for the login response
      */
-    api_socket.on("login", (data) => {
+    api_socket.on(ENUMS.QueryType.Login, (data) => {
         console.log("ELECTRON : Received message from the API : " + data);
         let response = FUNCTIONS.get_response(data, client_socket);
 
@@ -82,7 +82,7 @@ io.on('connection', (client_socket) => {
      * Listen for the signin response
      */
     api_socket.on(ENUMS.QueryType.Signin, function (data) {
-        let response = get_response(data, client_socket);
+        let response = FUNCTIONS.get_response(data, client_socket);
         console.log("ELECTRON : Received message from the API : " + JSON.stringify(response));
 
         client_socket.emit('signin_redirection', response.data);
@@ -92,7 +92,7 @@ io.on('connection', (client_socket) => {
      * Listen for the logout response
      */
     api_socket.on(ENUMS.QueryType.Disconnect, function (data) {
-        let response = get_response(data);
+        let response = FUNCTIONS.get_response(data);
         console.log("ELECTRON : Received message from the API : " + JSON.stringify(response));
 
         client_socket.emit('disconnect');
