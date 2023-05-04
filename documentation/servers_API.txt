@@ -1,0 +1,27 @@
+This is just a quick draft, need to be donne properly.
+The name are case sensitive for api call.
+A indentation means that you need to add the keyword to the parent one.
+
+/Account
+	/Login
+	Log the user in, need the username and hashed_password parameters.
+	If login is successful, the user token is send back.
+	All services use only the user token, so you need to store it.
+	Callback: login
+
+	/Register
+	Create a new user in the database, need the username and 
+	hashed_password parameters. You need to login after register.
+	Callback: register
+
+
+/Messages
+	/Send
+	Send a message from transmitter to recipient, the messages is
+	in the content field and you need to add the creation date.
+	Callback: send
+
+	/Get
+	Give a user token, and the server send back all messages with this
+	user.
+	Callback: get
